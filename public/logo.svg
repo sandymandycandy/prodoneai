@@ -1,0 +1,11 @@
+<svg viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg" fill="none">
+  <!-- p: left vertical stem (extends below baseline) -->
+  <rect x="10" y="22" width="9" height="68" rx="4.5" fill="white"/>
+  <!-- p: bowl (circle on right of stem) -->
+  <circle cx="38" cy="43" r="20" stroke="white" stroke-width="9" fill="none"/>
+
+  <!-- d: right vertical stem (extends above x-height) -->
+  <rect x="101" y="10" width="9" height="68" rx="4.5" fill="white"/>
+  <!-- d: bowl (circle on left of stem) -->
+  <circle cx="82" cy="57" r="20" stroke="white" stroke-width="9" fill="none"/>
+</svg>
