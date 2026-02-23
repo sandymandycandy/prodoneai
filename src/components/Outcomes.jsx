@@ -72,32 +72,9 @@ function GlassCard({ o, i }) {
             transition={{ duration: 0.9, delay: o.delay, ease: [0.23, 1, 0.32, 1] }}
             style={{ position: 'relative' }}
         >
-            {/* Primary glow orb */}
-            <motion.div
-                animate={{ scale: [1, 1.18, 1], opacity: [0.55, 0.85, 0.55] }}
-                transition={{ duration: 5 + i * 0.8, repeat: Infinity, ease: 'easeInOut', delay: i * 0.6 }}
-                style={{
-                    position: 'absolute', top: '5%', left: '-8%',
-                    width: '60%', height: '60%',
-                    background: o.glow,
-                    borderRadius: '50%',
-                    filter: 'blur(65px)',
-                    pointerEvents: 'none', zIndex: 0,
-                }}
-            />
-            {/* Secondary glow orb */}
-            <motion.div
-                animate={{ scale: [1, 1.22, 1], opacity: [0.35, 0.65, 0.35] }}
-                transition={{ duration: 7 + i * 0.5, repeat: Infinity, ease: 'easeInOut', delay: i * 0.5 + 1.2 }}
-                style={{
-                    position: 'absolute', bottom: '0%', right: '-8%',
-                    width: '50%', height: '50%',
-                    background: o.glowSecond,
-                    borderRadius: '50%',
-                    filter: 'blur(55px)',
-                    pointerEvents: 'none', zIndex: 0,
-                }}
-            />
+            {/* Glow orbs — CSS animated, no JS */}
+            <div className={`outcome-orb outcome-orb-primary outcome-orb-${i}`} style={{ background: o.glow }} />
+            <div className={`outcome-orb outcome-orb-secondary outcome-orb-sec-${i}`} style={{ background: o.glowSecond }} />
 
             {/* Glass card panel */}
             <motion.div
@@ -110,13 +87,14 @@ function GlassCard({ o, i }) {
                     padding: '40px 36px',
                     borderRadius: 28,
                     background: 'rgba(255,255,255,0.04)',
-                    backdropFilter: 'blur(28px)',
-                    WebkitBackdropFilter: 'blur(28px)',
+                    backdropFilter: 'blur(12px)',
+                    WebkitBackdropFilter: 'blur(12px)',
                     border: '1px solid rgba(255,255,255,0.11)',
-                    boxShadow: '0 12px 56px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.12)',
+                    boxShadow: '0 8px 40px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.12)',
                     overflow: 'hidden',
                     cursor: 'default',
                     transition: 'border-color 0.3s',
+                    willChange: 'transform',
                 }}
                 onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.22)'}
                 onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.11)'}
@@ -350,6 +328,33 @@ export default function Outcomes() {
                 .outcome-card-inner {
                     flex: 1;
                     height: 100% !important;
+                }
+                /* CSS-only glow orbs — no JS */
+                .outcome-orb {
+                    position: absolute;
+                    border-radius: 50%;
+                    pointer-events: none;
+                    z-index: 0;
+                    filter: blur(55px);
+                }
+                .outcome-orb-primary {
+                    top: 5%; left: -8%;
+                    width: 60%; height: 60%;
+                    opacity: 0.6;
+                    animation: orbPulse 6s ease-in-out infinite;
+                }
+                .outcome-orb-secondary {
+                    bottom: 0%; right: -8%;
+                    width: 50%; height: 50%;
+                    opacity: 0.4;
+                    animation: orbPulse 8s ease-in-out infinite 1.5s;
+                }
+                .outcome-orb-sec-1 { animation-delay: 0.8s; }
+                .outcome-orb-sec-2 { animation-delay: 1.2s; }
+                .outcome-orb-sec-3 { animation-delay: 1.8s; }
+                @keyframes orbPulse {
+                    0%, 100% { transform: scale(1); opacity: 0.5; }
+                    50% { transform: scale(1.15); opacity: 0.75; }
                 }
                 @media (max-width: 860px) {
                     .outcomes-grid { grid-template-columns: 1fr !important; }

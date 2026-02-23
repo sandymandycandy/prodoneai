@@ -48,20 +48,18 @@ function CaseCard({ c, index }) {
             transition={{ duration: 0.9, delay: index * 0.12, ease: [0.23, 1, 0.32, 1] }}
             style={{ position: 'relative' }}
         >
-            {/* Glow orb */}
-            <motion.div
-                animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.8, 0.5] }}
-                transition={{ duration: 5 + index, repeat: Infinity, ease: 'easeInOut' }}
-                style={{
-                    position: 'absolute',
-                    top: '20%', left: index === 0 ? '-10%' : '60%',
-                    width: '50%', height: '50%',
-                    background: c.glow,
-                    borderRadius: '50%',
-                    filter: 'blur(70px)',
-                    pointerEvents: 'none', zIndex: 0,
-                }}
-            />
+            {/* Glow orb — CSS animated */}
+            <div style={{
+                position: 'absolute',
+                top: '20%', left: index === 0 ? '-10%' : '60%',
+                width: '50%', height: '50%',
+                background: c.glow,
+                borderRadius: '50%',
+                filter: 'blur(60px)',
+                opacity: 0.55,
+                pointerEvents: 'none', zIndex: 0,
+                animation: `orbPulse ${5 + index}s ease-in-out infinite`,
+            }} />
 
             {/* Glass Card */}
             <motion.div
@@ -72,13 +70,14 @@ function CaseCard({ c, index }) {
                     padding: '40px 36px',
                     borderRadius: 28,
                     background: 'rgba(255,255,255,0.04)',
-                    backdropFilter: 'blur(28px)',
-                    WebkitBackdropFilter: 'blur(28px)',
+                    backdropFilter: 'blur(12px)',
+                    WebkitBackdropFilter: 'blur(12px)',
                     border: '1px solid rgba(255,255,255,0.1)',
-                    boxShadow: '0 12px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)',
+                    boxShadow: '0 8px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)',
                     overflow: 'hidden',
                     height: '100%',
                     display: 'flex', flexDirection: 'column',
+                    willChange: 'transform',
                 }}
             >
                 {/* Top shine */}
@@ -250,6 +249,10 @@ export default function CaseStudies() {
                     display: grid;
                     grid-template-columns: repeat(2, 1fr);
                     gap: 28px;
+                }
+                @keyframes orbPulse {
+                    0%, 100% { transform: scale(1); opacity: 0.5; }
+                    50% { transform: scale(1.15); opacity: 0.75; }
                 }
                 @media (max-width: 860px) {
                     .cases-grid {

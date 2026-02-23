@@ -43,9 +43,11 @@ function ParticleCanvas() {
 
         const init = () => { w = canvas.width = canvas.offsetWidth; h = canvas.height = canvas.offsetHeight }
         let particles = []
-        const build = () => { particles = Array.from({ length: Math.min(Math.floor((w * h) / 20000), 50) }, () => new Particle()) }
+        // Reduced cap from 50→28 to cut O(n²) line checks
+        const build = () => { particles = Array.from({ length: Math.min(Math.floor((w * h) / 32000), 28) }, () => new Particle()) }
         init(); build()
 
+        const CONNECT_DIST = 90 // reduced from 120
         const render = () => {
             ctx.clearRect(0, 0, w, h)
             for (let i = 0; i < particles.length; i++) {
@@ -53,9 +55,12 @@ function ParticleCanvas() {
                 for (let j = i + 1; j < particles.length; j++) {
                     const dx = particles[i].x - particles[j].x, dy = particles[i].y - particles[j].y
                     const dist = Math.sqrt(dx * dx + dy * dy)
-                    if (dist < 120) {
-                        ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y)
-                        ctx.strokeStyle = `rgba(180,140,255,${0.14 * (1 - dist / 120)})`; ctx.lineWidth = 0.5; ctx.stroke()
+                    if (dist < CONNECT_DIST) {
+                        const alpha = 0.12 * (1 - dist / CONNECT_DIST)
+                        if (alpha > 0.02) { // skip near-invisible lines
+                            ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y)
+                            ctx.strokeStyle = `rgba(180,140,255,${alpha})`; ctx.lineWidth = 0.5; ctx.stroke()
+                        }
                     }
                 }
             }
@@ -133,17 +138,9 @@ function VideoAdCard() {
 
     return (
         <div style={{ position: 'relative', width: '100%', maxWidth: 520 }}>
-            {/* Ambient glow orbs behind card */}
-            <motion.div
-                animate={{ scale: [1, 1.25, 1], opacity: [0.5, 0.8, 0.5] }}
-                transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-                style={{ position: 'absolute', top: '10%', left: '-8%', width: '55%', height: '55%', background: 'rgba(100,60,240,0.4)', borderRadius: '50%', filter: 'blur(40px)', pointerEvents: 'none', zIndex: 0, willChange: 'transform, opacity' }}
-            />
-            <motion.div
-                animate={{ scale: [1, 1.2, 1], opacity: [0.4, 0.7, 0.4] }}
-                transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
-                style={{ position: 'absolute', bottom: '5%', right: '-5%', width: '45%', height: '45%', background: 'rgba(30,120,255,0.3)', borderRadius: '50%', filter: 'blur(35px)', pointerEvents: 'none', zIndex: 0, willChange: 'transform, opacity' }}
-            />
+            {/* Ambient glow orbs — CSS animated (no JS per frame) */}
+            <div className="hero-glow-orb hero-glow-orb-1" />
+            <div className="hero-glow-orb hero-glow-orb-2" />
 
             {/* Main glass card */}
             <motion.div
@@ -153,13 +150,14 @@ function VideoAdCard() {
                 style={{
                     position: 'relative', zIndex: 2,
                     background: 'rgba(255,255,255,0.05)',
-                    backdropFilter: 'blur(32px)',
-                    WebkitBackdropFilter: 'blur(32px)',
+                    backdropFilter: 'blur(12px)',
+                    WebkitBackdropFilter: 'blur(12px)',
                     border: '1px solid rgba(255,255,255,0.12)',
                     borderRadius: 28,
                     padding: 28,
-                    boxShadow: '0 32px 80px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.14)',
+                    boxShadow: '0 24px 60px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.14)',
                     overflow: 'hidden',
+                    willChange: 'transform, opacity',
                 }}
             >
                 {/* Top shine */}

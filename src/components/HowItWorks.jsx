@@ -40,19 +40,17 @@ function StepCard({ step }) {
             transition={{ duration: 0.8, delay: step.delay, ease: [0.23, 1, 0.32, 1] }}
             style={{ flex: 1, position: 'relative' }}
         >
-            {/* Glow orb behind card */}
-            <motion.div
-                animate={{ scale: [1, 1.18, 1], opacity: [0.5, 0.8, 0.5] }}
-                transition={{ duration: 4 + step.delay * 2, repeat: Infinity, ease: 'easeInOut' }}
-                style={{
-                    position: 'absolute', top: '30%', left: '20%',
-                    width: '60%', height: '50%',
-                    background: step.glow,
-                    borderRadius: '50%',
-                    filter: 'blur(55px)',
-                    pointerEvents: 'none', zIndex: 0,
-                }}
-            />
+            {/* Glow orb behind card — CSS animated */}
+            <div style={{
+                position: 'absolute', top: '30%', left: '20%',
+                width: '60%', height: '50%',
+                background: step.glow,
+                borderRadius: '50%',
+                filter: 'blur(50px)',
+                opacity: 0.55,
+                pointerEvents: 'none', zIndex: 0,
+                animation: 'orbPulse 6s ease-in-out infinite',
+            }} />
 
             {/* Card */}
             <motion.div
@@ -63,12 +61,13 @@ function StepCard({ step }) {
                     padding: '44px 36px 40px',
                     borderRadius: 28,
                     background: 'rgba(255,255,255,0.04)',
-                    backdropFilter: 'blur(28px)',
-                    WebkitBackdropFilter: 'blur(28px)',
+                    backdropFilter: 'blur(12px)',
+                    WebkitBackdropFilter: 'blur(12px)',
                     border: '1px solid rgba(255,255,255,0.10)',
-                    boxShadow: '0 8px 48px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.12)',
+                    boxShadow: '0 8px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.12)',
                     overflow: 'hidden', height: '100%',
                     cursor: 'default',
+                    willChange: 'transform',
                 }}
             >
                 {/* Inner top shine */}
@@ -183,6 +182,10 @@ export default function HowItWorks() {
                 .howitworks-grid {
                     display: flex;
                     gap: 24px;
+                }
+                @keyframes orbPulse {
+                    0%, 100% { transform: scale(1); opacity: 0.5; }
+                    50% { transform: scale(1.15); opacity: 0.75; }
                 }
                 @media (max-width: 860px) {
                     .howitworks-grid { flex-direction: column; gap: 20px; }
