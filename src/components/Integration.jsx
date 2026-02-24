@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
+import { useLanguage } from '../context/LanguageContext'
 
 const tools = [
     { name: 'Salesforce', icon: '☁️' },
@@ -23,6 +24,8 @@ const tools = [
 export default function Integration() {
     const ref = useRef(null)
     const inView = useInView(ref, { once: true })
+    const { t, lang, translations } = useLanguage()
+    const stats = translations[lang].integration.stats
 
     const row1 = [...tools.slice(0, 8), ...tools.slice(0, 8)]
     const row2 = [...tools.slice(8, 16), ...tools.slice(8, 16)]
@@ -46,7 +49,7 @@ export default function Integration() {
                 {/* Header */}
                 <div style={{ textAlign: 'center', marginBottom: '72px' }}>
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} className="section-label">
-                        INTEGRATION
+                        {t('integration.label')}
                     </motion.div>
                     <motion.h2
                         initial={{ opacity: 0, y: 30 }}
@@ -54,9 +57,9 @@ export default function Integration() {
                         transition={{ delay: 0.1, duration: 0.8 }}
                         style={{ fontSize: 'clamp(30px, 4vw, 56px)', marginTop: 24, marginBottom: 18 }}
                     >
-                        Verbindet sich mit Ihrem{' '}
+                        {t('integration.title1')}{' '}
                         <span style={{ background: 'linear-gradient(135deg,#fff 0%,rgba(255,255,255,0.35) 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                            bestehenden Stack
+                            {t('integration.title2')}
                         </span>
                     </motion.h2>
                     <motion.p
@@ -65,7 +68,7 @@ export default function Integration() {
                         transition={{ delay: 0.2 }}
                         style={{ maxWidth: '440px', margin: '0 auto', fontSize: '16px', color: 'rgba(255,255,255,0.4)', lineHeight: 1.75 }}
                     >
-                        Unsere KI integriert nahtlos in 100+ Enterprise-Tools — kein Rip & Replace, kein Downtime.
+                        {t('integration.subtitle')}
                     </motion.p>
                 </div>
 
@@ -119,7 +122,7 @@ export default function Integration() {
                         backdropFilter: 'blur(20px)',
                         boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.08), 0 8px 40px rgba(0,0,0,0.4)',
                     }}>
-                        {[['100+', 'Integrationen'], ['< 48h', 'Setup-Zeit'], ['Zero', 'Downtime']].map(([v, l], i) => (
+                        {stats.map(([v, l], i) => (
                             <div key={l} style={{
                                 textAlign: 'center', padding: '24px 48px',
                                 borderRight: i < 2 ? '1px solid rgba(255,255,255,0.07)' : 'none',

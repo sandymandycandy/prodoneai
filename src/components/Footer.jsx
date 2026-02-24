@@ -1,29 +1,32 @@
 import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
-
-const footerLinks = {
-    'Navigation': [
-        { label: 'Prozess', href: '#process' },
-        { label: 'Services', href: '#services' },
-        { label: 'Integration', href: '#integration' },
-        { label: 'Kontakt', href: '#contact' },
-        { label: 'Pilotprojekt', href: '/pilot', isRoute: true },
-    ],
-    'Leistungen': [
-        { label: 'KI-Animationsads', href: '#services' },
-        { label: 'Social Ads & Content', href: '#services' },
-        { label: 'KI Chatbot / Agent', href: '#services' },
-        { label: 'Custom Apps & MVPs', href: '#services' },
-    ],
-    'Unternehmen': [
-        { label: 'Über uns', href: '#' },
-        { label: 'Team', href: '#' },
-        { label: 'Careers', href: '#' },
-        { label: 'Blog', href: '#' },
-    ],
-}
+import { useLanguage } from '../context/LanguageContext'
 
 export default function Footer() {
+    const { t, lang, translations } = useLanguage()
+    const ft = translations[lang].footer
+
+    const footerLinks = {
+        [ft.navGroup]: [
+            { label: ft.navLinks[0], href: '#process' },
+            { label: ft.navLinks[1], href: '#services' },
+            { label: ft.navLinks[2], href: '#integration' },
+            { label: ft.navLinks[3], href: '#contact' },
+            { label: ft.navLinks[4], href: '/pilot', isRoute: true },
+        ],
+        [ft.servicesGroup]: [
+            { label: ft.serviceLinks[0], href: '#services' },
+            { label: ft.serviceLinks[1], href: '#services' },
+            { label: ft.serviceLinks[2], href: '#services' },
+            { label: ft.serviceLinks[3], href: '#services' },
+        ],
+        [ft.companyGroup]: [
+            { label: ft.companyLinks[0], href: '#' },
+            { label: ft.companyLinks[1], href: '#' },
+            { label: ft.companyLinks[2], href: '#' },
+            { label: ft.companyLinks[3], href: '#' },
+        ],
+    }
+
     return (
         <footer style={{
             position: 'relative',
@@ -69,7 +72,7 @@ export default function Footer() {
                         </Link>
 
                         <p style={{ fontSize: '14px', lineHeight: 1.8, color: 'rgba(255,255,255,0.35)', maxWidth: '260px', marginBottom: '28px' }}>
-                            Fast Forward Artificial Intelligence. Custom AI solutions with a 3-day prototype guarantee.
+                            {ft.desc}
                         </p>
 
                         {/* Social icons */}
@@ -131,10 +134,10 @@ export default function Footer() {
 
                 <div className="footer-bottom" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '14px' }}>
                     <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.25)' }}>
-                        © 2026 prodone.ai · Fast Forward Artificial Intelligence GmbH
+                        {ft.copyright}
                     </div>
                     <div style={{ display: 'flex', gap: '24px' }}>
-                        {['Datenschutzerklärung', 'AGBs', 'Impressum'].map(l => (
+                        {ft.legal.map(l => (
                             <a key={l} href="#"
                                 style={{ fontSize: '13px', color: 'rgba(255,255,255,0.25)', transition: 'color 0.25s' }}
                                 onMouseEnter={e => e.target.style.color = '#fff'}
@@ -143,7 +146,7 @@ export default function Footer() {
                         ))}
                     </div>
                     <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.2)' }}>
-                        🇩🇪 Designed in Mannheim
+                        {ft.madeIn}
                     </div>
                 </div>
             </div>

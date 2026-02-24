@@ -1,32 +1,6 @@
 import { useRef, useState } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
-
-const faqs = [
-    {
-        q: 'Was ist im kostenlosen 3-Tage-Prototyp enthalten?',
-        a: 'Sie erhalten ein Storyboard oder Konzeptpapier am Tag 1, eine erste animierte oder funktionsfähige Version am Tag 2–3, sowie bis zu 2 Feedback-Runden. Finales Deliverable: 1 Format (z.B. MP4 15s oder Webapp-Demo). Kein Vertrag, kein Risiko.',
-    },
-    {
-        q: 'Was kostet die Vollproduktion? Preise ab €5.000?',
-        a: 'Ja, Produktionsprojekte starten in der Regel bei €5.000 für eine vollständige KI-Animationsanzeige (3 Varianten, alle Formate). Komplexere Projekte (Apps, AI-Agenten, laufende Retainer) werden nach Scope individuell kalkuliert.',
-    },
-    {
-        q: 'Wie schnell kann die Vollproduktion geliefert werden?',
-        a: 'Einfache Animationsanzeigen: 5–10 Werktage. Komplexe KI-Agenten oder Apps: 2–6 Wochen je nach Scope. Wir kommunizieren von Anfang an realistische Timelines — keine Over-Promising.',
-    },
-    {
-        q: 'Arbeiten Sie auch mit Agenturen (White-Label)?',
-        a: 'Ja. Wir arbeiten diskret als White-Label-Partner für Digitalagenturen. Ihre Marke, unsere KI-Infrastruktur. NDA auf Anfrage jederzeit möglich.',
-    },
-    {
-        q: 'In welchen Sprachen arbeiten Sie?',
-        a: 'Deutsch und Englisch. Targeting für DACH-Markt (Deutschland, Österreich, Schweiz) ist unser Kern.',
-    },
-    {
-        q: 'Wie unterscheidet sich ProdOne von einer klassischen Agentur?',
-        a: 'Klassische Agenturen brauchen 6–12 Wochen für Produktion. Wir liefern einen funktionalen Prototyp in 3 Tagen — dank KI-Infrastruktur und dual-continent Sprints. Bezahlt wird erst, wenn Sie mit dem Prototyp zufrieden sind.',
-    },
-]
+import { useLanguage } from '../context/LanguageContext'
 
 function FaqItem({ faq, index }) {
     const [open, setOpen] = useState(false)
@@ -85,6 +59,8 @@ function FaqItem({ faq, index }) {
 export default function FAQ() {
     const headRef = useRef(null)
     const inView = useInView(headRef, { once: true })
+    const { t, lang, translations } = useLanguage()
+    const faqItems = translations[lang].faq.items
 
     return (
         <section id="faq" style={{
@@ -106,22 +82,22 @@ export default function FAQ() {
                     {/* LEFT sticky */}
                     <div ref={headRef} style={{ position: 'sticky', top: 120 }}>
                         <motion.div className="section-label" initial={{ opacity: 0, y: 16 }} animate={inView ? { opacity: 1, y: 0 } : {}}>
-                            FAQ
+                            {t('faq.label')}
                         </motion.div>
                         <motion.h2
                             initial={{ opacity: 0, y: 28 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.1 }}
                             style={{ fontSize: 'clamp(28px, 3.5vw, 48px)', marginTop: 20, marginBottom: 18, lineHeight: 1.1 }}
                         >
-                            Häufige<br />
+                            {t('faq.title1')}<br />
                             <span style={{ background: 'linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.4) 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                                Fragen.
+                                {t('faq.title2')}
                             </span>
                         </motion.h2>
                         <motion.p
                             initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ delay: 0.2 }}
                             style={{ fontSize: 14, lineHeight: 1.8, color: 'rgba(255,255,255,0.35)', marginBottom: 32 }}
                         >
-                            Noch eine Frage offen? Schreiben Sie uns direkt.
+                            {t('faq.subtitle')}
                         </motion.p>
                         <a href="mailto:hello@prodone.ai">
                             <button className="btn-ghost" style={{ fontSize: 13, padding: '11px 20px', borderRadius: 12 }}>
@@ -141,7 +117,7 @@ export default function FAQ() {
                             border: '1px solid rgba(255,255,255,0.08)',
                             boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.08)',
                         }}>
-                            {faqs.map((faq, i) => <FaqItem key={i} faq={faq} index={i} />)}
+                            {faqItems.map((faq, i) => <FaqItem key={i} faq={faq} index={i} />)}
                         </div>
                     </div>
                 </div>

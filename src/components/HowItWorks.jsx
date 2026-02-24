@@ -1,120 +1,105 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
+import { useLanguage } from '../context/LanguageContext'
 
-const steps = [
-    {
-        number: '01',
-        day: 'SCHRITT 1',
-        title: 'Analyse.',
-        description: 'Wir suchen gezielt nach Ineffizienzen und Potenzialen in Ihrem Unternehmen.',
-        glow: 'rgba(100, 60, 220, 0.5)',
-        delay: 0,
-    },
-    {
-        number: '02',
-        day: 'SCHRITT 2',
-        title: 'Entwicklung.',
-        description: 'Ihre Lösung wird von Experten in Deutschland und Indien entwickelt.',
-        glow: 'rgba(40, 140, 255, 0.45)',
-        delay: 0.14,
-    },
-    {
-        number: '03',
-        day: 'SCHRITT 3',
-        title: 'Integration.',
-        description: 'Wir realisieren nahtlos, nachhaltig und mit messbarem Erfolg.',
-        glow: 'rgba(0, 200, 170, 0.4)',
-        delay: 0.28,
-    },
+const stepIcons = ['🔍', '⚙️', '🚀']
+const stepGlows = [
+    'rgba(100, 60, 240, 0.4)',
+    'rgba(0, 200, 160, 0.35)',
+    'rgba(255, 160, 40, 0.35)',
 ]
 
-function StepCard({ step }) {
+function StepCard({ step, index, icon, glow }) {
     const ref = useRef(null)
-    const inView = useInView(ref, { once: true, margin: '-40px' })
+    const inView = useInView(ref, { once: true, margin: '-60px' })
 
     return (
         <motion.div
             ref={ref}
-            initial={{ opacity: 0, y: 50, scale: 0.96 }}
-            animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
-            transition={{ duration: 0.8, delay: step.delay, ease: [0.23, 1, 0.32, 1] }}
-            style={{ flex: 1, position: 'relative' }}
+            initial={{ opacity: 0, y: 50 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: index * 0.15, ease: [0.23, 1, 0.32, 1] }}
+            style={{ position: 'relative' }}
         >
-            {/* Glow orb behind card — CSS animated */}
+            {/* Glow orb */}
             <div style={{
-                position: 'absolute', top: '30%', left: '20%',
-                width: '60%', height: '50%',
-                background: step.glow,
+                position: 'absolute',
+                top: '10%', left: index === 1 ? '50%' : '-5%',
+                width: '60%', height: '70%',
+                background: glow,
                 borderRadius: '50%',
                 filter: 'blur(50px)',
-                opacity: 0.55,
+                opacity: 0.4,
                 pointerEvents: 'none', zIndex: 0,
-                animation: 'orbPulse 6s ease-in-out infinite',
+                animation: `orbPulse ${5 + index * 1.5}s ease-in-out infinite`,
             }} />
 
-            {/* Card */}
             <motion.div
                 whileHover={{ y: -8, scale: 1.02 }}
                 transition={{ duration: 0.3 }}
                 style={{
                     position: 'relative', zIndex: 1,
-                    padding: '44px 36px 40px',
+                    padding: '40px 32px',
                     borderRadius: 28,
                     background: 'rgba(255,255,255,0.04)',
-                    backdropFilter: 'blur(12px)',
-                    WebkitBackdropFilter: 'blur(12px)',
-                    border: '1px solid rgba(255,255,255,0.10)',
-                    boxShadow: '0 8px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.12)',
-                    overflow: 'hidden', height: '100%',
-                    cursor: 'default',
-                    willChange: 'transform',
+                    backdropFilter: 'blur(14px)',
+                    WebkitBackdropFilter: 'blur(14px)',
+                    border: '1px solid rgba(255,255,255,0.1)',
+                    boxShadow: '0 8px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)',
+                    overflow: 'hidden',
+                    height: '100%',
+                    display: 'flex', flexDirection: 'column',
                 }}
             >
-                {/* Inner top shine */}
+                {/* Top shine */}
                 <div style={{
                     position: 'absolute', top: 0, left: '15%', right: '15%', height: 1,
-                    background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent)',
+                    background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)',
                 }} />
 
-                {/* Watermark number */}
-                <div style={{
-                    position: 'absolute', top: -10, right: 8,
-                    fontSize: 140, fontWeight: 900,
-                    color: 'rgba(255,255,255,0.025)',
-                    lineHeight: 1, userSelect: 'none', letterSpacing: '-0.06em',
-                    fontFamily: 'var(--font)',
-                }}>
-                    {step.number}
+                {/* Step badge */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
+                    <div style={{
+                        width: 48, height: 48, borderRadius: 16,
+                        background: 'rgba(255,255,255,0.06)',
+                        border: '1px solid rgba(255,255,255,0.12)',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        fontSize: 22,
+                    }}>{icon}</div>
+                    <div style={{
+                        fontSize: 10, fontWeight: 800, color: 'rgba(255,255,255,0.3)',
+                        letterSpacing: '0.15em', textTransform: 'uppercase',
+                    }}>{step.day}</div>
                 </div>
 
-                {/* Badge */}
-                <div style={{
-                    display: 'inline-flex', alignItems: 'center',
-                    padding: '6px 14px', borderRadius: 50,
-                    background: 'rgba(255,255,255,0.06)',
-                    border: '1px solid rgba(255,255,255,0.12)',
-                    fontSize: 10, fontWeight: 700, color: 'rgba(255,255,255,0.6)',
-                    letterSpacing: '0.12em', marginBottom: 72,
-                    boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.08)',
-                }}>
-                    {step.day}
-                </div>
-
-                <h3 style={{ fontSize: 28, fontWeight: 700, color: '#fff', marginBottom: 14, letterSpacing: '-0.03em' }}>
+                {/* Title */}
+                <h3 style={{ fontSize: 28, fontWeight: 800, color: '#fff', marginBottom: 14, letterSpacing: '-0.02em', lineHeight: 1.15 }}>
                     {step.title}
                 </h3>
-                <p style={{ fontSize: 15, lineHeight: 1.7, color: 'rgba(255,255,255,0.45)' }}>
+
+                {/* Description */}
+                <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.45)', lineHeight: 1.8 }}>
                     {step.description}
                 </p>
 
-                {/* Bottom progress line */}
-                <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 2, background: 'rgba(255,255,255,0.04)' }}>
-                    <motion.div
-                        initial={{ width: 0 }}
-                        animate={inView ? { width: '100%' } : {}}
-                        transition={{ duration: 1.6, delay: step.delay + 0.3, ease: 'easeOut' }}
-                        style={{ height: '100%', background: `linear-gradient(90deg, ${step.glow}, rgba(255,255,255,0.7))` }}
-                    />
+                {/* Progress line at bottom */}
+                <div style={{ marginTop: 'auto', paddingTop: 28 }}>
+                    <div style={{
+                        height: 2, borderRadius: 2,
+                        background: 'rgba(255,255,255,0.06)',
+                        overflow: 'hidden',
+                    }}>
+                        <motion.div
+                            initial={{ width: '0%' }}
+                            animate={inView ? { width: '100%' } : {}}
+                            transition={{ duration: 1.5, delay: 0.4 + index * 0.2, ease: [0.23, 1, 0.32, 1] }}
+                            style={{
+                                height: '100%',
+                                background: `linear-gradient(90deg, ${glow}, transparent)`,
+                                borderRadius: 2,
+                            }}
+                        />
+                    </div>
                 </div>
             </motion.div>
         </motion.div>
@@ -124,6 +109,8 @@ function StepCard({ step }) {
 export default function HowItWorks() {
     const headRef = useRef(null)
     const inView = useInView(headRef, { once: true })
+    const { t, lang, translations } = useLanguage()
+    const steps = translations[lang].howItWorks.steps
 
     return (
         <section id="process" style={{
@@ -132,63 +119,60 @@ export default function HowItWorks() {
             borderTop: '1px solid rgba(255,255,255,0.05)',
             overflow: 'hidden',
         }}>
-            {/* Ambient */}
+            {/* Ambient glow */}
             <div style={{
-                position: 'absolute', top: '20%', left: '50%', transform: 'translateX(-50%)',
-                width: 900, height: 300,
-                background: 'radial-gradient(ellipse, rgba(70,40,180,0.1) 0%, transparent 70%)',
+                position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
+                width: 1000, height: 500,
+                background: 'radial-gradient(ellipse, rgba(40, 100, 240, 0.08) 0%, transparent 70%)',
                 pointerEvents: 'none',
             }} />
 
-            <div className="container" style={{ position: 'relative', zIndex: 1 }}>
+            <div className="container" ref={headRef} style={{ position: 'relative', zIndex: 1 }}>
                 {/* Header */}
-                <div ref={headRef} style={{ maxWidth: 720, margin: '0 auto 72px', textAlign: 'center' }}>
-                    <motion.div
-                        className="section-label"
+                <div style={{ textAlign: 'center', maxWidth: 600, margin: '0 auto 72px' }}>
+                    <motion.div className="section-label"
                         initial={{ opacity: 0, y: 16 }}
                         animate={inView ? { opacity: 1, y: 0 } : {}}
-                        style={{ justifyContent: 'center' }}
                     >
-                        PROZESS
+                        {t('howItWorks.label')}
                     </motion.div>
                     <motion.h2
-                        initial={{ opacity: 0, y: 32 }}
+                        initial={{ opacity: 0, y: 30 }}
                         animate={inView ? { opacity: 1, y: 0 } : {}}
                         transition={{ delay: 0.1, duration: 0.8 }}
-                        style={{ fontSize: 'clamp(34px, 4.5vw, 60px)', marginTop: 24, marginBottom: 22, lineHeight: 1.05, letterSpacing: '-0.03em' }}
+                        style={{ fontSize: 'clamp(32px, 4.5vw, 64px)', marginTop: 24, marginBottom: 18 }}
                     >
-                        Entfalten Sie{' '}
-                        <span style={{ background: 'linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.4) 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                            Kreativität.
+                        {t('howItWorks.title1')}{' '}
+                        <span style={{ background: 'linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.35) 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                            {t('howItWorks.title2')}
                         </span>
                     </motion.h2>
                     <motion.p
-                        initial={{ opacity: 0 }}
-                        animate={inView ? { opacity: 1 } : {}}
-                        transition={{ delay: 0.22 }}
-                        style={{ fontSize: 17, lineHeight: 1.75, color: 'rgba(255,255,255,0.4)', maxWidth: 560, margin: '0 auto' }}
+                        initial={{ opacity: 0, y: 16 }}
+                        animate={inView ? { opacity: 1, y: 0 } : {}}
+                        transition={{ delay: 0.2 }}
+                        style={{ fontSize: 16, color: 'rgba(255,255,255,0.4)', lineHeight: 1.8 }}
                     >
-                        Folgen Sie unseren drei Schritten, um Ihre Visionen mit KI in messbare Ergebnisse zu verwandeln.
+                        {t('howItWorks.subtitle')}
                     </motion.p>
                 </div>
 
-                {/* Step Cards */}
-                <div className="howitworks-grid">
-                    {steps.map((step, i) => <StepCard key={i} step={step} />)}
+                {/* Cards */}
+                <div className="hiw-grid">
+                    {steps.map((step, i) => (
+                        <StepCard key={i} step={step} index={i} icon={stepIcons[i]} glow={stepGlows[i]} />
+                    ))}
                 </div>
             </div>
 
             <style>{`
-                .howitworks-grid {
-                    display: flex;
+                .hiw-grid {
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
                     gap: 24px;
                 }
-                @keyframes orbPulse {
-                    0%, 100% { transform: scale(1); opacity: 0.5; }
-                    50% { transform: scale(1.15); opacity: 0.75; }
-                }
-                @media (max-width: 860px) {
-                    .howitworks-grid { flex-direction: column; gap: 20px; }
+                @media (max-width: 900px) {
+                    .hiw-grid { grid-template-columns: 1fr !important; gap: 20px; }
                     #process { padding: 80px 0; }
                 }
             `}</style>

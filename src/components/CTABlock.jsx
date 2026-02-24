@@ -1,9 +1,12 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
+import { useLanguage } from '../context/LanguageContext'
 
 export default function CTABlock() {
     const ref = useRef(null)
     const inView = useInView(ref, { once: true })
+    const { t, lang, translations } = useLanguage()
+    const badges = translations[lang].cta.badges
 
     return (
         <section style={{ padding: '80px 0' }}>
@@ -49,7 +52,7 @@ export default function CTABlock() {
                             className="section-label"
                             style={{ margin: '0 auto 28px' }}
                         >
-                            ✨ Bereit für den nächsten Schritt?
+                            {t('cta.label')}
                         </motion.div>
 
                         <motion.h2
@@ -58,9 +61,9 @@ export default function CTABlock() {
                             transition={{ delay: 0.3, duration: 0.9 }}
                             style={{ fontSize: 'clamp(32px, 4.5vw, 62px)', marginBottom: '24px', lineHeight: 1.08 }}
                         >
-                            Wir transformieren Ihr Unternehmen<br />
+                            {t('cta.title1')}<br />
                             <span style={{ background: 'linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.5) 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                                schneller als Sie denken
+                                {t('cta.title2')}
                             </span>
                         </motion.h2>
 
@@ -70,7 +73,7 @@ export default function CTABlock() {
                             transition={{ delay: 0.4, duration: 0.7 }}
                             style={{ fontSize: '17px', maxWidth: '520px', margin: '0 auto 48px', lineHeight: 1.8, color: 'rgba(255,255,255,0.45)' }}
                         >
-                            50+ Unternehmen arbeiten bereits mit KI. Starten Sie mit einem kostenlosen Prototyp — kein Risiko, kein Vertrag.
+                            {t('cta.subtitle')}
                         </motion.p>
 
                         <motion.div
@@ -81,12 +84,12 @@ export default function CTABlock() {
                         >
                             <a href="#contact">
                                 <button className="btn-primary" style={{ fontSize: '16px', padding: '18px 44px' }}>
-                                    Jetzt loslegen ↗
+                                    {t('cta.primaryBtn')}
                                 </button>
                             </a>
                             <a href="/pilot">
                                 <button className="btn-ghost" style={{ fontSize: '16px', padding: '17px 40px', borderRadius: 50 }}>
-                                    Live Demo ansehen
+                                    {t('cta.secondaryBtn')}
                                 </button>
                             </a>
                         </motion.div>
@@ -97,7 +100,7 @@ export default function CTABlock() {
                             transition={{ delay: 0.8 }}
                             style={{ marginTop: '44px', display: 'flex', gap: '32px', justifyContent: 'center', flexWrap: 'wrap' }}
                         >
-                            {['🔒 Vertraulich', '⚡ 3-Tage-Prototyp', '🌍 D + IN Team', '✅ Kostenlos'].map((item, i) => (
+                            {badges.map((item, i) => (
                                 <div key={i} style={{ fontSize: '13px', color: 'rgba(255,255,255,0.3)', display: 'flex', alignItems: 'center', gap: '6px' }}>
                                     {item}
                                 </div>

@@ -1,43 +1,15 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
+import { useLanguage } from '../context/LanguageContext'
 
-const cases = [
-    {
-        label: 'Case Study 01',
-        tag: '🎬 KI-Animation',
-        client: 'Großer dt. Einzelhändler',
-        sub: 'Retail · Marketing',
-        result: '+340%',
-        resultLabel: 'Organische Reichweite',
-        kpis: [
-            { value: '8.7%', label: 'Video CTR' },
-            { value: '–70%', label: 'Produktionskosten' },
-            { value: '3 Tage', label: 'Prototyp → Live' },
-        ],
-        summary: 'Saisonale KI-Video-Ads statt teurer Filmproduktion — für Meta, YouTube & Instore-Screens.',
-        glow: 'rgba(120, 80, 255, 0.4)',
-    },
-    {
-        label: 'Case Study 02',
-        tag: '🤖 KI-Agent',
-        client: 'Anwaltskanzlei Frankfurt',
-        sub: 'Legal · Support-Automation',
-        result: '92%',
-        resultLabel: 'Schnellere E-Mail-Triage',
-        kpis: [
-            { value: '99%', label: 'Routing-Genauigkeit' },
-            { value: '3 Std.', label: 'Täglich eingespart' },
-            { value: '7 Tage', label: 'Analyse → Go-Live' },
-        ],
-        summary: 'KI-Agent klassifiziert & leitet 80+ E-Mails täglich in unter 2 Sekunden weiter.',
-        glow: 'rgba(0, 200, 160, 0.35)',
-    },
+const glows = [
+    'rgba(120, 80, 255, 0.4)',
+    'rgba(0, 200, 160, 0.35)',
 ]
 
 function CaseCard({ c, index }) {
     const ref = useRef(null)
     const inView = useInView(ref, { once: true, margin: '-80px' })
-
     const enterX = index === 0 ? -60 : 60
 
     return (
@@ -48,12 +20,12 @@ function CaseCard({ c, index }) {
             transition={{ duration: 0.9, delay: index * 0.12, ease: [0.23, 1, 0.32, 1] }}
             style={{ position: 'relative' }}
         >
-            {/* Glow orb — CSS animated */}
+            {/* Glow orb */}
             <div style={{
                 position: 'absolute',
                 top: '20%', left: index === 0 ? '-10%' : '60%',
                 width: '50%', height: '50%',
-                background: c.glow,
+                background: glows[index],
                 borderRadius: '50%',
                 filter: 'blur(60px)',
                 opacity: 0.55,
@@ -123,7 +95,7 @@ function CaseCard({ c, index }) {
                             letterSpacing: '-0.04em',
                             lineHeight: 1,
                             marginBottom: 8,
-                            textShadow: `0 0 40px ${c.glow}`,
+                            textShadow: `0 0 40px ${glows[index]}`,
                         }}
                     >
                         {c.result}
@@ -172,6 +144,8 @@ function CaseCard({ c, index }) {
 export default function CaseStudies() {
     const headRef = useRef(null)
     const inView = useInView(headRef, { once: true })
+    const { t, lang, translations } = useLanguage()
+    const cases = translations[lang].caseStudies.cases
 
     return (
         <section id="cases" style={{
@@ -198,7 +172,7 @@ export default function CaseStudies() {
                         initial={{ opacity: 0, y: 16 }}
                         animate={inView ? { opacity: 1, y: 0 } : {}}
                     >
-                        REFERENZPROJEKTE
+                        {t('caseStudies.label')}
                     </motion.div>
 
                     <motion.h2
@@ -207,9 +181,9 @@ export default function CaseStudies() {
                         transition={{ delay: 0.1, duration: 0.8 }}
                         style={{ fontSize: 'clamp(36px, 5vw, 64px)', marginTop: 24, marginBottom: 20, lineHeight: 1.05, letterSpacing: '-0.03em' }}
                     >
-                        Echte Ergebnisse.{' '}
+                        {t('caseStudies.title1')}{' '}
                         <span style={{ background: 'linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.4) 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                            Keine Buzzwords.
+                            {t('caseStudies.title2')}
                         </span>
                     </motion.h2>
 
@@ -219,7 +193,7 @@ export default function CaseStudies() {
                         transition={{ delay: 0.2 }}
                         style={{ fontSize: 17, color: 'rgba(255,255,255,0.4)', lineHeight: 1.8 }}
                     >
-                        Harte KPIs aus echten Projekten, pünktlich geliefert.
+                        {t('caseStudies.subtitle')}
                     </motion.p>
                 </div>
 
@@ -238,7 +212,7 @@ export default function CaseStudies() {
                 >
                     <a href="#offer">
                         <button className="btn-primary" style={{ fontSize: 15, padding: '15px 32px', borderRadius: 14 }}>
-                            Eigenes Projekt anfragen →
+                            {t('caseStudies.ctaBtn')}
                         </button>
                     </a>
                 </motion.div>

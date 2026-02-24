@@ -232,7 +232,7 @@ function VideoAdCard() {
                 }}
             >
                 <div style={{ fontSize: 26, fontWeight: 900, color: '#fff', lineHeight: 1, background: 'linear-gradient(135deg,#fff,rgba(160,120,255,0.9))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>+340%</div>
-                <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.3)', marginTop: 2, letterSpacing: '0.06em', textTransform: 'uppercase' }}>Reichweite</div>
+                <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.3)', marginTop: 2, letterSpacing: '0.06em', textTransform: 'uppercase' }}>{t('hero.videoCard.reach')}</div>
             </motion.div>
 
             {/* Floating glass badge — top right */}

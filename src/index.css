@@ -504,13 +504,128 @@ a {
   }
 
   .section {
-    padding: 80px 0;
+    padding: 72px 0;
+  }
+
+  /* Typography scale-down */
+  h1 {
+    font-size: clamp(28px, 8vw, 48px) !important;
+  }
+
+  h2 {
+    font-size: clamp(24px, 7vw, 42px) !important;
+  }
+
+  /* Integration stat strip — stack on mobile */
+  #integration .container>div:last-child>div {
+    flex-direction: column !important;
+    gap: 0;
+    width: 100% !important;
+  }
+
+  #integration .container>div:last-child>div>div {
+    border-right: none !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    padding: 20px 32px !important;
+    width: 100%;
+  }
+
+  #integration .container>div:last-child>div>div:last-child {
+    border-bottom: none !important;
+  }
+
+  /* Pilot result cards — 2 columns on tablet, 1 on phone */
+  .pilot-results-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* CTA block padding */
+  .cta-block {
+    padding: 56px 24px !important;
+    border-radius: 24px !important;
+  }
+
+  /* Footer bottom bar — stack */
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 8px;
+  }
+
+  /* Tool chips — smaller on mobile */
+  .tool-chip {
+    padding: 10px 14px;
+    min-width: 120px;
+  }
+
+  /* Chatbot bubble — safe area bottom (notch phones) */
+  .chatbot-bubble {
+    bottom: max(24px, env(safe-area-inset-bottom, 24px));
+    right: 20px;
+  }
+
+  /* Cases grid — single column */
+  .cases-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* HowItWorks — single column */
+  .hiw-grid {
+    grid-template-columns: 1fr !important;
   }
 }
 
 @media (max-width: 480px) {
+  .container {
+    padding: 0 16px;
+  }
+
   .section {
-    padding: 60px 0;
+    padding: 56px 0;
+  }
+
+  /* Pilot result cards — single column on very small screens */
+  .pilot-results-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Pilot deliverables — 2 col */
+  .deliverables-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  /* Section label — shrink text */
+  .section-label {
+    font-size: 9px;
+    padding: 6px 14px;
+  }
+
+  /* Hero stat chips */
+  .hero-stat-row {
+    gap: 8px !important;
+  }
+
+  /* Buttons */
+  .btn-primary,
+  .btn-ghost {
+    font-size: 14px !important;
+    padding: 13px 22px !important;
+  }
+
+  /* Footer */
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start !important;
+  }
+
+  /* Testimonial padding */
+  .testimonial-block {
+    padding: 28px 20px !important;
+  }
+
+  /* Compare bar grid — single col */
+  .compare-grid {
+    grid-template-columns: 1fr !important;
   }
 }
 

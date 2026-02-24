@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
+import { useLanguage } from '../context/LanguageContext'
 
 export default function ContactForm() {
     const ref = useRef(null)
@@ -7,6 +8,7 @@ export default function ContactForm() {
     const [form, setForm] = useState({ name: '', company: '', email: '', problem: '' })
     const [submitted, setSubmitted] = useState(false)
     const [focused, setFocused] = useState('')
+    const { t } = useLanguage()
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -52,23 +54,23 @@ export default function ContactForm() {
                         animate={inView ? { opacity: 1, x: 0 } : {}}
                         transition={{ duration: 0.9, ease: [0.23, 1, 0.32, 1] }}
                     >
-                        <div className="section-label" style={{ marginBottom: '24px' }}>KONTAKT</div>
+                        <div className="section-label" style={{ marginBottom: '24px' }}>{t('contact.label')}</div>
                         <h2 style={{ fontSize: 'clamp(30px, 3.5vw, 52px)', marginBottom: '20px', lineHeight: 1.12 }}>
-                            Starten Sie Ihr<br />
+                            {t('contact.title1')}<br />
                             <span style={{ background: 'linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.4) 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                                KI-Projekt heute
+                                {t('contact.title2')}
                             </span>
                         </h2>
                         <p style={{ fontSize: '16px', lineHeight: 1.8, color: 'rgba(255,255,255,0.4)', marginBottom: '44px', maxWidth: 380 }}>
-                            Beschreiben Sie Ihre Herausforderung und wir liefern innerhalb von 72 Stunden einen funktionalen KI-Prototyp — völlig kostenlos.
+                            {t('contact.subtitle')}
                         </p>
 
                         {/* Contact chips */}
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                             {[
-                                { icon: '📧', label: 'Email', value: 'hello@prodone.ai' },
-                                { icon: '📍', label: 'Standort', value: 'Mannheim, Deutschland' },
-                                { icon: '🕐', label: 'Antwortzeit', value: 'Innerhalb von 2 Werktagen' },
+                                { icon: '📧', label: t('contact.email'), value: t('contact.emailVal') },
+                                { icon: '📍', label: t('contact.location'), value: t('contact.locationVal') },
+                                { icon: '🕐', label: t('contact.response'), value: t('contact.responseVal') },
                             ].map((c) => (
                                 <div key={c.label} style={{
                                     display: 'flex', alignItems: 'center', gap: '14px',
@@ -127,45 +129,45 @@ export default function ContactForm() {
                                         transition={{ duration: 0.6 }}
                                         style={{ fontSize: '56px', marginBottom: '20px' }}
                                     >🎉</motion.div>
-                                    <h3 style={{ fontSize: '24px', fontWeight: 700, color: '#fff', marginBottom: '12px' }}>Nachricht gesendet!</h3>
+                                    <h3 style={{ fontSize: '24px', fontWeight: 700, color: '#fff', marginBottom: '12px' }}>{t('contact.successTitle')}</h3>
                                     <p style={{ fontSize: '15px', color: 'rgba(255,255,255,0.4)', lineHeight: 1.7 }}>
-                                        Ihr Prototyp ist in 3 Tagen fertig. Wir antworten innerhalb von 2 Stunden.
+                                        {t('contact.successMsg')}
                                     </p>
                                 </motion.div>
                             ) : (
                                 <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
                                     <div style={{ marginBottom: 4 }}>
-                                        <h3 style={{ fontSize: '20px', fontWeight: 700, color: '#fff', marginBottom: '6px' }}>Kostenlosen Prototypen erhalten</h3>
-                                        <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.3)' }}>Keine Verpflichtung. Direkte Antwort.</p>
+                                        <h3 style={{ fontSize: '20px', fontWeight: 700, color: '#fff', marginBottom: '6px' }}>{t('contact.formTitle')}</h3>
+                                        <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.3)' }}>{t('contact.formSubtitle')}</p>
                                     </div>
 
                                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
                                         <div>
-                                            <label style={{ fontSize: '11px', color: 'rgba(255,255,255,0.3)', display: 'block', marginBottom: '8px', letterSpacing: '0.08em', textTransform: 'uppercase' }}>NAME *</label>
-                                            <input required value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} onFocus={() => setFocused('name')} onBlur={() => setFocused('')} placeholder="Max Mustermann" style={inputStyle('name')} />
+                                            <label style={{ fontSize: '11px', color: 'rgba(255,255,255,0.3)', display: 'block', marginBottom: '8px', letterSpacing: '0.08em', textTransform: 'uppercase' }}>{t('contact.nameLabel')}</label>
+                                            <input required value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} onFocus={() => setFocused('name')} onBlur={() => setFocused('')} placeholder={t('contact.namePlaceholder')} style={inputStyle('name')} />
                                         </div>
                                         <div>
-                                            <label style={{ fontSize: '11px', color: 'rgba(255,255,255,0.3)', display: 'block', marginBottom: '8px', letterSpacing: '0.08em', textTransform: 'uppercase' }}>UNTERNEHMEN *</label>
-                                            <input required value={form.company} onChange={e => setForm({ ...form, company: e.target.value })} onFocus={() => setFocused('company')} onBlur={() => setFocused('')} placeholder="Firma GmbH" style={inputStyle('company')} />
+                                            <label style={{ fontSize: '11px', color: 'rgba(255,255,255,0.3)', display: 'block', marginBottom: '8px', letterSpacing: '0.08em', textTransform: 'uppercase' }}>{t('contact.companyLabel')}</label>
+                                            <input required value={form.company} onChange={e => setForm({ ...form, company: e.target.value })} onFocus={() => setFocused('company')} onBlur={() => setFocused('')} placeholder={t('contact.companyPlaceholder')} style={inputStyle('company')} />
                                         </div>
                                     </div>
 
                                     <div>
-                                        <label style={{ fontSize: '11px', color: 'rgba(255,255,255,0.3)', display: 'block', marginBottom: '8px', letterSpacing: '0.08em', textTransform: 'uppercase' }}>E-MAIL *</label>
-                                        <input type="email" required value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} onFocus={() => setFocused('email')} onBlur={() => setFocused('')} placeholder="max@firma.de" style={inputStyle('email')} />
+                                        <label style={{ fontSize: '11px', color: 'rgba(255,255,255,0.3)', display: 'block', marginBottom: '8px', letterSpacing: '0.08em', textTransform: 'uppercase' }}>{t('contact.emailLabel')}</label>
+                                        <input type="email" required value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} onFocus={() => setFocused('email')} onBlur={() => setFocused('')} placeholder={t('contact.emailPlaceholderVal')} style={inputStyle('email')} />
                                     </div>
 
                                     <div>
-                                        <label style={{ fontSize: '11px', color: 'rgba(255,255,255,0.3)', display: 'block', marginBottom: '8px', letterSpacing: '0.08em', textTransform: 'uppercase' }}>IHR USE CASE *</label>
-                                        <textarea required value={form.problem} onChange={e => setForm({ ...form, problem: e.target.value })} onFocus={() => setFocused('problem')} onBlur={() => setFocused('')} placeholder="Beschreiben Sie Ihren konkreten Anwendungsfall..." rows={4} style={{ ...inputStyle('problem'), resize: 'vertical' }} />
+                                        <label style={{ fontSize: '11px', color: 'rgba(255,255,255,0.3)', display: 'block', marginBottom: '8px', letterSpacing: '0.08em', textTransform: 'uppercase' }}>{t('contact.useCaseLabel')}</label>
+                                        <textarea required value={form.problem} onChange={e => setForm({ ...form, problem: e.target.value })} onFocus={() => setFocused('problem')} onBlur={() => setFocused('')} placeholder={t('contact.useCasePlaceholder')} rows={4} style={{ ...inputStyle('problem'), resize: 'vertical' }} />
                                     </div>
 
                                     <button type="submit" className="btn-primary" style={{ width: '100%', justifyContent: 'center', fontSize: '15px', padding: '16px', borderRadius: 14 }}>
-                                        Jetzt Prototyp anfragen ↗
+                                        {t('contact.submitBtn')}
                                     </button>
 
                                     <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.2)', textAlign: 'center' }}>
-                                        🔒 Vertraulich · Datenschutzkonform · Unverbindlich
+                                        {t('contact.footNote')}
                                     </p>
                                 </form>
                             )}

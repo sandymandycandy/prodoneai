@@ -5,6 +5,7 @@ import Home from './pages/Home'
 import Pilot from './pages/Pilot'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+import Chatbot from './components/Chatbot'
 import './index.css'
 
 function Loader({ onDone }) {
@@ -134,6 +135,7 @@ function App() {
             <Route path="/pilot" element={<Pilot />} />
           </Routes>
           <Footer />
+          <Chatbot />
         </motion.div>
       )}
     </Router>

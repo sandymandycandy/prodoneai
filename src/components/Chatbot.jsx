@@ -1,363 +1,490 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useLanguage } from '../context/LanguageContext'
 
-const BOT_NAME = 'Kornmeier KI'
-const BOT_AVATAR = '⚖️'
-
-const CONVERSATION_FLOW = {
-    start: {
-        id: 'start',
-        messages: [
-            { delay: 500, text: `Willkommen bei **Kornmeier & Partner** Rechtsanwälte. Ich bin Ihr digitaler Assistent.` },
-            { delay: 1800, text: `Bevor wir fortfahren: Bitte beachten Sie, dass dieser Dienst keine Rechtsberatung ersetzt. Durch Ihre Nutzung stimmen Sie unserer **Datenschutzerklärung** zu. Stimmen Sie zu?` },
-        ],
-        expectsInput: false,
-        choices: ['✅ Ja, ich stimme zu', '❌ Nein, danke'],
-        nextMap: { '✅ Ja, ich stimme zu': 'accepted', '❌ Nein, danke': 'declined' },
+/* ─── Conversation flows ─────────────────────────────── */
+const FLOWS = {
+    EN: {
+        start: {
+            msgs: [
+                { delay: 400, text: "Hey 👋 I'm **Aria**, the prodone.ai assistant." },
+                { delay: 1600, text: "What are you looking to build? I'll find the right fit in 60 seconds." },
+            ],
+            choices: ['🎬 AI Video Ads', '🤖 AI Chatbot / Agent', '📱 Custom App or MVP', '📊 Analytics & Automation'],
+            next: { '🎬 AI Video Ads': 'industry', '🤖 AI Chatbot / Agent': 'industry', '📱 Custom App or MVP': 'industry', '📊 Analytics & Automation': 'industry' },
+            input: false,
+        },
+        industry: {
+            msgs: [{ delay: 600, text: "Great choice! 🚀 What's your industry?" }],
+            choices: ['🛒 E-Commerce / Retail', '🏥 Healthcare', '💰 Finance & Fintech', '🏭 B2B / SaaS', '🌍 Other'],
+            next: 'size',
+            input: false,
+        },
+        size: {
+            msgs: [{ delay: 600, text: "Got it. How big is your team?" }],
+            choices: ['1–10 people', '11–50 people', '51–200 people', '200+ people'],
+            next: 'collect_name',
+            input: false,
+        },
+        collect_name: {
+            msgs: [{ delay: 600, text: "Perfect — sounds like a great fit for prodone.ai 🎯\n\nWhat's your **first name**?" }],
+            choices: [],
+            next: 'collect_email',
+            input: true,
+            storeAs: 'name',
+        },
+        collect_email: {
+            msgs: [{ delay: 400, text: "Nice to meet you, **{name}**! 👋\n\nAnd your **work email** — so we can send you the prototype?" }],
+            choices: [],
+            next: 'done',
+            input: true,
+            storeAs: 'email',
+        },
+        done: {
+            msgs: [
+                { delay: 500, text: "✅ You're all set, **{name}**!" },
+                { delay: 1800, text: "We'll send your **free prototype** to **{email}** within **2 hours** — usually faster. 🏎️\n\nOur team is in Frankfurt & Stuttgart. We're fast." },
+            ],
+            choices: ['👀 View case study', '💬 Got another question'],
+            next: { '👀 View case study': 'pilot', '💬 Got another question': 'start' },
+            input: false,
+        },
+        pilot: {
+            msgs: [{ delay: 500, text: "Here's our live case study — a large German retailer achieved **+340% reach** with AI Video Ads 📈\n\nClick below to read the full breakdown." }],
+            choices: ['🔗 Open Pilot Page'],
+            next: { '🔗 Open Pilot Page': '__pilot__' },
+            input: false,
+        },
     },
-    declined: {
-        id: 'declined',
-        messages: [{ delay: 600, text: `Verstanden. Falls Sie Fragen haben, kontaktieren Sie uns bitte direkt unter **+49 69 123456**. Auf Wiedersehen! 👋` }],
-        expectsInput: false,
-        choices: [],
-        nextMap: {},
-    },
-    accepted: {
-        id: 'accepted',
-        messages: [{ delay: 500, text: `Vielen Dank! Wie kann ich Ihnen heute helfen?` }],
-        expectsInput: true,
-        choices: [],
-        nextMap: {},
-    },
-    fraud_response: {
-        id: 'fraud_response',
-        messages: [
-            { delay: 600, text: `Das klingt nach einem **sehr dringenden Fall**. Kreditkartenbetrug ist eine Straftat nach §263a StGB.` },
-            { delay: 2000, text: `Unser Spezialist für Wirtschaftskriminalität, **RA Dr. Klaus Werner**, hat freie Kapazitäten in unserer **Filiale Frankfurt** — nur 45 Minuten von Mainz entfernt. 📍` },
-            { delay: 3500, text: `Ich empfehle folgende Sofortmaßnahmen:\n\n1. 🔴 Sperren Sie sofort Ihre Karte (Hotline: 116 116)\n2. 📋 Documentieren Sie alle verdächtigen Transaktionen\n3. 📞 Erstatten Sie Anzeige bei der Polizei\n\nSoll ich für Sie **direkt einen Termin** mit Dr. Werner vereinbaren?` },
-        ],
-        expectsInput: false,
-        choices: ['📅 Termin vereinbaren', '📞 Direkt anrufen', '📥 E-Mail senden'],
-        nextMap: { '📅 Termin vereinbaren': 'booking', '📞 Direkt anrufen': 'call', '📥 E-Mail senden': 'email' },
-    },
-    booking: {
-        id: 'booking',
-        messages: [
-            { delay: 500, text: `Perfekt! Ich habe für Sie einen **Beratungstermin morgen um 10:00 Uhr** in unserer Frankfurter Kanzlei vorgemerkt.` },
-            { delay: 1800, text: `Sie erhalten in wenigen Minuten eine **Bestätigungsmail**. RA Dr. Werner wird alle Informationen vorbereiten. Gibt es noch etwas, wobei ich Ihnen helfen kann?` },
-        ],
-        expectsInput: false,
-        choices: ['✅ Alles erledigt, danke!'],
-        nextMap: { '✅ Alles erledigt, danke!': 'done' },
-    },
-    call: {
-        id: 'call',
-        messages: [{ delay: 600, text: `📞 Bitte rufen Sie an unter: **+49 69 987654** — RA Dr. Werner ist heute bis 18:00 Uhr erreichbar. Alles Gute für Sie!` }],
-        expectsInput: false,
-        choices: ['↩ Zurück zum Start'],
-        nextMap: { '↩ Zurück zum Start': 'accepted' },
-    },
-    email: {
-        id: 'email',
-        messages: [{ delay: 600, text: `📧 Schreiben Sie an: **werner@kornmeier-partner.de** mit dem Betreff "Dringende Anfrage - Kreditkartenbetrug". Wir antworten innerhalb von 1 Stunde!` }],
-        expectsInput: false,
-        choices: ['↩ Zurück zum Start'],
-        nextMap: { '↩ Zurück zum Start': 'accepted' },
-    },
-    done: {
-        id: 'done',
-        messages: [{ delay: 500, text: `Bitte. Wir stehen Ihnen zur Seite. Bis morgen! ⚖️` }],
-        expectsInput: false,
-        choices: [],
-        nextMap: {},
-    },
-    general: {
-        id: 'general',
-        messages: [
-            { delay: 600, text: `Ich habe Ihre Anfrage verstanden. Für eine detaillierte Beratung empfehle ich ein persönliches Gespräch mit einem unserer Anwälte.` },
-            { delay: 1800, text: `Zu welchem Rechtsgebiet suchen Sie Unterstützung?` },
-        ],
-        expectsInput: false,
-        choices: ['Wirtschaftsrecht', 'Familienrecht', 'Strafrecht', 'Anderes'],
-        nextMap: { 'Wirtschaftsrecht': 'booking', 'Familienrecht': 'booking', 'Strafrecht': 'booking', 'Anderes': 'booking' },
+    DE: {
+        start: {
+            msgs: [
+                { delay: 400, text: "Hey 👋 Ich bin **Aria**, der prodone.ai Assistent." },
+                { delay: 1600, text: "Was möchten Sie aufbauen? Ich finde in 60 Sekunden die passende Lösung." },
+            ],
+            choices: ['🎬 KI Video Ads', '🤖 KI Chatbot / Agent', '📱 Custom App oder MVP', '📊 Analytics & Automatisierung'],
+            next: { '🎬 KI Video Ads': 'industry', '🤖 KI Chatbot / Agent': 'industry', '📱 Custom App oder MVP': 'industry', '📊 Analytics & Automatisierung': 'industry' },
+            input: false,
+        },
+        industry: {
+            msgs: [{ delay: 600, text: "Gute Wahl! 🚀 In welcher Branche sind Sie tätig?" }],
+            choices: ['🛒 E-Commerce / Handel', '🏥 Gesundheitswesen', '💰 Finance & Fintech', '🏭 B2B / SaaS', '🌍 Andere'],
+            next: 'size',
+            input: false,
+        },
+        size: {
+            msgs: [{ delay: 600, text: "Verstanden. Wie groß ist Ihr Team?" }],
+            choices: ['1–10 Personen', '11–50 Personen', '51–200 Personen', '200+ Personen'],
+            next: 'collect_name',
+            input: false,
+        },
+        collect_name: {
+            msgs: [{ delay: 600, text: "Perfekt — klingt nach einer guten Lösung für prodone.ai 🎯\n\nWie heißen Sie?" }],
+            choices: [],
+            next: 'collect_email',
+            input: true,
+            storeAs: 'name',
+        },
+        collect_email: {
+            msgs: [{ delay: 400, text: "Schön, Sie kennenzulernen, **{name}**! 👋\n\nIhre **geschäftliche E-Mail** — damit wir Ihnen den Prototypen schicken können?" }],
+            choices: [],
+            next: 'done',
+            input: true,
+            storeAs: 'email',
+        },
+        done: {
+            msgs: [
+                { delay: 500, text: "✅ Alles eingetragen, **{name}**!" },
+                { delay: 1800, text: "Wir senden Ihren **kostenlosen Prototypen** an **{email}** innerhalb von **2 Stunden** — meist schneller. 🏎️\n\nUnser Team ist in Frankfurt & Stuttgart. Wir sind schnell." },
+            ],
+            choices: ['👀 Case Study ansehen', '💬 Noch eine Frage'],
+            next: { '👀 Case Study ansehen': 'pilot', '💬 Noch eine Frage': 'start' },
+            input: false,
+        },
+        pilot: {
+            msgs: [{ delay: 500, text: "Hier ist unsere Live Case Study — ein großer deutscher Einzelhändler erzielte **+340% Reichweite** mit KI Video Ads 📈\n\nKlicken Sie unten für den vollständigen Bericht." }],
+            choices: ['🔗 Pilot-Seite öffnen'],
+            next: { '🔗 Pilot-Seite öffnen': '__pilot__' },
+            input: false,
+        },
     },
 }
 
-function detectIntent(text) {
-    const lower = text.toLowerCase()
-    if (lower.includes('betrug') || lower.includes('fraud') || lower.includes('kreditkarte') || lower.includes('mainz') || lower.includes('dringend') || lower.includes('urgent') || lower.includes('credit card')) {
-        return 'fraud_response'
-    }
-    return 'general'
+/* ─── Render bold markdown **text** ─────────────────── */
+function RichText({ text, userMsg }) {
+    return (
+        <span style={{ whiteSpace: 'pre-wrap' }}>
+            {text.split('**').map((part, i) =>
+                i % 2 === 1
+                    ? <strong key={i} style={{ color: userMsg ? '#fff' : 'rgba(255,255,255,0.95)', fontWeight: 700 }}>{part}</strong>
+                    : part
+            )}
+        </span>
+    )
 }
 
+/* ─── Typing dots ────────────────────────────────────── */
 function TypingDots() {
     return (
-        <div style={{ display: 'flex', gap: '4px', padding: '14px 18px', alignItems: 'center' }}>
+        <div style={{ display: 'flex', gap: 4, padding: '12px 16px', alignItems: 'center' }}>
             {[0, 1, 2].map(i => (
-                <motion.div
-                    key={i}
-                    animate={{ y: [0, -6, 0], opacity: [0.4, 1, 0.4] }}
-                    transition={{ duration: 0.6, repeat: Infinity, delay: i * 0.15 }}
-                    style={{ width: 7, height: 7, borderRadius: '50%', background: 'var(--accent-cyan)' }}
+                <motion.div key={i}
+                    animate={{ y: [0, -5, 0], opacity: [0.4, 1, 0.4] }}
+                    transition={{ duration: 0.55, repeat: Infinity, delay: i * 0.15 }}
+                    style={{ width: 6, height: 6, borderRadius: '50%', background: 'rgba(255,255,255,0.6)' }}
                 />
             ))}
         </div>
     )
 }
 
-function Message({ msg }) {
+/* ─── Single message bubble ──────────────────────────── */
+function Bubble({ msg }) {
+    const isUser = msg.from === 'user'
     return (
         <motion.div
-            initial={{ opacity: 0, y: 12, scale: 0.96 }}
+            initial={{ opacity: 0, y: 10, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.35, ease: [0.23, 1, 0.32, 1] }}
-            style={{
-                display: 'flex',
-                flexDirection: msg.from === 'user' ? 'row-reverse' : 'row',
-                gap: '10px', alignItems: 'flex-end', marginBottom: '14px',
-            }}
+            transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
+            style={{ display: 'flex', flexDirection: isUser ? 'row-reverse' : 'row', gap: 8, alignItems: 'flex-end', marginBottom: 10 }}
         >
-            {msg.from === 'bot' && (
-                <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'linear-gradient(135deg, #00e5ff22, #0066ff22)', border: '1px solid rgba(0,229,255,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px', flexShrink: 0 }}>
-                    {BOT_AVATAR}
+            {!isUser && (
+                <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'linear-gradient(135deg, rgba(160,120,255,0.3), rgba(80,160,255,0.3))', border: '1px solid rgba(160,120,255,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, flexShrink: 0 }}>
+                    🤖
                 </div>
             )}
             <div style={{
-                maxWidth: '80%',
-                padding: '12px 16px',
-                borderRadius: msg.from === 'user' ? '18px 18px 4px 18px' : '18px 18px 18px 4px',
-                background: msg.from === 'user'
-                    ? 'linear-gradient(135deg, #0066ff, #00e5ff)'
-                    : 'rgba(255,255,255,0.05)',
-                border: msg.from === 'bot' ? '1px solid rgba(255,255,255,0.08)' : 'none',
-                fontSize: '14px',
-                lineHeight: '1.65',
-                color: msg.from === 'user' ? '#fff' : 'var(--text-primary)',
-                whiteSpace: 'pre-wrap',
+                maxWidth: '82%',
+                padding: '10px 14px',
+                borderRadius: isUser ? '16px 16px 4px 16px' : '16px 16px 16px 4px',
+                background: isUser
+                    ? 'linear-gradient(135deg, rgba(140,100,255,0.9), rgba(80,160,255,0.9))'
+                    : 'rgba(255,255,255,0.06)',
+                border: isUser ? 'none' : '1px solid rgba(255,255,255,0.09)',
+                fontSize: 13, lineHeight: 1.65,
+                color: '#fff',
+                backdropFilter: isUser ? 'none' : 'blur(10px)',
+                boxShadow: isUser ? '0 4px 20px rgba(120,80,255,0.25)' : 'none',
             }}>
-                {msg.text.split('**').map((part, i) =>
-                    i % 2 === 1
-                        ? <strong key={i} style={{ color: msg.from === 'user' ? '#fff' : 'var(--accent-cyan)' }}>{part}</strong>
-                        : part
-                )}
+                <RichText text={msg.text} userMsg={isUser} />
             </div>
         </motion.div>
     )
 }
 
+/* ─── Main Chatbot Widget ────────────────────────────── */
 export default function Chatbot() {
+    const { lang } = useLanguage()
+    const flow = FLOWS[lang] || FLOWS.EN
+
+    const [open, setOpen] = useState(false)
+    const [started, setStarted] = useState(false)
     const [messages, setMessages] = useState([])
     const [choices, setChoices] = useState([])
-    const [inputVal, setInputVal] = useState('')
     const [typing, setTyping] = useState(false)
     const [canInput, setCanInput] = useState(false)
-    const [currentState, setCurrentState] = useState(null)
-    const [started, setStarted] = useState(false)
-    const chatEndRef = useRef(null)
+    const [inputVal, setInputVal] = useState('')
+    const [stateKey, setStateKey] = useState('start')
+    const [userData, setUserData] = useState({ name: '', email: '' })
+    const [unread, setUnread] = useState(0)
+    const endRef = useRef(null)
 
     useEffect(() => {
-        chatEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+        endRef.current?.scrollIntoView({ behavior: 'smooth' })
     }, [messages, typing, choices])
 
-    const addBotMessages = async (msgs, next) => {
-        setCanInput(false)
+    // Show unread badge after 4s if not opened
+    useEffect(() => {
+        if (!open) {
+            const t = setTimeout(() => setUnread(1), 4000)
+            return () => clearTimeout(t)
+        }
+    }, [])
+
+    const resolveText = (text) => {
+        return text.replace('{name}', userData.name).replace('{email}', userData.email)
+    }
+
+    const playStep = async (key) => {
+        const step = flow[key]
+        if (!step) return
+        setStateKey(key)
         setChoices([])
-        for (const m of msgs) {
+        setCanInput(false)
+
+        for (const m of step.msgs) {
             setTyping(true)
             await new Promise(r => setTimeout(r, m.delay))
             setTyping(false)
-            setMessages(prev => [...prev, { from: 'bot', text: m.text }])
+            setMessages(prev => [...prev, { from: 'bot', text: resolveText(m.text) }])
         }
-        if (next.expectsInput) setCanInput(true)
-        if (next.choices.length) setChoices(next.choices)
-        setCurrentState(next.id)
+        if (step.input) setCanInput(true)
+        else if (step.choices?.length) setChoices(step.choices)
     }
 
-    const startChat = () => {
-        setStarted(true)
-        addBotMessages(CONVERSATION_FLOW.start.messages, CONVERSATION_FLOW.start)
+    const handleOpen = () => {
+        setOpen(true)
+        setUnread(0)
+        if (!started) {
+            setStarted(true)
+            setTimeout(() => playStep('start'), 300)
+        }
     }
 
     const handleChoice = (choice) => {
         setMessages(prev => [...prev, { from: 'user', text: choice }])
         setChoices([])
-        const nextKey = CONVERSATION_FLOW[currentState]?.nextMap[choice]
-        if (nextKey && CONVERSATION_FLOW[nextKey]) {
-            addBotMessages(CONVERSATION_FLOW[nextKey].messages, CONVERSATION_FLOW[nextKey])
+
+        const step = flow[stateKey]
+        const nextRaw = typeof step.next === 'string' ? step.next : step.next?.[choice]
+        if (nextRaw === '__pilot__') {
+            window.open('/pilot', '_blank')
+            return
         }
+        if (nextRaw) playStep(nextRaw)
     }
 
     const handleSend = () => {
         if (!inputVal.trim() || !canInput) return
         const text = inputVal.trim()
+        const step = flow[stateKey]
+
+        // Store user data
+        if (step?.storeAs) {
+            setUserData(prev => ({ ...prev, [step.storeAs]: text }))
+        }
+
         setMessages(prev => [...prev, { from: 'user', text }])
         setInputVal('')
         setCanInput(false)
-        const intent = detectIntent(text)
-        addBotMessages(CONVERSATION_FLOW[intent].messages, CONVERSATION_FLOW[intent])
+
+        // Next step (after storing, so we update userData inline)
+        const updatedData = step?.storeAs ? { ...userData, [step.storeAs]: text } : userData
+        const nextKey = typeof step.next === 'string' ? step.next : null
+        if (nextKey) {
+            // Resolve next step with updated data inline
+            setTimeout(async () => {
+                const nextStep = flow[nextKey]
+                if (!nextStep) return
+                setStateKey(nextKey)
+                setChoices([])
+                for (const m of nextStep.msgs) {
+                    setTyping(true)
+                    await new Promise(r => setTimeout(r, m.delay))
+                    setTyping(false)
+                    const resolved = m.text
+                        .replace('{name}', updatedData.name)
+                        .replace('{email}', updatedData.email)
+                    setMessages(prev => [...prev, { from: 'bot', text: resolved }])
+                }
+                if (nextStep.input) setCanInput(true)
+                else if (nextStep.choices?.length) setChoices(nextStep.choices)
+            }, 200)
+        }
     }
 
+    const labelOpen = lang === 'DE' ? 'Chat starten' : 'Chat with us'
+    const labelInput = lang === 'DE' ? 'Ihre Antwort...' : 'Your answer...'
+    const labelWait = lang === 'DE' ? 'Warte auf Antwort...' : 'Waiting...'
+    const labelSend = lang === 'DE' ? 'Senden' : 'Send'
+    const labelTitle = lang === 'DE' ? 'Prototyp anfragen' : 'Get your prototype'
+    const labelSub = lang === 'DE' ? 'Antwortet sofort · Kostenlos' : 'Responds instantly · Free'
+    const introHead = lang === 'DE' ? 'Kostenlosen Prototyp anfragen' : 'Get your free prototype'
+    const introSub = lang === 'DE' ? '3 Tage · Kein Vertrag · KI-gestützt' : '3 days · No contract · AI-powered'
+    const introCTA = lang === 'DE' ? 'Chat starten ↗' : 'Start chat ↗'
+
     return (
-        <div style={{
-            background: 'rgba(255,255,255,0.04)',
-            backdropFilter: 'blur(28px)',
-            WebkitBackdropFilter: 'blur(28px)',
-            border: '1px solid rgba(255,255,255,0.1)',
-            borderRadius: 28,
-            overflow: 'hidden',
-            boxShadow: '0 24px 80px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.12)',
-            maxWidth: '520px',
-            width: '100%',
-            position: 'relative',
-        }}>
-            {/* Top shine */}
-            <div style={{ position: 'absolute', top: 0, left: '15%', right: '15%', height: 1, background: 'linear-gradient(90deg,transparent,rgba(255,255,255,0.22),transparent)', pointerEvents: 'none' }} />
+        <>
+            {/* ── Floating bubble ── */}
+            <motion.button
+                onClick={handleOpen}
+                whileHover={{ scale: 1.08 }}
+                whileTap={{ scale: 0.93 }}
+                style={{
+                    position: 'fixed', bottom: 28, right: 28, zIndex: 9000,
+                    width: 58, height: 58, borderRadius: '50%',
+                    background: 'linear-gradient(135deg, rgba(140,100,255,0.95), rgba(80,160,255,0.95))',
+                    border: '1px solid rgba(255,255,255,0.22)',
+                    boxShadow: '0 8px 32px rgba(120,80,255,0.45), inset 0 1px 0 rgba(255,255,255,0.18)',
+                    cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontSize: open ? 22 : 24,
+                    backdropFilter: 'blur(12px)',
+                    transition: 'all 0.3s',
+                }}
+                aria-label={labelOpen}
+            >
+                <AnimatePresence mode="wait">
+                    <motion.span key={open ? 'close' : 'open'}
+                        initial={{ rotate: -30, opacity: 0, scale: 0.5 }}
+                        animate={{ rotate: 0, opacity: 1, scale: 1 }}
+                        exit={{ rotate: 30, opacity: 0, scale: 0.5 }}
+                        transition={{ duration: 0.2 }}
+                    >
+                        {open ? '✕' : '💬'}
+                    </motion.span>
+                </AnimatePresence>
 
-            {/* Header */}
-            <div style={{
-                padding: '18px 24px',
-                background: 'rgba(255,255,255,0.04)',
-                borderBottom: '1px solid rgba(255,255,255,0.08)',
-                display: 'flex', alignItems: 'center', gap: 14,
-                backdropFilter: 'blur(12px)',
-            }}>
-                <div style={{ position: 'relative' }}>
-                    <div style={{ width: 44, height: 44, borderRadius: '50%', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, boxShadow: '0 0 20px rgba(80,40,200,0.4)' }}>
-                        {BOT_AVATAR}
-                    </div>
-                    <motion.div animate={{ opacity: [1, 0.3, 1], scale: [1, 1.3, 1] }} transition={{ duration: 1.6, repeat: Infinity }}
-                        style={{ position: 'absolute', bottom: 2, right: 2, width: 10, height: 10, borderRadius: '50%', background: '#10b981', border: '2px solid rgba(0,0,0,0.6)', boxShadow: '0 0 6px rgba(16,185,129,0.8)' }} />
-                </div>
-                <div>
-                    <div style={{ fontWeight: 700, fontSize: 15, color: '#fff' }}>{BOT_NAME}</div>
-                    <div style={{ fontSize: 12, color: 'rgba(80,220,160,0.9)', display: 'flex', alignItems: 'center', gap: 5 }}>
-                        <span>● Online</span>
-                        <span style={{ color: 'rgba(255,255,255,0.3)' }}>· Antwortet sofort</span>
-                    </div>
-                </div>
-                <div style={{ marginLeft: 'auto', display: 'flex', gap: 7 }}>
-                    {[0, 1, 2].map(i => (
-                        <div key={i} style={{ width: 10, height: 10, borderRadius: '50%', background: ['#ff5f57', '#febc2e', '#28c840'][i], opacity: 0.8 }} />
-                    ))}
-                </div>
-            </div>
-
-            {/* Messages */}
-            <div style={{ height: 360, overflowY: 'auto', padding: '24px 20px 8px', display: 'flex', flexDirection: 'column' }}>
-                {!started ? (
-                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-                        style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', gap: 20, textAlign: 'center' }}>
-                        <div style={{ fontSize: 52, filter: 'drop-shadow(0 0 20px rgba(100,60,255,0.5))' }}>⚖️</div>
-                        <div>
-                            <div style={{ fontWeight: 700, fontSize: 18, color: '#fff', marginBottom: 8 }}>Kornmeier & Partner</div>
-                            <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.38)', maxWidth: 260 }}>
-                                KI-gestützter Assistent für rechtliche Erstberatung — jetzt live erleben
-                            </div>
-                        </div>
-                        <button onClick={startChat} className="btn-primary" style={{ fontSize: 14, padding: '12px 28px', borderRadius: 50 }}>
-                            Chat starten ↗
-                        </button>
+                {/* Unread dot */}
+                {!open && unread > 0 && (
+                    <motion.div
+                        initial={{ scale: 0 }} animate={{ scale: 1 }}
+                        style={{
+                            position: 'absolute', top: 2, right: 2,
+                            width: 16, height: 16, borderRadius: '50%',
+                            background: '#ff4466',
+                            border: '2px solid rgba(0,0,0,0.8)',
+                            display: 'flex', alignItems: 'center', justifyContent: 'center',
+                            fontSize: 9, fontWeight: 800, color: '#fff',
+                        }}
+                    >
+                        1
                     </motion.div>
-                ) : (
-                    <>
-                        <AnimatePresence>
-                            {messages.map((m, i) => <Message key={i} msg={m} />)}
-                        </AnimatePresence>
-                        {typing && (
-                            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ display: 'flex', gap: 10, alignItems: 'flex-end', marginBottom: 14 }}>
-                                <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.14)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, flexShrink: 0 }}>
-                                    {BOT_AVATAR}
-                                </div>
-                                <div style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.09)', borderRadius: '18px 18px 18px 4px', backdropFilter: 'blur(12px)' }}>
-                                    <TypingDots />
-                                </div>
-                            </motion.div>
-                        )}
-                    </>
                 )}
-                <div ref={chatEndRef} />
-            </div>
+            </motion.button>
 
-            {/* Choices */}
+            {/* ── Chat panel ── */}
             <AnimatePresence>
-                {choices.length > 0 && (
-                    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
-                        style={{ padding: '6px 20px 12px', display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-                        {choices.map((c) => (
-                            <motion.button key={c} whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.95 }}
-                                onClick={() => handleChoice(c)}
-                                style={{
-                                    padding: '8px 16px', fontSize: 13, fontWeight: 600,
-                                    background: 'rgba(255,255,255,0.06)',
-                                    backdropFilter: 'blur(12px)',
-                                    border: '1px solid rgba(255,255,255,0.14)',
-                                    borderRadius: 50, color: 'rgba(255,255,255,0.75)',
-                                    cursor: 'pointer', transition: 'all 0.2s',
-                                    fontFamily: 'var(--font)',
-                                    boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.07)',
-                                }}
-                                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.12)'; e.currentTarget.style.color = '#fff'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.25)' }}
-                                onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.06)'; e.currentTarget.style.color = 'rgba(255,255,255,0.75)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.14)' }}
-                            >{c}</motion.button>
-                        ))}
+                {open && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 24, scale: 0.92 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 24, scale: 0.9 }}
+                        transition={{ duration: 0.35, ease: [0.23, 1, 0.32, 1] }}
+                        style={{
+                            position: 'fixed', bottom: 100, right: 28, zIndex: 8999,
+                            width: 'min(380px, calc(100vw - 32px))',
+                            maxHeight: '75vh',
+                            display: 'flex', flexDirection: 'column',
+                            borderRadius: 24,
+                            background: 'rgba(8,8,14,0.97)',
+                            backdropFilter: 'blur(32px)',
+                            WebkitBackdropFilter: 'blur(32px)',
+                            border: '1px solid rgba(255,255,255,0.1)',
+                            boxShadow: '0 24px 80px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.1)',
+                            overflow: 'hidden',
+                        }}
+                    >
+                        {/* Top shine */}
+                        <div style={{ position: 'absolute', top: 0, left: '15%', right: '15%', height: 1, background: 'linear-gradient(90deg,transparent,rgba(255,255,255,0.18),transparent)' }} />
+
+                        {/* Header */}
+                        <div style={{ padding: '16px 20px', borderBottom: '1px solid rgba(255,255,255,0.07)', display: 'flex', alignItems: 'center', gap: 12, flexShrink: 0 }}>
+                            <div style={{ position: 'relative' }}>
+                                <div style={{ width: 40, height: 40, borderRadius: '50%', background: 'linear-gradient(135deg, rgba(140,100,255,0.25), rgba(80,160,255,0.25))', border: '1px solid rgba(160,120,255,0.35)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18 }}>🤖</div>
+                                <motion.div animate={{ opacity: [1, 0.3, 1], scale: [1, 1.4, 1] }} transition={{ duration: 1.6, repeat: Infinity }}
+                                    style={{ position: 'absolute', bottom: 1, right: 1, width: 9, height: 9, borderRadius: '50%', background: '#10b981', border: '2px solid rgba(0,0,0,0.8)' }} />
+                            </div>
+                            <div>
+                                <div style={{ fontWeight: 700, fontSize: 14, color: '#fff' }}>{labelTitle}</div>
+                                <div style={{ fontSize: 11, color: 'rgba(100,220,160,0.9)' }}>{labelSub}</div>
+                            </div>
+                            <button onClick={() => setOpen(false)} style={{ marginLeft: 'auto', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8, width: 28, height: 28, cursor: 'pointer', color: 'rgba(255,255,255,0.5)', fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
+                        </div>
+
+                        {/* Messages */}
+                        <div style={{ flex: 1, overflowY: 'auto', padding: '18px 16px 8px', display: 'flex', flexDirection: 'column', minHeight: 0 }}>
+                            {!started ? (
+                                <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+                                    style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', gap: 18, textAlign: 'center', padding: '20px 10px' }}>
+                                    <div style={{ fontSize: 44, filter: 'drop-shadow(0 0 20px rgba(120,80,255,0.5))' }}>🚀</div>
+                                    <div>
+                                        <div style={{ fontWeight: 800, fontSize: 17, color: '#fff', marginBottom: 8, letterSpacing: '-0.02em' }}>{introHead}</div>
+                                        <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.38)', maxWidth: 240 }}>{introSub}</div>
+                                    </div>
+                                    <button onClick={handleOpen} className="btn-primary" style={{ fontSize: 13, padding: '11px 26px' }}>
+                                        {introCTA}
+                                    </button>
+                                </motion.div>
+                            ) : (
+                                <>
+                                    <AnimatePresence>
+                                        {messages.map((m, i) => <Bubble key={i} msg={m} />)}
+                                    </AnimatePresence>
+                                    {typing && (
+                                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ display: 'flex', gap: 8, alignItems: 'flex-end', marginBottom: 10 }}>
+                                            <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'linear-gradient(135deg, rgba(160,120,255,0.3), rgba(80,160,255,0.3))', border: '1px solid rgba(160,120,255,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, flexShrink: 0 }}>🤖</div>
+                                            <div style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.09)', borderRadius: '16px 16px 16px 4px' }}>
+                                                <TypingDots />
+                                            </div>
+                                        </motion.div>
+                                    )}
+                                </>
+                            )}
+                            <div ref={endRef} />
+                        </div>
+
+                        {/* Choice chips */}
+                        <AnimatePresence>
+                            {choices.length > 0 && (
+                                <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
+                                    style={{ padding: '6px 14px 10px', display: 'flex', flexWrap: 'wrap', gap: 7, flexShrink: 0, borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+                                    {choices.map(c => (
+                                        <motion.button key={c}
+                                            whileHover={{ scale: 1.04, background: 'rgba(255,255,255,0.1)' }}
+                                            whileTap={{ scale: 0.95 }}
+                                            onClick={() => handleChoice(c)}
+                                            style={{
+                                                padding: '7px 14px', fontSize: 12, fontWeight: 600,
+                                                background: 'rgba(255,255,255,0.06)',
+                                                border: '1px solid rgba(255,255,255,0.12)',
+                                                borderRadius: 50, color: 'rgba(255,255,255,0.8)',
+                                                cursor: 'pointer', fontFamily: 'var(--font)',
+                                                transition: 'all 0.2s',
+                                            }}
+                                        >{c}</motion.button>
+                                    ))}
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+
+                        {/* Input bar */}
+                        {(started && (canInput || choices.length === 0)) && (
+                            <div style={{ padding: '10px 14px', borderTop: '1px solid rgba(255,255,255,0.06)', display: 'flex', gap: 8, alignItems: 'center', background: 'rgba(0,0,0,0.2)', flexShrink: 0 }}>
+                                <input
+                                    value={inputVal}
+                                    onChange={e => setInputVal(e.target.value)}
+                                    onKeyDown={e => e.key === 'Enter' && handleSend()}
+                                    placeholder={canInput ? labelInput : labelWait}
+                                    disabled={!canInput}
+                                    style={{
+                                        flex: 1, background: 'rgba(255,255,255,0.05)',
+                                        border: '1px solid rgba(255,255,255,0.1)',
+                                        borderRadius: 12, padding: '9px 14px',
+                                        color: '#fff', fontSize: 13,
+                                        fontFamily: 'var(--font-body)', outline: 'none',
+                                        opacity: canInput ? 1 : 0.4, transition: 'all 0.3s',
+                                    }}
+                                    onFocus={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.28)'; e.currentTarget.style.background = 'rgba(255,255,255,0.08)' }}
+                                    onBlur={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.background = 'rgba(255,255,255,0.05)' }}
+                                />
+                                <motion.button
+                                    whileHover={canInput && inputVal.trim() ? { scale: 1.1 } : {}}
+                                    whileTap={canInput && inputVal.trim() ? { scale: 0.9 } : {}}
+                                    onClick={handleSend}
+                                    disabled={!canInput || !inputVal.trim()}
+                                    style={{
+                                        width: 38, height: 38, borderRadius: 11, flexShrink: 0,
+                                        background: canInput && inputVal.trim()
+                                            ? 'linear-gradient(135deg, rgba(140,100,255,0.9), rgba(80,160,255,0.9))'
+                                            : 'rgba(255,255,255,0.05)',
+                                        border: '1px solid rgba(255,255,255,0.14)',
+                                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                        fontSize: 16, color: '#fff',
+                                        cursor: canInput ? 'pointer' : 'default',
+                                        transition: 'all 0.3s',
+                                        boxShadow: canInput && inputVal.trim() ? '0 4px 16px rgba(120,80,255,0.35)' : 'none',
+                                    }}
+                                >↑</motion.button>
+                            </div>
+                        )}
+
+                        {/* Footer note */}
+                        <div style={{ padding: '6px 16px 10px', textAlign: 'center', fontSize: 10, color: 'rgba(255,255,255,0.2)', flexShrink: 0 }}>
+                            🔒 prodone.ai · {lang === 'DE' ? 'Datenschutzkonform · Frankfurt & Stuttgart' : 'Privacy safe · Frankfurt & Stuttgart'}
+                        </div>
                     </motion.div>
                 )}
             </AnimatePresence>
-
-            {/* Input bar */}
-            <div style={{
-                padding: '12px 16px',
-                borderTop: '1px solid rgba(255,255,255,0.07)',
-                display: 'flex', gap: 10, alignItems: 'center',
-                background: 'rgba(0,0,0,0.2)',
-                backdropFilter: 'blur(12px)',
-            }}>
-                <input
-                    value={inputVal}
-                    onChange={e => setInputVal(e.target.value)}
-                    onKeyDown={e => e.key === 'Enter' && handleSend()}
-                    placeholder={canInput ? 'Ihre Nachricht...' : 'Warten auf Antwort...'}
-                    disabled={!canInput}
-                    style={{
-                        flex: 1,
-                        background: 'rgba(255,255,255,0.05)',
-                        border: '1px solid rgba(255,255,255,0.1)',
-                        borderRadius: 14, padding: '10px 16px',
-                        color: '#fff', fontSize: 14,
-                        fontFamily: 'var(--font)', outline: 'none',
-                        opacity: canInput ? 1 : 0.4, transition: 'all 0.3s',
-                        backdropFilter: 'blur(8px)',
-                    }}
-                    onFocus={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.25)'; e.currentTarget.style.boxShadow = '0 0 0 3px rgba(255,255,255,0.05)' }}
-                    onBlur={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.boxShadow = 'none' }}
-                />
-                <motion.button
-                    whileHover={canInput ? { scale: 1.08 } : {}}
-                    whileTap={canInput ? { scale: 0.92 } : {}}
-                    onClick={handleSend}
-                    disabled={!canInput || !inputVal.trim()}
-                    style={{
-                        width: 42, height: 42, borderRadius: 14, flexShrink: 0,
-                        background: canInput && inputVal.trim() ? 'linear-gradient(135deg,rgba(120,80,255,0.9),rgba(60,140,255,0.9))' : 'rgba(255,255,255,0.05)',
-                        border: '1px solid rgba(255,255,255,0.15)',
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        fontSize: 18, color: '#fff',
-                        cursor: canInput ? 'pointer' : 'default',
-                        transition: 'all 0.3s',
-                        boxShadow: canInput && inputVal.trim() ? '0 0 16px rgba(100,60,255,0.4)' : 'none',
-                    }}
-                >↑</motion.button>
-            </div>
-
-            {canInput && (
-                <div style={{ padding: '0 16px 14px', display: 'flex', justifyContent: 'flex-end' }}>
-                    <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.96 }}
-                        onClick={handleSend} className="btn-primary" style={{ fontSize: 13, padding: '10px 24px', borderRadius: 50 }}>
-                        Absenden
-                    </motion.button>
-                </div>
-            )}
-        </div>
+        </>
     )
 }
