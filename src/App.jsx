@@ -1,12 +1,15 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, lazy, Suspense } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import Home from './pages/Home'
-import Pilot from './pages/Pilot'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Chatbot from './components/Chatbot'
+import PageSkeleton from './components/PageSkeleton'
+import GlobalParticles from './components/GlobalParticles'
 import './index.css'
+
+const Home = lazy(() => import('./pages/Home'))
+const Pilot = lazy(() => import('./pages/Pilot'))
 
 function Loader({ onDone }) {
   const [progress, setProgress] = useState(0)
@@ -129,11 +132,14 @@ function App() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
         >
+          <GlobalParticles />
           <Navbar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/pilot" element={<Pilot />} />
-          </Routes>
+          <Suspense fallback={<PageSkeleton />}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/pilot" element={<Pilot />} />
+            </Routes>
+          </Suspense>
           <Footer />
           <Chatbot />
         </motion.div>

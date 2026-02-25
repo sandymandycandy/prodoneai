@@ -1,24 +1,71 @@
 <!doctype html>
-<html lang="de">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ProdOne — KI-Ads & Inhalte in Tagen, nicht Monaten</title>
+
+  <!-- Primary SEO -->
+  <title>prodone.ai — AI Ads, Agents & Custom Apps in Days, Not Months</title>
   <meta name="description"
-    content="ProdOne erstellt KI-Animationsanzeigen, Content-Assets und Automationen für KMU & Agenturen. Kostenloser Prototyp in 3 Tagen. Frankfurt · Stuttgart · Remote." />
+    content="prodone.ai builds AI animation ads, chatbots, custom web apps and automations for SMBs & agencies. Free prototype in 3 days. Frankfurt · Stuttgart · Remote." />
   <meta name="keywords"
-    content="KI, AI, Artificial Intelligence, Chatbot, Predictive Analytics, Automation, Germany, Mannheim" />
-  <meta property="og:title" content="prodone.ai — Fast Forward AI" />
-  <meta property="og:description"
-    content="Free AI prototype in 3 days. Intelligente Chatbots, Predictive Analytics & more." />
+    content="AI ads, AI chatbot, KI Agentur, AI animation, custom AI apps, automation, Frankfurt, Stuttgart, Germany, prodone" />
+  <meta name="author" content="prodone.ai" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://prodone.ai/" />
+
+  <!-- Open Graph -->
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://prodone.ai/" />
+  <meta property="og:title" content="prodone.ai — AI Ads & Apps in Days, Not Months" />
+  <meta property="og:description"
+    content="Free AI prototype in 3 days. AI video ads, chatbots, automations and custom apps — built fast for SMBs & agencies across Europe." />
+  <meta property="og:image" content="https://prodone.ai/og-image.png" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="de_DE" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="prodone.ai — AI Ads & Apps in Days, Not Months" />
+  <meta name="twitter:description" content="Free AI prototype in 3 days. AI video ads, chatbots & custom apps." />
+  <meta name="twitter:image" content="https://prodone.ai/og-image.png" />
+
+  <!-- Icons -->
   <link rel="icon" type="image/png" href="/logo.png" />
+  <link rel="apple-touch-icon" href="/logo.png" />
+
+  <!-- Font preconnect (critical — eliminates render-blocking round-trips) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- Video CDN preconnect -->
+  <link rel="preconnect" href="https://assets.mixkit.co" />
+
+  <!-- Critical above-fold style: prevents FOUC flash -->
   <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden
+    }
+
     body {
-      background: #020408;
+      background: #000;
+      color: #fff;
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      overflow-x: hidden
+    }
+
+    #root {
+      min-height: 100vh
     }
   </style>
 </head>

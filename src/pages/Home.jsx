@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Hero from '../components/Hero'
+import TrustedBy from '../components/TrustedBy'
 import Outcomes from '../components/Outcomes'
 import CaseStudies from '../components/CaseStudies'
 import HowItWorks from '../components/HowItWorks'
@@ -8,6 +9,7 @@ import Integration from '../components/Integration'
 import OfferBox from '../components/OfferBox'
 import FAQ from '../components/FAQ'
 import ContactForm from '../components/ContactForm'
+import GlobusSpotlight from '../components/GlobusSpotlight'
 
 /*
   Page order (per PRD):
@@ -26,8 +28,10 @@ export default function Home() {
     return (
         <motion.main initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}>
             <Hero />
+            <TrustedBy />
             <Outcomes />
             <CaseStudies />
+            <GlobusSpotlight />
             <HowItWorks />
             <Integration />
             <OfferBox />

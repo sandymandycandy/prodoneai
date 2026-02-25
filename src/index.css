@@ -639,3 +639,243 @@ a {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ════════════════════════════════════════
+   PERFORMANCE — Keyframes & GPU helpers
+════════════════════════════════════════ */
+
+/* Orb pulse — replaces JS framer-motion orbs in Hero */
+@keyframes orbPulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.18);
+    opacity: 0.75;
+  }
+}
+
+/* Hero glow orbs used by VideoAdCard */
+@keyframes heroGlowFloat {
+
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.55;
+  }
+
+  50% {
+    transform: translateY(-18px) scale(1.12);
+    opacity: 0.8;
+  }
+}
+
+.hero-glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(55px);
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.hero-glow-orb-1 {
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, rgba(110, 60, 240, 0.35) 0%, transparent 70%);
+  top: -80px;
+  right: -80px;
+  z-index: 0;
+  animation: heroGlowFloat 7s ease-in-out infinite;
+}
+
+.hero-glow-orb-2 {
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle, rgba(30, 100, 255, 0.28) 0%, transparent 70%);
+  bottom: -60px;
+  left: -40px;
+  z-index: 0;
+  animation: heroGlowFloat 9s ease-in-out infinite 1.5s;
+}
+
+/* content-visibility: auto tells the browser to skip layout/paint for
+   sections below the fold — biggest single rendering win for long pages */
+section+section {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 600px;
+  /* estimated height to avoid scroll jumps */
+}
+
+/* GPU promotion for backdrop-filter heavy cards */
+.glass-card-gpu {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Disable heavy backdrop-blur on low-power devices */
+@media (prefers-reduced-motion: reduce),
+(max-width: 480px) {
+
+  [style*="backdropFilter"],
+  [style*="backdrop-filter"] {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   MOBILE RESPONSIVE — Comprehensive Fix Pass
+   Target: 768px (tablet) and 480px (phone)
+═══════════════════════════════════════════ */
+
+/* ── Hero section ── */
+@media (max-width: 900px) {
+
+  /* 2-col hero grid → single column */
+  .hero-main-grid {
+    grid-template-columns: 1fr !important;
+    gap: 48px !important;
+  }
+
+  /* CTA buttons — stack vertically */
+  .hero-cta-row {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+  }
+
+  /* Stat chips row — allow wrapping */
+  .hero-stat-chips {
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+  }
+
+  /* Pilot hero grid → single column */
+  .pilot-hero-grid {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+
+  /* Pilot chatbot section grid → stack */
+  .pilot-chat-grid {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+
+  /* Compare cards — 1 column on tablet */
+  .compare-grid-2col {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Results grid 4→2 columns */
+  .results-4col {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* Deliverables grid 3→2 columns */
+  .deliverables-3col {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* Outcomes cards — single column */
+  .outcomes-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 600px) {
+
+  /* Container side padding tighten */
+  .container {
+    padding: 0 16px !important;
+  }
+
+  /* Hero section top padding — below navbar */
+  .hero-section {
+    padding-top: 100px !important;
+    padding-bottom: 60px !important;
+  }
+
+  /* Hero mini stat chips — 2×2 grid */
+  .hero-stat-mini {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+  }
+
+  /* Video card — reduce height on phone */
+  .hero-video-card {
+    height: 360px !important;
+  }
+
+  /* Results grid 2→1 column */
+  .results-4col {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  /* Pilot deliverables 2→2 columns (keep 2 on phone, it's fine) */
+  .deliverables-3col {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  /* Chatbot quick chips — horizontal scroll on phone */
+  .chatbot-chip-row {
+    overflow-x: auto !important;
+    flex-wrap: nowrap !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+  }
+
+  /* Pilot hero copy padding */
+  .pilot-hero-grid>div:first-child {
+    padding-top: 0 !important;
+  }
+
+  /* Section titles tighter */
+  .pilot-hero-grid h1,
+  .pilot-chat-grid h2 {
+    font-size: clamp(26px, 7vw, 36px) !important;
+  }
+
+  /* Testimonial — tighter padding on phone */
+  .testimonial-block {
+    padding: 28px 20px !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+  }
+
+  /* Chatbot panel — full width on phone */
+  .chatbot-panel {
+    right: 12px !important;
+    left: 12px !important;
+    width: auto !important;
+    bottom: 90px !important;
+  }
+
+  /* Chatbot bubble — bottom safe area */
+  .chatbot-bubble {
+    bottom: max(20px, env(safe-area-inset-bottom, 20px)) !important;
+    right: 16px !important;
+  }
+}
+
+@media (max-width: 400px) {
+
+  /* Very small phones — results 1 col */
+  .results-4col {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Buttons full width */
+  .btn-primary,
+  .btn-ghost,
+  .btn-outline {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+}

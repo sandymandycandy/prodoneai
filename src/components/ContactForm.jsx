@@ -1,18 +1,42 @@
 import { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { useLanguage } from '../context/LanguageContext'
+import emailjs from '@emailjs/browser'
 
 export default function ContactForm() {
     const ref = useRef(null)
     const inView = useInView(ref, { once: true })
     const [form, setForm] = useState({ name: '', company: '', email: '', problem: '' })
     const [submitted, setSubmitted] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const [errorMsg, setErrorMsg] = useState('')
     const [focused, setFocused] = useState('')
     const { t } = useLanguage()
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        setSubmitted(true)
+        setLoading(true)
+        setErrorMsg('')
+
+        try {
+            await emailjs.send(
+                import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_1y1yxto',
+                import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_xj3pzwc',
+                {
+                    from_name: form.name,
+                    from_company: form.company,
+                    reply_to: form.email,
+                    message: form.problem,
+                },
+                import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'y3fC23b3i9uP1vGZf'
+            )
+            setSubmitted(true)
+        } catch (err) {
+            console.error('EmailJS Error:', err)
+            setErrorMsg(t('contact.errorMsg') || 'Failed to send message. Please try again.')
+        } finally {
+            setLoading(false)
+        }
     }
 
     const inputStyle = (field) => ({
@@ -162,9 +186,15 @@ export default function ContactForm() {
                                         <textarea required value={form.problem} onChange={e => setForm({ ...form, problem: e.target.value })} onFocus={() => setFocused('problem')} onBlur={() => setFocused('')} placeholder={t('contact.useCasePlaceholder')} rows={4} style={{ ...inputStyle('problem'), resize: 'vertical' }} />
                                     </div>
 
-                                    <button type="submit" className="btn-primary" style={{ width: '100%', justifyContent: 'center', fontSize: '15px', padding: '16px', borderRadius: 14 }}>
-                                        {t('contact.submitBtn')}
+                                    <button type="submit" disabled={loading} className="btn-primary" style={{ width: '100%', justifyContent: 'center', fontSize: '15px', padding: '16px', borderRadius: 14, opacity: loading ? 0.7 : 1 }}>
+                                        {loading ? t('contact.sendingBtn') || 'Sending...' : t('contact.submitBtn')}
                                     </button>
+
+                                    {errorMsg && (
+                                        <div style={{ padding: '10px 14px', borderRadius: 8, background: 'rgba(230,57,70,0.1)', border: '1px solid rgba(230,57,70,0.3)', color: '#ff6b6b', fontSize: 13, textAlign: 'center' }}>
+                                            {errorMsg}
+                                        </div>
+                                    )}
 
                                     <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.2)', textAlign: 'center' }}>
                                         {t('contact.footNote')}
