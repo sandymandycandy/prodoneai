@@ -22,13 +22,10 @@
   --glass-shine: rgba(255, 255, 255, 0.18);
 
   /* Glow palette */
-  --glow-purple: rgba(0, 200, 180, 0.35);
-  --glow-blue: rgba(0, 200, 180, 0.25);
+  --glow-purple: rgba(110, 60, 240, 0.55);
+  --glow-blue: rgba(40, 120, 255, 0.45);
   --glow-teal: rgba(0, 200, 180, 0.35);
-  --glow-pink: rgba(0, 200, 180, 0.2);
-
-  /* Accent */
-  --accent: #22d4b8;
+  --glow-pink: rgba(220, 60, 160, 0.35);
 
   /* Text */
   --text-bright: #ffffff;
@@ -71,7 +68,7 @@ body {
   overflow-x: hidden;
   /* Subtle deep grid */
   background-image:
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 180, 160, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(90, 50, 200, 0.15) 0%, transparent 60%),
     linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
   background-size: 100% 100%, 80px 80px, 80px 80px;

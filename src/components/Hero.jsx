@@ -62,7 +62,8 @@ export default function Hero() {
         <section style={{ position: 'relative', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', background: '#000' }}>
             <ParticleCanvas />
 
-            <div style={{ position: 'absolute', top: '15%', left: '10%', width: 600, height: 600, background: 'radial-gradient(circle, rgba(0,200,180,0.1) 0%, transparent 70%)', filter: 'blur(40px)', borderRadius: '50%', pointerEvents: 'none', zIndex: 1 }} />
+            <div style={{ position: 'absolute', top: '20%', left: '5%', width: 700, height: 700, background: 'radial-gradient(circle, rgba(100,60,240,0.22) 0%, transparent 70%)', filter: 'blur(30px)', borderRadius: '50%', pointerEvents: 'none', zIndex: 1 }} />
+            <div style={{ position: 'absolute', top: '30%', right: '5%', width: 600, height: 600, background: 'radial-gradient(circle, rgba(30,100,255,0.18) 0%, transparent 70%)', filter: 'blur(30px)', borderRadius: '50%', pointerEvents: 'none', zIndex: 1 }} />
             <div className="grid-overlay" style={{ zIndex: 2, opacity: 0.3 }} />
 
             <div className="container" style={{ position: 'relative', zIndex: 10, paddingTop: 120, paddingBottom: 100, textAlign: 'center', maxWidth: 760, margin: '0 auto' }}>
@@ -79,7 +80,7 @@ export default function Hero() {
                     style={{ fontSize: 'clamp(42px, 6.5vw, 88px)', marginBottom: 28, lineHeight: 1.05, letterSpacing: '-0.03em' }}
                 >
                     {t('hero.title')} {t('hero.title2')}<br />
-                    <span style={{ color: '#22d4b8' }}>
+                    <span style={{ background: 'linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.45) 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                         {t('hero.title3')}
                     </span>
                 </motion.h1>

@@ -4,9 +4,9 @@ import { useLanguage } from '../context/LanguageContext'
 
 const stepIcons = ['🔍', '⚙️', '🚀']
 const stepGlows = [
-    'rgba(0, 200, 180, 0.3)',
-    'rgba(0, 200, 180, 0.3)',
-    'rgba(0, 200, 180, 0.3)',
+    'rgba(100, 60, 240, 0.4)',
+    'rgba(0, 200, 160, 0.35)',
+    'rgba(255, 160, 40, 0.35)',
 ]
 
 function StepCard({ step, index, icon, glow }) {
@@ -143,7 +143,7 @@ export default function HowItWorks() {
                         style={{ fontSize: 'clamp(32px, 4.5vw, 64px)', marginTop: 24, marginBottom: 18 }}
                     >
                         {t('howItWorks.title1')}{' '}
-                        <span style={{ color: '#22d4b8' }}>
+                        <span style={{ background: 'linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.35) 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                             {t('howItWorks.title2')}
                         </span>
                     </motion.h2>
