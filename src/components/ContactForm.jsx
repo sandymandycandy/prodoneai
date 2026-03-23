@@ -61,13 +61,6 @@ export default function ContactForm() {
             borderTop: '1px solid rgba(255,255,255,0.05)',
             overflow: 'hidden',
         }}>
-            {/* Ambient glow */}
-            <div style={{
-                position: 'absolute', top: '30%', left: '10%',
-                width: 500, height: 500,
-                background: 'radial-gradient(ellipse, rgba(80,40,200,0.1) 0%, transparent 70%)',
-                filter: 'blur(40px)', pointerEvents: 'none',
-            }} />
 
             <div className="container" ref={ref} style={{ position: 'relative', zIndex: 1 }}>
                 <div className="contact-layout">
@@ -81,7 +74,7 @@ export default function ContactForm() {
                         <div className="section-label" style={{ marginBottom: '24px' }}>{t('contact.label')}</div>
                         <h2 style={{ fontSize: 'clamp(30px, 3.5vw, 52px)', marginBottom: '20px', lineHeight: 1.12 }}>
                             {t('contact.title1')}<br />
-                            <span style={{ background: 'linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.4) 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                            <span style={{ color: '#22d4b8' }}>
                                 {t('contact.title2')}
                             </span>
                         </h2>
@@ -89,35 +82,16 @@ export default function ContactForm() {
                             {t('contact.subtitle')}
                         </p>
 
-                        {/* Contact chips */}
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                        {/* Contact info — plain text */}
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                             {[
-                                { icon: '📧', label: t('contact.email'), value: t('contact.emailVal') },
-                                { icon: '📍', label: t('contact.location'), value: t('contact.locationVal') },
-                                { icon: '🕐', label: t('contact.response'), value: t('contact.responseVal') },
+                                { label: t('contact.email'), value: t('contact.emailVal') },
+                                { label: t('contact.location'), value: t('contact.locationVal') },
+                                { label: t('contact.response'), value: t('contact.responseVal') },
                             ].map((c) => (
-                                <div key={c.label} style={{
-                                    display: 'flex', alignItems: 'center', gap: '14px',
-                                    padding: '16px 20px',
-                                    borderRadius: 16,
-                                    background: 'rgba(255,255,255,0.03)',
-                                    border: '1px solid rgba(255,255,255,0.08)',
-                                    backdropFilter: 'blur(12px)',
-                                    boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.06)',
-                                }}>
-                                    <div style={{
-                                        width: 40, height: 40, borderRadius: 12,
-                                        background: 'rgba(255,255,255,0.06)',
-                                        border: '1px solid rgba(255,255,255,0.1)',
-                                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                        fontSize: '18px', flexShrink: 0,
-                                    }}>
-                                        {c.icon}
-                                    </div>
-                                    <div>
-                                        <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.3)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 2 }}>{c.label}</div>
-                                        <div style={{ fontSize: '14px', color: '#fff', fontWeight: 500 }}>{c.value}</div>
-                                    </div>
+                                <div key={c.label} style={{ fontSize: 14, color: 'rgba(255,255,255,0.4)', lineHeight: 1.6 }}>
+                                    <span style={{ color: 'rgba(255,255,255,0.22)', marginRight: 6 }}>{c.label}:</span>
+                                    <span style={{ color: 'rgba(255,255,255,0.7)' }}>{c.value}</span>
                                 </div>
                             ))}
                         </div>
