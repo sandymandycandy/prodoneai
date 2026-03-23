@@ -13,6 +13,7 @@ const glows = [
 function OutcomeCard({ card, index, icon, glow }) {
     const ref = useRef(null)
     const inView = useInView(ref, { once: true, margin: '-60px' })
+    const { t } = useLanguage()
 
     return (
         <motion.div
@@ -36,11 +37,11 @@ function OutcomeCard({ card, index, icon, glow }) {
             }} />
 
             <motion.div
-                whileHover={{ y: -6, scale: 1.015 }}
+                whileHover={{ y: -8, scale: 1.015 }}
                 transition={{ duration: 0.3 }}
                 style={{
                     position: 'relative', zIndex: 1,
-                    padding: '36px 32px',
+                    padding: '40px 36px',
                     borderRadius: 28,
                     background: 'rgba(255,255,255,0.04)',
                     backdropFilter: 'blur(12px)',
@@ -59,7 +60,7 @@ function OutcomeCard({ card, index, icon, glow }) {
                 }} />
 
                 {/* Header */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 20 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 24 }}>
                     <div style={{
                         padding: '6px 14px', borderRadius: 100,
                         background: 'rgba(255,255,255,0.06)',
@@ -72,35 +73,59 @@ function OutcomeCard({ card, index, icon, glow }) {
                         {card.tag}
                     </div>
                     <div style={{
-                        width: 44, height: 44, borderRadius: 14,
+                        width: 48, height: 48, borderRadius: 16,
                         background: 'rgba(255,255,255,0.06)',
                         border: '1px solid rgba(255,255,255,0.1)',
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        fontSize: 20,
+                        fontSize: 22,
                     }}>{icon}</div>
                 </div>
 
+                {/* Big number */}
+                <div style={{
+                    position: 'absolute', top: 30, right: 30,
+                    fontSize: 120, fontWeight: 900, color: 'rgba(255,255,255,0.025)',
+                    lineHeight: 1, letterSpacing: '-0.04em',
+                    pointerEvents: 'none',
+                }}>0{index + 1}</div>
+
                 {/* Content */}
-                <h3 style={{ fontSize: 22, fontWeight: 800, color: '#fff', marginBottom: 10, letterSpacing: '-0.02em', lineHeight: 1.2 }}>
+                <h3 style={{ fontSize: 24, fontWeight: 800, color: '#fff', marginBottom: 10, letterSpacing: '-0.02em', lineHeight: 1.2 }}>
                     {card.headline}
                 </h3>
-                <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.45)', lineHeight: 1.75, marginBottom: 24, flexGrow: 1 }}>
+                <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.45)', lineHeight: 1.75, marginBottom: 28, flexGrow: 1 }}>
                     {card.benefit}
                 </p>
 
+                {/* Scope */}
+                <div style={{
+                    padding: '16px 20px',
+                    borderRadius: 16,
+                    background: 'rgba(255,255,255,0.03)',
+                    border: '1px solid rgba(255,255,255,0.07)',
+                    marginBottom: 20,
+                }}>
+                    <div style={{ fontSize: 9, fontWeight: 700, color: 'rgba(255,255,255,0.3)', letterSpacing: '0.12em', marginBottom: 8, textTransform: 'uppercase' }}>
+                        {t('outcomes.scopeLabel')}
+                    </div>
+                    <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.55)', lineHeight: 1.6 }}>
+                        {card.deliverable}
+                    </div>
+                </div>
+
                 {/* Bottom */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: 16, borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.35)', fontWeight: 600 }}>
                         ⚡ {card.timeline}
                     </div>
                     <div style={{
-                        display: 'flex', alignItems: 'baseline', gap: 5,
-                        padding: '7px 12px',
-                        borderRadius: 10,
+                        display: 'flex', alignItems: 'baseline', gap: 6,
+                        padding: '8px 14px',
+                        borderRadius: 12,
                         background: 'rgba(255,255,255,0.04)',
                         border: '1px solid rgba(255,255,255,0.08)',
                     }}>
-                        <span style={{ fontSize: 20, fontWeight: 900, color: '#fff', letterSpacing: '-0.03em' }}>{card.stat}</span>
+                        <span style={{ fontSize: 22, fontWeight: 900, color: '#fff', letterSpacing: '-0.03em' }}>{card.stat}</span>
                         <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 600 }}>
                             {card.statLabel}
                         </span>
@@ -120,10 +145,11 @@ export default function Outcomes() {
     return (
         <section id="services" style={{
             position: 'relative',
-            padding: '80px 0',
+            padding: '72px 0',
             borderTop: '1px solid rgba(255,255,255,0.05)',
             overflow: 'hidden',
         }}>
+            {/* Background glow */}
             <div style={{
                 position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
                 width: 1100, height: 600,
@@ -133,7 +159,7 @@ export default function Outcomes() {
 
             <div className="container" style={{ position: 'relative', zIndex: 1 }}>
                 {/* Header */}
-                <div ref={headRef} style={{ textAlign: 'center', maxWidth: 600, margin: '0 auto 64px' }}>
+                <div ref={headRef} style={{ textAlign: 'center', maxWidth: 700, margin: '0 auto 72px' }}>
                     <motion.div className="section-label"
                         initial={{ opacity: 0, y: 16 }}
                         animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -144,7 +170,7 @@ export default function Outcomes() {
                         initial={{ opacity: 0, y: 32 }}
                         animate={inView ? { opacity: 1, y: 0 } : {}}
                         transition={{ delay: 0.1, duration: 0.8 }}
-                        style={{ fontSize: 'clamp(32px, 4.5vw, 60px)', marginTop: 24, marginBottom: 18, lineHeight: 1.05, letterSpacing: '-0.03em' }}
+                        style={{ fontSize: 'clamp(36px, 5vw, 68px)', marginTop: 24, marginBottom: 20, lineHeight: 1.05, letterSpacing: '-0.03em' }}
                     >
                         {t('outcomes.title1')}{' '}
                         <span style={{ background: 'linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.35) 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
@@ -155,7 +181,7 @@ export default function Outcomes() {
                         initial={{ opacity: 0, y: 18 }}
                         animate={inView ? { opacity: 1, y: 0 } : {}}
                         transition={{ delay: 0.2 }}
-                        style={{ fontSize: 16, color: 'rgba(255,255,255,0.4)', lineHeight: 1.8 }}
+                        style={{ fontSize: 17, color: 'rgba(255,255,255,0.4)', lineHeight: 1.8 }}
                     >
                         {t('outcomes.subtitle')}
                     </motion.p>
@@ -167,6 +193,33 @@ export default function Outcomes() {
                         <OutcomeCard key={i} card={card} index={i} icon={icons[i]} glow={glows[i]} />
                     ))}
                 </div>
+
+                {/* CTA */}
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.3 }}
+                    style={{
+                        marginTop: 72,
+                        textAlign: 'center',
+                        padding: '28px 36px',
+                        borderRadius: 24,
+                        background: 'rgba(255,255,255,0.03)',
+                        border: '1px solid rgba(255,255,255,0.07)',
+                        backdropFilter: 'blur(12px)',
+                        display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', gap: '20px',
+                    }}
+                >
+                    <span style={{ fontSize: 15, color: 'rgba(255,255,255,0.45)' }}>
+                        {t('outcomes.ctaText')}
+                    </span>
+                    <a href="#offer">
+                        <button className="btn-primary" style={{ fontSize: 14, padding: '13px 26px', borderRadius: 14 }}>
+                            {t('outcomes.ctaBtn')}
+                        </button>
+                    </a>
+                </motion.div>
             </div>
 
             <style>{`

@@ -4,8 +4,9 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useLanguage } from '../context/LanguageContext'
 
 const navLinks = [
-    { key: 'nav.services', href: '#services' },
     { key: 'nav.process', href: '#process' },
+    { key: 'nav.services', href: '#services' },
+    { key: 'nav.integration', href: '#integration' },
     { key: 'nav.contact', href: '#contact' },
     { key: 'nav.pilot', href: '/pilot', isRoute: true },
 ]
