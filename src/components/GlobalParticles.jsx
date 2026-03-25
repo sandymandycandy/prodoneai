@@ -1,18 +1,26 @@
 import { useEffect, useRef } from 'react'
 
 /**
- * GlobalParticles — a fixed full-page canvas that renders a very subtle
- * slow-drifting particle field behind all sections of the landing page.
- * Kept intentionally sparse/dim so it never competes with content.
+ * GlobalParticles — OPTIMIZED version:
+ * - Reduced particle count (55 → 30)
+ * - Capped at 30fps instead of 60fps
+ * - Connecting lines kept but with reduced link distance
+ * - Debounced resize handler
+ * - Disabled on mobile (≤768px)
  */
 export default function GlobalParticles() {
     const canvasRef = useRef(null)
 
+    // Skip on mobile
+    if (typeof window !== 'undefined' && window.innerWidth <= 768) return null
+
     useEffect(() => {
         const canvas = canvasRef.current
         if (!canvas) return
-        const ctx = canvas.getContext('2d')
+        const ctx = canvas.getContext('2d', { alpha: true })
         let raf, w, h
+        let lastTime = 0
+        const FRAME_INTERVAL = 1000 / 30 // 30fps cap
 
         const resize = () => {
             w = canvas.width = window.innerWidth
@@ -21,14 +29,13 @@ export default function GlobalParticles() {
         resize()
 
         /* ── particle pool ── */
-        const COUNT = 55
+        const COUNT = 30
         const pts = Array.from({ length: COUNT }, () => ({
             x: Math.random() * w,
             y: Math.random() * h,
             r: Math.random() * 1.4 + 0.3,
             vx: (Math.random() - 0.5) * 0.18,
             vy: (Math.random() - 0.5) * 0.18,
-            // colour: mostly white, occasional purple or cyan accent
             hue: (() => {
                 const p = Math.random()
                 if (p < 0.60) return '255,255,255'
@@ -38,9 +45,15 @@ export default function GlobalParticles() {
             a: Math.random() * 0.22 + 0.04,
         }))
 
-        const LINK = 110   // max distance for drawing a connecting line
+        const LINK = 90   // reduced from 110
 
-        const tick = () => {
+        const tick = (timestamp) => {
+            raf = requestAnimationFrame(tick)
+
+            // Throttle to 30fps
+            if (timestamp - lastTime < FRAME_INTERVAL) return
+            lastTime = timestamp
+
             ctx.clearRect(0, 0, w, h)
 
             /* move */
@@ -53,14 +66,15 @@ export default function GlobalParticles() {
                 if (p.y > h) p.y = 0
             }
 
-            /* lines */
+            /* lines — kept but with tighter distance threshold */
             for (let i = 0; i < pts.length; i++) {
                 for (let j = i + 1; j < pts.length; j++) {
                     const dx = pts[i].x - pts[j].x
                     const dy = pts[i].y - pts[j].y
-                    const d = Math.sqrt(dx * dx + dy * dy)
-                    if (d < LINK) {
-                        const alpha = 0.07 * (1 - d / LINK)
+                    const d = dx * dx + dy * dy  // skip sqrt for perf
+                    const LINK_SQ = LINK * LINK
+                    if (d < LINK_SQ) {
+                        const alpha = 0.07 * (1 - Math.sqrt(d) / LINK)
                         ctx.beginPath()
                         ctx.moveTo(pts[i].x, pts[i].y)
                         ctx.lineTo(pts[j].x, pts[j].y)
@@ -78,15 +92,21 @@ export default function GlobalParticles() {
                 ctx.fillStyle = `rgba(${p.hue},${p.a})`
                 ctx.fill()
             }
-
-            raf = requestAnimationFrame(tick)
         }
-        tick()
+        raf = requestAnimationFrame(tick)
 
-        window.addEventListener('resize', resize)
+        // Debounced resize
+        let resizeTimer
+        const onResize = () => {
+            clearTimeout(resizeTimer)
+            resizeTimer = setTimeout(resize, 200)
+        }
+        window.addEventListener('resize', onResize)
+
         return () => {
             cancelAnimationFrame(raf)
-            window.removeEventListener('resize', resize)
+            clearTimeout(resizeTimer)
+            window.removeEventListener('resize', onResize)
         }
     }, [])
 

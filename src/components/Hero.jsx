@@ -2,8 +2,6 @@ import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useLanguage } from '../context/LanguageContext'
 
-import ParticleCanvas from './ParticleCanvas'
-
 /* ── Counting stat chip ── */
 function StatChip({ value, unit, label }) {
     const [display, setDisplay] = useState('0')
@@ -30,13 +28,15 @@ function StatChip({ value, unit, label }) {
     return (
         <div ref={ref} style={{
             padding: '16px 22px',
-            background: 'rgba(255,255,255,0.04)',
-            border: '1px solid rgba(255,255,255,0.09)',
+            background: 'rgba(10,10,24,0.75)',
+            backdropFilter: 'blur(16px) saturate(1.4)',
+            WebkitBackdropFilter: 'blur(16px) saturate(1.4)',
+            border: '1px solid rgba(255,255,255,0.10)',
             borderRadius: 16,
-            backdropFilter: 'blur(16px)',
-            boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.07)',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.09)',
             minWidth: 100,
             flex: '1 1 auto',
+            transition: 'border-color 0.3s, box-shadow 0.3s',
         }}>
             <div style={{ fontSize: 32, fontWeight: 900, lineHeight: 1, marginBottom: 4 }}>
                 <span style={{ background: 'linear-gradient(135deg,#fff,rgba(255,255,255,0.55))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>{display}</span>
@@ -78,7 +78,7 @@ function VideoAdCard() {
                 }}
             >
                 {/* Video background */}
-                <video autoPlay loop muted playsInline
+                <video autoPlay loop muted playsInline preload="metadata"
                     style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 0 }}
                     src="/q4-campaign.mp4"
                 />
@@ -101,7 +101,7 @@ function VideoAdCard() {
                             {['Meta', 'YouTube', 'TikTok'].map(p => (
                                 <span key={p} style={{
                                     fontSize: 9, fontWeight: 700, color: 'rgba(255,255,255,0.7)',
-                                    background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(8px)',
+                                    background: 'rgba(0,0,0,0.4)',
                                     border: '1px solid rgba(255,255,255,0.18)',
                                     padding: '3px 9px', borderRadius: 50, letterSpacing: '0.04em',
                                 }}>{p}</span>
@@ -109,7 +109,7 @@ function VideoAdCard() {
                         </div>
                     </div>
                     {/* Live badge */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '6px 13px', borderRadius: 50, background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.2)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '6px 13px', borderRadius: 50, background: 'rgba(0,0,0,0.5)', border: '1px solid rgba(255,255,255,0.2)' }}>
                         <motion.div animate={{ opacity: [1, 0.1, 1] }} transition={{ duration: 1.4, repeat: Infinity }}
                             style={{ width: 7, height: 7, borderRadius: '50%', background: '#ff4444', boxShadow: '0 0 8px rgba(255,60,60,1)' }} />
                         <span style={{ fontSize: 11, fontWeight: 700, color: '#fff', letterSpacing: '0.06em' }}>{t('hero.videoCard.live')}</span>
@@ -143,8 +143,7 @@ function VideoAdCard() {
                     {/* ── Single frosted stats strip ── */}
                     <div style={{
                         display: 'flex',
-                        background: 'rgba(0,0,0,0.52)',
-                        backdropFilter: 'blur(22px)', WebkitBackdropFilter: 'blur(22px)',
+                        background: 'rgba(0,0,0,0.65)',
                         border: '1px solid rgba(255,255,255,0.1)',
                         borderRadius: 16, overflow: 'hidden',
                     }}>
@@ -180,8 +179,7 @@ function VideoAdCard() {
                 transition={{ duration: 0.6, delay: 1.3, type: 'spring', bounce: 0.45 }}
                 style={{
                     position: 'absolute', top: -24, right: -22, zIndex: 4,
-                    background: 'rgba(255,255,255,0.08)',
-                    backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)',
+                    background: 'rgba(10,10,18,0.85)',
                     border: '1px solid rgba(255,255,255,0.18)',
                     borderRadius: 18, padding: '14px 20px',
                     boxShadow: '0 8px 32px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.15)',
@@ -213,11 +211,9 @@ export default function Hero() {
 
     return (
         <section style={{ position: 'relative', minHeight: '100vh', display: 'flex', alignItems: 'center', overflow: 'hidden', background: '#000' }}>
-            <ParticleCanvas />
-
-            <div style={{ position: 'absolute', top: '20%', left: '5%', width: 700, height: 700, background: 'radial-gradient(circle, rgba(100,60,240,0.22) 0%, transparent 70%)', filter: 'blur(30px)', borderRadius: '50%', pointerEvents: 'none', zIndex: 1, animation: 'orbPulse 10s ease-in-out infinite' }} />
-            <div style={{ position: 'absolute', top: '30%', right: '5%', width: 600, height: 600, background: 'radial-gradient(circle, rgba(30,100,255,0.18) 0%, transparent 70%)', filter: 'blur(30px)', borderRadius: '50%', pointerEvents: 'none', zIndex: 1, animation: 'orbPulse 13s ease-in-out infinite 2s' }} />
-            <div className="grid-overlay" style={{ zIndex: 2, opacity: 0.3 }} />
+            {/* Glass backdrop blobs */}
+            <div style={{ position: 'absolute', top: '-15%', left: '10%', width: 900, height: 700, background: 'radial-gradient(ellipse, rgba(1,115,211,0.14) 0%, transparent 60%)', pointerEvents: 'none', zIndex: 1 }} />
+            <div style={{ position: 'absolute', bottom: '-10%', right: '-5%', width: 600, height: 600, background: 'radial-gradient(circle, rgba(80,40,200,0.07) 0%, transparent 65%)', pointerEvents: 'none', zIndex: 1 }} />
 
             <div className="container" style={{ position: 'relative', zIndex: 10, paddingTop: 110, paddingBottom: 100 }}>
                 <div className="hero-layout" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'center', minHeight: '82vh' }}>
@@ -234,7 +230,7 @@ export default function Hero() {
                             style={{ fontSize: 'clamp(38px, 4.8vw, 72px)', marginBottom: 24, lineHeight: 1.06, letterSpacing: '-0.03em' }}
                         >
                             {t('hero.title')}<br />{t('hero.title2')}<br />
-                            <span style={{ background: 'linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.45) 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                            <span className="shimmer-text">
                                 {t('hero.title3')}
                             </span> {t('hero.title4')}
                         </motion.h1>

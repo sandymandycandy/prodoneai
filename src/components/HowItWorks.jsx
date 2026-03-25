@@ -21,31 +21,18 @@ function StepCard({ step, index, icon, glow }) {
             transition={{ duration: 0.8, delay: index * 0.15, ease: [0.23, 1, 0.32, 1] }}
             style={{ position: 'relative' }}
         >
-            {/* Glow orb */}
-            <div style={{
-                position: 'absolute',
-                top: '10%', left: index === 1 ? '50%' : '-5%',
-                width: '60%', height: '70%',
-                background: glow,
-                borderRadius: '50%',
-                filter: 'blur(50px)',
-                opacity: 0.4,
-                pointerEvents: 'none', zIndex: 0,
-                animation: `orbPulse ${5 + index * 1.5}s ease-in-out infinite`,
-            }} />
-
             <motion.div
-                whileHover={{ y: -8, scale: 1.02 }}
-                transition={{ duration: 0.3 }}
+                whileHover={{ y: -10, scale: 1.022, boxShadow: '0 28px 70px rgba(0,0,0,0.55), 0 0 0 1px rgba(1,115,211,0.35), inset 0 1px 0 rgba(255,255,255,0.16)' }}
+                transition={{ duration: 0.35, ease: [0.23, 1, 0.32, 1] }}
                 style={{
                     position: 'relative', zIndex: 1,
                     padding: '40px 32px',
                     borderRadius: 28,
                     background: 'rgba(255,255,255,0.04)',
-                    backdropFilter: 'blur(14px)',
-                    WebkitBackdropFilter: 'blur(14px)',
-                    border: '1px solid rgba(255,255,255,0.1)',
-                    boxShadow: '0 8px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)',
+                    backdropFilter: 'blur(24px) saturate(1.5)',
+                    WebkitBackdropFilter: 'blur(24px) saturate(1.5)',
+                    border: '1px solid rgba(255,255,255,0.10)',
+                    boxShadow: '0 8px 40px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.12)',
                     overflow: 'hidden',
                     height: '100%',
                     display: 'flex', flexDirection: 'column',
@@ -119,13 +106,9 @@ export default function HowItWorks() {
             borderTop: '1px solid rgba(255,255,255,0.05)',
             overflow: 'hidden',
         }}>
-            {/* Ambient glow */}
-            <div style={{
-                position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
-                width: 1000, height: 500,
-                background: 'radial-gradient(ellipse, rgba(40, 100, 240, 0.08) 0%, transparent 70%)',
-                pointerEvents: 'none',
-            }} />
+            {/* Glass backdrop blobs */}
+            <div style={{ position: 'absolute', top: '-8%', left: '-5%', width: 600, height: 600, background: 'radial-gradient(circle, rgba(0,180,200,0.10) 0%, transparent 65%)', pointerEvents: 'none', zIndex: 0 }} />
+            <div style={{ position: 'absolute', bottom: '-12%', right: '-6%', width: 650, height: 650, background: 'radial-gradient(circle, rgba(1,115,211,0.11) 0%, transparent 65%)', pointerEvents: 'none', zIndex: 0 }} />
 
             <div className="container" ref={headRef} style={{ position: 'relative', zIndex: 1 }}>
                 {/* Header */}

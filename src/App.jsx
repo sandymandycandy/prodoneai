@@ -5,11 +5,16 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Chatbot from './components/Chatbot'
 import PageSkeleton from './components/PageSkeleton'
-import GlobalParticles from './components/GlobalParticles'
+import ScrollProgress from './components/ScrollProgress'
 import './index.css'
 
-const Home = lazy(() => import('./pages/Home'))
-const Pilot = lazy(() => import('./pages/Pilot'))
+const Home        = lazy(() => import('./pages/Home'))
+const Pilot       = lazy(() => import('./pages/Pilot'))
+const ServicesPage = lazy(() => import('./pages/ServicesPage'))
+const ResultsPage  = lazy(() => import('./pages/ResultsPage'))
+const CompanyPage  = lazy(() => import('./pages/CompanyPage'))
+const FAQPage      = lazy(() => import('./pages/FAQPage'))
+const ContactPage  = lazy(() => import('./pages/ContactPage'))
 
 function Loader({ onDone }) {
   const [progress, setProgress] = useState(0)
@@ -132,12 +137,17 @@ function App() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
         >
-          <GlobalParticles />
+          <ScrollProgress />
           <Navbar />
           <Suspense fallback={<PageSkeleton />}>
             <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/pilot" element={<Pilot />} />
+              <Route path="/"         element={<Home />} />
+              <Route path="/pilot"    element={<Pilot />} />
+              <Route path="/services" element={<ServicesPage />} />
+              <Route path="/results"  element={<ResultsPage />} />
+              <Route path="/company"  element={<CompanyPage />} />
+              <Route path="/faq"      element={<FAQPage />} />
+              <Route path="/contact"  element={<ContactPage />} />
             </Routes>
           </Suspense>
           <Footer />

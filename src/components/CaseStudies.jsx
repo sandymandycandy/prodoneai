@@ -20,32 +20,19 @@ function CaseCard({ c, index }) {
             transition={{ duration: 0.9, delay: index * 0.12, ease: [0.23, 1, 0.32, 1] }}
             style={{ position: 'relative' }}
         >
-            {/* Glow orb */}
-            <div style={{
-                position: 'absolute',
-                top: '20%', left: index === 0 ? '-10%' : '60%',
-                width: '50%', height: '50%',
-                background: glows[index],
-                borderRadius: '50%',
-                filter: 'blur(60px)',
-                opacity: 0.55,
-                pointerEvents: 'none', zIndex: 0,
-                animation: `orbPulse ${5 + index}s ease-in-out infinite`,
-            }} />
-
             {/* Glass Card */}
             <motion.div
-                whileHover={{ y: -8, scale: 1.02 }}
-                transition={{ duration: 0.3 }}
+                whileHover={{ y: -10, scale: 1.02, boxShadow: '0 28px 70px rgba(0,0,0,0.55), 0 0 0 1px rgba(1,115,211,0.35), inset 0 1px 0 rgba(255,255,255,0.16)' }}
+                transition={{ duration: 0.35, ease: [0.23, 1, 0.32, 1] }}
                 style={{
                     position: 'relative', zIndex: 1,
                     padding: '40px 36px',
                     borderRadius: 28,
                     background: 'rgba(255,255,255,0.04)',
-                    backdropFilter: 'blur(12px)',
-                    WebkitBackdropFilter: 'blur(12px)',
-                    border: '1px solid rgba(255,255,255,0.1)',
-                    boxShadow: '0 8px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)',
+                    backdropFilter: 'blur(24px) saturate(1.5)',
+                    WebkitBackdropFilter: 'blur(24px) saturate(1.5)',
+                    border: '1px solid rgba(255,255,255,0.10)',
+                    boxShadow: '0 8px 40px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.12)',
                     overflow: 'hidden',
                     height: '100%',
                     display: 'flex', flexDirection: 'column',
@@ -154,14 +141,9 @@ export default function CaseStudies() {
             borderTop: '1px solid rgba(255,255,255,0.05)',
             overflow: 'hidden',
         }}>
-            {/* Ambient background glow */}
-            <div style={{
-                position: 'absolute', top: '50%', left: '50%',
-                transform: 'translate(-50%, -50%)',
-                width: 1000, height: 500,
-                background: 'radial-gradient(ellipse, rgba(60, 30, 140, 0.1) 0%, transparent 70%)',
-                pointerEvents: 'none',
-            }} />
+            {/* Glass backdrop blobs */}
+            <div style={{ position: 'absolute', top: '-10%', left: '-5%', width: 680, height: 680, background: 'radial-gradient(circle, rgba(1,115,211,0.12) 0%, transparent 65%)', pointerEvents: 'none', zIndex: 0 }} />
+            <div style={{ position: 'absolute', bottom: '-8%', right: '-4%', width: 550, height: 550, background: 'radial-gradient(circle, rgba(0,200,160,0.07) 0%, transparent 65%)', pointerEvents: 'none', zIndex: 0 }} />
 
             <div className="container" style={{ position: 'relative', zIndex: 1 }}>
 

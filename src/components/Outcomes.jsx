@@ -21,33 +21,19 @@ function OutcomeCard({ card, index, icon, glow }) {
             initial={{ opacity: 0, y: 60 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: index * 0.1, ease: [0.23, 1, 0.32, 1] }}
-            style={{ position: 'relative' }}
         >
-            {/* Glow */}
-            <div style={{
-                position: 'absolute',
-                top: '15%', left: index % 2 === 0 ? '-8%' : '55%',
-                width: '50%', height: '50%',
-                background: glow,
-                borderRadius: '50%',
-                filter: 'blur(50px)',
-                opacity: 0.5,
-                pointerEvents: 'none', zIndex: 0,
-                animation: `orbPulse ${5 + index}s ease-in-out infinite`,
-            }} />
-
             <motion.div
-                whileHover={{ y: -8, scale: 1.015 }}
-                transition={{ duration: 0.3 }}
+                whileHover={{ y: -10, scale: 1.018, boxShadow: '0 28px 70px rgba(0,0,0,0.55), 0 0 0 1px rgba(1,115,211,0.35), inset 0 1px 0 rgba(255,255,255,0.16)' }}
+                transition={{ duration: 0.35, ease: [0.23, 1, 0.32, 1] }}
                 style={{
                     position: 'relative', zIndex: 1,
                     padding: '40px 36px',
                     borderRadius: 28,
                     background: 'rgba(255,255,255,0.04)',
-                    backdropFilter: 'blur(12px)',
-                    WebkitBackdropFilter: 'blur(12px)',
-                    border: '1px solid rgba(255,255,255,0.1)',
-                    boxShadow: '0 8px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)',
+                    backdropFilter: 'blur(24px) saturate(1.5)',
+                    WebkitBackdropFilter: 'blur(24px) saturate(1.5)',
+                    border: '1px solid rgba(255,255,255,0.10)',
+                    boxShadow: '0 8px 40px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.12)',
                     overflow: 'hidden',
                     height: '100%',
                     display: 'flex', flexDirection: 'column',
@@ -149,13 +135,9 @@ export default function Outcomes() {
             borderTop: '1px solid rgba(255,255,255,0.05)',
             overflow: 'hidden',
         }}>
-            {/* Background glow */}
-            <div style={{
-                position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
-                width: 1100, height: 600,
-                background: 'radial-gradient(ellipse, rgba(80,40,200,0.08) 0%, transparent 70%)',
-                pointerEvents: 'none',
-            }} />
+            {/* Glass backdrop blobs */}
+            <div style={{ position: 'absolute', top: '-15%', right: '-8%', width: 700, height: 700, background: 'radial-gradient(circle, rgba(1,115,211,0.13) 0%, transparent 65%)', pointerEvents: 'none', zIndex: 0 }} />
+            <div style={{ position: 'absolute', bottom: '-10%', left: '-6%', width: 560, height: 560, background: 'radial-gradient(circle, rgba(80,40,200,0.07) 0%, transparent 65%)', pointerEvents: 'none', zIndex: 0 }} />
 
             <div className="container" style={{ position: 'relative', zIndex: 1 }}>
                 {/* Header */}
@@ -173,7 +155,7 @@ export default function Outcomes() {
                         style={{ fontSize: 'clamp(36px, 5vw, 68px)', marginTop: 24, marginBottom: 20, lineHeight: 1.05, letterSpacing: '-0.03em' }}
                     >
                         {t('outcomes.title1')}{' '}
-                        <span style={{ background: 'linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.35) 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                        <span className="shimmer-text">
                             {t('outcomes.title2')}
                         </span>
                     </motion.h2>

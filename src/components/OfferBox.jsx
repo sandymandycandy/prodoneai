@@ -16,13 +16,9 @@ export default function OfferBox() {
             borderTop: '1px solid rgba(255,255,255,0.05)',
             overflow: 'hidden',
         }}>
-            {/* Ambient glow */}
-            <div style={{
-                position: 'absolute', top: '40%', left: '50%', transform: 'translateX(-50%)',
-                width: 1000, height: 500,
-                background: 'radial-gradient(ellipse, rgba(80, 40, 200, 0.1) 0%, transparent 70%)',
-                pointerEvents: 'none',
-            }} />
+            {/* Glass backdrop blobs */}
+            <div style={{ position: 'absolute', top: '-12%', left: '-6%', width: 700, height: 700, background: 'radial-gradient(circle, rgba(1,115,211,0.13) 0%, transparent 60%)', pointerEvents: 'none', zIndex: 0 }} />
+            <div style={{ position: 'absolute', bottom: '-10%', right: '-5%', width: 600, height: 600, background: 'radial-gradient(circle, rgba(0,180,200,0.08) 0%, transparent 65%)', pointerEvents: 'none', zIndex: 0 }} />
 
             <div className="container" ref={ref} style={{ position: 'relative', zIndex: 1 }}>
                 {/* Header */}
@@ -63,10 +59,11 @@ export default function OfferBox() {
                         <div style={{
                             padding: '32px',
                             borderRadius: 24,
-                            background: 'rgba(255,255,255,0.03)',
-                            border: '1px solid rgba(255,255,255,0.08)',
-                            backdropFilter: 'blur(20px)',
-                            boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.08)',
+                            background: 'rgba(255,255,255,0.04)',
+                            border: '1px solid rgba(255,255,255,0.10)',
+                            backdropFilter: 'blur(24px) saturate(1.5)',
+                            WebkitBackdropFilter: 'blur(24px) saturate(1.5)',
+                            boxShadow: '0 8px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.10)',
                             position: 'relative', overflow: 'hidden',
                         }}>
                             {/* Ambient glow inside card */}
@@ -128,7 +125,7 @@ export default function OfferBox() {
                                 borderRadius: 20,
                                 border: '1px solid rgba(255,255,255,0.08)',
                                 background: 'rgba(255,255,255,0.03)',
-                                backdropFilter: 'blur(16px)',
+                                backdropFilter: 'blur(8px)',
                                 overflow: 'hidden',
                                 boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.07)',
                             }}
@@ -161,9 +158,10 @@ export default function OfferBox() {
                             padding: '40px 36px',
                             borderRadius: 28,
                             background: 'rgba(255,255,255,0.04)',
-                            border: '1px solid rgba(255,255,255,0.1)',
-                            backdropFilter: 'blur(20px)',
-                            boxShadow: '0 8px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)',
+                            border: '1px solid rgba(255,255,255,0.11)',
+                            backdropFilter: 'blur(32px) saturate(1.6)',
+                            WebkitBackdropFilter: 'blur(32px) saturate(1.6)',
+                            boxShadow: '0 16px 60px rgba(0,0,0,0.50), inset 0 1px 0 rgba(255,255,255,0.13)',
                         }}>
                             {!sent ? (
                                 <>

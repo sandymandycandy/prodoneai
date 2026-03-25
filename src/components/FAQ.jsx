@@ -69,13 +69,9 @@ export default function FAQ() {
             borderTop: '1px solid rgba(255,255,255,0.05)',
             overflow: 'hidden',
         }}>
-            {/* Ambient glow */}
-            <div style={{
-                position: 'absolute', top: '40%', right: '10%',
-                width: 400, height: 400,
-                background: 'radial-gradient(ellipse, rgba(80,40,200,0.1) 0%, transparent 70%)',
-                filter: 'blur(40px)', pointerEvents: 'none',
-            }} />
+            {/* Glass backdrop blobs */}
+            <div style={{ position: 'absolute', top: '-10%', right: '-5%', width: 650, height: 650, background: 'radial-gradient(circle, rgba(1,115,211,0.12) 0%, transparent 65%)', pointerEvents: 'none', zIndex: 0 }} />
+            <div style={{ position: 'absolute', bottom: '-10%', left: '-5%', width: 550, height: 550, background: 'radial-gradient(circle, rgba(80,40,200,0.07) 0%, transparent 65%)', pointerEvents: 'none', zIndex: 0 }} />
 
             <div className="container" style={{ position: 'relative', zIndex: 1 }}>
                 <div className="faq-layout">
@@ -112,10 +108,11 @@ export default function FAQ() {
                         <div style={{
                             padding: '8px 40px',
                             borderRadius: 28,
-                            background: 'rgba(255,255,255,0.03)',
-                            backdropFilter: 'blur(20px)',
-                            border: '1px solid rgba(255,255,255,0.08)',
-                            boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.08)',
+                            background: 'rgba(255,255,255,0.04)',
+                            backdropFilter: 'blur(28px) saturate(1.5)',
+                            WebkitBackdropFilter: 'blur(28px) saturate(1.5)',
+                            border: '1px solid rgba(255,255,255,0.09)',
+                            boxShadow: '0 8px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.10)',
                         }}>
                             {faqItems.map((faq, i) => <FaqItem key={i} faq={faq} index={i} />)}
                         </div>

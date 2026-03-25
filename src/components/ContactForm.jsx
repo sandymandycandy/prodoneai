@@ -61,13 +61,9 @@ export default function ContactForm() {
             borderTop: '1px solid rgba(255,255,255,0.05)',
             overflow: 'hidden',
         }}>
-            {/* Ambient glow */}
-            <div style={{
-                position: 'absolute', top: '30%', left: '10%',
-                width: 500, height: 500,
-                background: 'radial-gradient(ellipse, rgba(80,40,200,0.1) 0%, transparent 70%)',
-                filter: 'blur(40px)', pointerEvents: 'none',
-            }} />
+            {/* Glass backdrop blobs */}
+            <div style={{ position: 'absolute', top: '-10%', right: '-5%', width: 680, height: 680, background: 'radial-gradient(circle, rgba(1,115,211,0.13) 0%, transparent 60%)', pointerEvents: 'none', zIndex: 0 }} />
+            <div style={{ position: 'absolute', bottom: '-8%', left: '-6%', width: 560, height: 560, background: 'radial-gradient(circle, rgba(80,40,200,0.07) 0%, transparent 65%)', pointerEvents: 'none', zIndex: 0 }} />
 
             <div className="container" ref={ref} style={{ position: 'relative', zIndex: 1 }}>
                 <div className="contact-layout">
@@ -133,10 +129,10 @@ export default function ContactForm() {
                             padding: '44px',
                             borderRadius: 28,
                             background: 'rgba(255,255,255,0.04)',
-                            backdropFilter: 'blur(28px)',
-                            WebkitBackdropFilter: 'blur(28px)',
-                            border: '1px solid rgba(255,255,255,0.1)',
-                            boxShadow: '0 12px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.12)',
+                            backdropFilter: 'blur(32px) saturate(1.6)',
+                            WebkitBackdropFilter: 'blur(32px) saturate(1.6)',
+                            border: '1px solid rgba(255,255,255,0.11)',
+                            boxShadow: '0 16px 70px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.14)',
                             position: 'relative', overflow: 'hidden',
                         }}>
                             {/* Top shine */}

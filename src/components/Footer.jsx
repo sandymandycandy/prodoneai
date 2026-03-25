@@ -2,16 +2,14 @@ import { Link } from 'react-router-dom'
 import { useLanguage } from '../context/LanguageContext'
 
 export default function Footer() {
-    const { t, lang, translations } = useLanguage()
+    const { lang, translations } = useLanguage()
     const ft = translations[lang].footer
 
     const footerLinks = {
         [ft.navGroup]: [
-            { label: ft.navLinks[0], href: '#process' },
-            { label: ft.navLinks[1], href: '#services' },
-            { label: ft.navLinks[2], href: '#integration' },
-            { label: ft.navLinks[3], href: '#contact' },
-            { label: ft.navLinks[4], href: '/pilot', isRoute: true },
+            { label: ft.navLinks[0], href: '#services' },
+            { label: ft.navLinks[1], href: '#contact' },
+            { label: ft.navLinks[2], href: '/pilot', isRoute: true },
         ],
         [ft.servicesGroup]: [
             { label: ft.serviceLinks[0], href: '#services' },
@@ -34,13 +32,9 @@ export default function Footer() {
             borderTop: '1px solid rgba(255,255,255,0.06)',
             overflow: 'hidden',
         }}>
-            {/* Background glow */}
-            <div style={{
-                position: 'absolute', bottom: 0, left: '50%', transform: 'translateX(-50%)',
-                width: 1000, height: 300,
-                background: 'radial-gradient(ellipse, rgba(60,30,140,0.12) 0%, transparent 70%)',
-                pointerEvents: 'none',
-            }} />
+            {/* Glass backdrop blobs */}
+            <div style={{ position: 'absolute', bottom: 0, left: '50%', transform: 'translateX(-50%)', width: 1200, height: 400, background: 'radial-gradient(ellipse, rgba(1,115,211,0.10) 0%, transparent 65%)', pointerEvents: 'none', zIndex: 0 }} />
+            <div style={{ position: 'absolute', top: '20%', left: '-5%', width: 500, height: 500, background: 'radial-gradient(circle, rgba(80,40,200,0.05) 0%, transparent 65%)', pointerEvents: 'none', zIndex: 0 }} />
 
             {/* Top shine divider */}
             <div style={{
@@ -112,12 +106,14 @@ export default function Footer() {
                                 {links.map(link => (
                                     link.isRoute ? (
                                         <Link key={link.label} to={link.href}
+                                            className="footer-link-hover"
                                             style={{ fontSize: '14px', color: 'rgba(255,255,255,0.35)', transition: 'color 0.25s' }}
                                             onMouseEnter={e => e.target.style.color = '#fff'}
                                             onMouseLeave={e => e.target.style.color = 'rgba(255,255,255,0.35)'}
                                         >{link.label}</Link>
                                     ) : (
                                         <a key={link.label} href={link.href}
+                                            className="footer-link-hover"
                                             style={{ fontSize: '14px', color: 'rgba(255,255,255,0.35)', transition: 'color 0.25s' }}
                                             onMouseEnter={e => e.target.style.color = '#fff'}
                                             onMouseLeave={e => e.target.style.color = 'rgba(255,255,255,0.35)'}
@@ -139,6 +135,7 @@ export default function Footer() {
                     <div style={{ display: 'flex', gap: '24px' }}>
                         {ft.legal.map(l => (
                             <a key={l} href="#"
+                                className="footer-link-hover"
                                 style={{ fontSize: '13px', color: 'rgba(255,255,255,0.25)', transition: 'color 0.25s' }}
                                 onMouseEnter={e => e.target.style.color = '#fff'}
                                 onMouseLeave={e => e.target.style.color = 'rgba(255,255,255,0.25)'}

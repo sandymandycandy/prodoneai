@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+/* Segoe UI is a system font — no import needed. Instant load, zero network cost. */
 
 *,
 *::before,
@@ -21,20 +21,24 @@
   --glass-border-bright: rgba(255, 255, 255, 0.22);
   --glass-shine: rgba(255, 255, 255, 0.18);
 
+  /* Accent — Masterslides blue */
+  --accent: #0173D3;
+  --accent-glow: rgba(1, 115, 211, 0.45);
+
   /* Glow palette */
-  --glow-purple: rgba(110, 60, 240, 0.55);
-  --glow-blue: rgba(40, 120, 255, 0.45);
-  --glow-teal: rgba(0, 200, 180, 0.35);
-  --glow-pink: rgba(220, 60, 160, 0.35);
+  --glow-purple: rgba(1, 115, 211, 0.45);
+  --glow-blue: rgba(1, 115, 211, 0.35);
+  --glow-teal: rgba(0, 200, 180, 0.30);
+  --glow-pink: rgba(0, 160, 255, 0.30);
 
   /* Text */
   --text-bright: #ffffff;
   --text-mid: rgba(255, 255, 255, 0.55);
   --text-dim: rgba(255, 255, 255, 0.28);
 
-  /* Font */
-  --font: 'Space Grotesk', sans-serif;
-  --font-body: 'Inter', sans-serif;
+  /* Font — Segoe UI (Windows system font, zero load cost) */
+  --font: 'Segoe UI', system-ui, -apple-system, Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-body: 'Segoe UI', system-ui, -apple-system, Roboto, 'Helvetica Neue', Arial, sans-serif;
 
   /* Radius */
   --r-sm: 14px;
@@ -50,10 +54,10 @@
   --text-secondary: rgba(255, 255, 255, 0.45);
   --text-muted: rgba(255, 255, 255, 0.25);
   --border: rgba(255, 255, 255, 0.10);
-  --font-primary: 'Space Grotesk', sans-serif;
-  --font-secondary: 'Inter', sans-serif;
+  --font-primary: 'Segoe UI', system-ui, -apple-system, Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-secondary: 'Segoe UI', system-ui, -apple-system, Roboto, 'Helvetica Neue', Arial, sans-serif;
   --grad-white: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.5) 100%);
-  --accent-cyan: rgba(255, 255, 255, 0.8);
+  --accent-cyan: #0173D3;
 }
 
 html {
@@ -63,27 +67,17 @@ html {
 
 body {
   font-family: var(--font);
-  background: var(--bg);
+  background: #000;
   color: var(--text-bright);
   overflow-x: hidden;
-  /* Subtle deep grid */
+  /* Rich gradient mesh — gives glass cards a world to float in */
   background-image:
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(90, 50, 200, 0.15) 0%, transparent 60%),
-    linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
-  background-size: 100% 100%, 80px 80px, 80px 80px;
+    radial-gradient(ellipse 80% 60% at 20% 0%, rgba(1, 115, 211, 0.14) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 50% at 80% 100%, rgba(80, 40, 200, 0.08) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 35% at 55% 50%, rgba(0, 180, 255, 0.05) 0%, transparent 60%);
 }
 
-/* Grain overlay */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-  opacity: 0.018;
-  pointer-events: none;
-  z-index: 9999;
-}
+/* Grain overlay removed — cleaner minimal look */
 
 /* Scrollbar */
 ::-webkit-scrollbar {
@@ -95,7 +89,7 @@ body::before {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 100%);
+  background: linear-gradient(180deg, rgba(1, 115, 211, 0.7) 0%, rgba(1, 115, 211, 0.2) 100%);
   border-radius: 3px;
 }
 
@@ -134,41 +128,35 @@ a {
   background-clip: text;
 }
 
-/* ════ LIQUID GLASS CARD ════ */
+/* ════ CARD — Full Glassmorphism ════ */
 .glass-card {
-  background: var(--glass-1);
-  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(20px) saturate(1.5);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  border: 1px solid rgba(255, 255, 255, 0.10);
   border-radius: var(--r-md);
   position: relative;
   overflow: hidden;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow:
-    0 6px 30px rgba(0, 0, 0, 0.45),
-    inset 0 1px 0 var(--glass-shine);
-  transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease, background 0.35s ease;
+  transition: border-color 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.09);
 }
 
-/* Top internal shine line */
 .glass-card::before {
   content: '';
   position: absolute;
   top: 0;
-  left: 12%;
-  right: 12%;
+  left: 15%;
+  right: 15%;
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent);
   pointer-events: none;
+  z-index: 1;
 }
 
 .glass-card:hover {
-  background: var(--glass-2);
-  border-color: var(--glass-border-bright);
-  box-shadow:
-    0 20px 70px rgba(0, 0, 0, 0.7),
-    inset 0 1px 0 rgba(255, 255, 255, 0.22),
-    0 0 0 1px rgba(255, 255, 255, 0.06);
+  border-color: rgba(1, 115, 211, 0.45);
   transform: translateY(-6px);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(1, 115, 211, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.14);
 }
 
 /* ════ Buttons ════ */
@@ -217,24 +205,26 @@ a {
   justify-content: center;
   gap: 8px;
   padding: 13px 26px;
-  background: var(--glass-1);
+  background: rgba(10, 10, 22, 0.75);
   color: rgba(255, 255, 255, 0.7);
   font-family: var(--font);
   font-size: 15px;
   font-weight: 600;
-  border: 1px solid var(--glass-border);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--r-sm);
   cursor: pointer;
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
   transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .btn-ghost:hover {
-  background: var(--glass-2);
-  border-color: var(--glass-border-bright);
+  background: rgba(1, 115, 211, 0.10);
+  border-color: rgba(1, 115, 211, 0.45);
   color: #fff;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(255, 255, 255, 0.07);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 35px rgba(1, 115, 211, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 
 .btn-outline {
@@ -272,29 +262,30 @@ a {
   padding: 0 64px;
 }
 
-/* ── Section label badge ── */
+/* ── Section label badge — premium glass pill ── */
 .section-label {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   padding: 7px 18px;
-  background: var(--glass-1);
-  border: 1px solid var(--glass-border);
+  background: rgba(1, 115, 211, 0.08);
+  border: 1px solid rgba(1, 115, 211, 0.25);
   border-radius: 50px;
   font-size: 10px;
   font-weight: 700;
-  color: var(--text-mid);
+  color: rgba(255, 255, 255, 0.65);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   backdrop-filter: blur(12px);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.10), 0 0 20px rgba(1, 115, 211, 0.08);
 }
 
 .section-label::before {
   content: '';
   width: 5px;
   height: 5px;
-  background: #fff;
+  background: #0173D3;
   border-radius: 50%;
   animation: pulse-dot 2.2s infinite;
 }
@@ -407,19 +398,20 @@ a {
   align-items: center;
   gap: 12px;
   padding: 12px 20px;
-  background: var(--glass-1);
+  background: rgba(12, 12, 20, 0.8);
   border: 1px solid var(--glass-border);
   border-radius: var(--r-sm);
   flex-shrink: 0;
   min-width: 150px;
-  backdrop-filter: blur(16px);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 4px 20px rgba(0, 0, 0, 0.3);
   transition: border-color 0.25s, transform 0.25s, background 0.25s, box-shadow 0.25s;
 }
 
 .tool-chip:hover {
   border-color: rgba(255, 255, 255, 0.25);
-  background: var(--glass-2);
+  background: rgba(16, 16, 28, 0.85);
   transform: translateY(-3px) scale(1.02);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 8px 30px rgba(0, 0, 0, 0.4);
 }
@@ -473,17 +465,7 @@ a {
   transition: width 0.3s ease;
 }
 
-/* ── Grid overlay ── */
-.grid-overlay {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
-  background-size: 80px 80px;
-  pointer-events: none;
-  z-index: 0;
-}
+/* grid-overlay removed */
 
 /* ── Section dividers ── */
 .section-divider {
@@ -644,48 +626,30 @@ a {
    PERFORMANCE — Keyframes & GPU helpers
 ════════════════════════════════════════ */
 
-/* Orb pulse — replaces JS framer-motion orbs in Hero */
-@keyframes orbPulse {
-
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-
-  50% {
-    transform: scale(1.18);
-    opacity: 0.75;
-  }
-}
-
-/* Hero glow orbs used by VideoAdCard */
+/* Hero glow orbs used by VideoAdCard — reduced blur for performance */
 @keyframes heroGlowFloat {
-
-  0%,
-  100% {
+  0%, 100% {
     transform: translateY(0) scale(1);
-    opacity: 0.55;
+    opacity: 0.45;
   }
-
   50% {
-    transform: translateY(-18px) scale(1.12);
-    opacity: 0.8;
+    transform: translateY(-12px) scale(1.08);
+    opacity: 0.65;
   }
 }
 
 .hero-glow-orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(55px);
+  filter: blur(40px);
   pointer-events: none;
   will-change: transform, opacity;
 }
 
 .hero-glow-orb-1 {
-  width: 380px;
-  height: 380px;
-  background: radial-gradient(circle, rgba(110, 60, 240, 0.35) 0%, transparent 70%);
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(1, 115, 211, 0.20) 0%, transparent 70%);
   top: -80px;
   right: -80px;
   z-index: 0;
@@ -693,9 +657,9 @@ a {
 }
 
 .hero-glow-orb-2 {
-  width: 260px;
-  height: 260px;
-  background: radial-gradient(circle, rgba(30, 100, 255, 0.28) 0%, transparent 70%);
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(0, 180, 255, 0.15) 0%, transparent 70%);
   bottom: -60px;
   left: -40px;
   z-index: 0;
@@ -707,24 +671,160 @@ a {
 section+section {
   content-visibility: auto;
   contain-intrinsic-size: 0 600px;
-  /* estimated height to avoid scroll jumps */
 }
 
-/* GPU promotion for backdrop-filter heavy cards */
-.glass-card-gpu {
-  transform: translateZ(0);
-  will-change: transform;
-}
+/* GPU promotion removed — cards no longer use blur */
 
-/* Disable heavy backdrop-blur on low-power devices */
-@media (prefers-reduced-motion: reduce),
-(max-width: 480px) {
-
+/* Disable all backdrop-filter and heavy blur on mobile / reduced-motion */
+@media (prefers-reduced-motion: reduce), (max-width: 768px) {
   [style*="backdropFilter"],
   [style*="backdrop-filter"] {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
   }
+
+  .glass-card {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(10, 10, 20, 0.92) !important;
+  }
+
+  .hero-glow-orb {
+    display: none;
+  }
+}
+
+/* ════════════════════════════════════════
+   PREMIUM MICRO-ANIMATIONS & EFFECTS
+════════════════════════════════════════ */
+
+/* ── Shimmer gradient text — animated highlight sweep ── */
+@keyframes shimmerGradient {
+  0% { background-position: -200% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+.shimmer-text {
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0.90) 0%,
+    #0173D3 30%,
+    rgba(0,200,255,1) 55%,
+    #0173D3 75%,
+    rgba(255,255,255,0.90) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmerGradient 6s linear infinite;
+}
+
+/* glowPulse removed — cleaner hover */
+
+/* ── Subtle floating animation for decorative elements ── */
+@keyframes gentleFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.float-gentle {
+  animation: gentleFloat 4s ease-in-out infinite;
+}
+
+/* ── Button shine sweep on hover ── */
+@keyframes btnShineSweep {
+  0% { left: -100%; }
+  100% { left: 200%; }
+}
+
+.btn-primary:hover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  animation: btnShineSweep 0.8s ease-out forwards;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── Section fade-in anchor (CSS-only reveal) ── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.8s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+/* ── Stat number counting glow ── */
+@keyframes statGlow {
+  0%, 100% { text-shadow: 0 0 0 transparent; }
+  50% { text-shadow: 0 0 20px rgba(1,115,211,0.30); }
+}
+
+.stat-number {
+  animation: statGlow 3s ease-in-out infinite;
+}
+
+/* ── Glass card entrance — used by whileInView stagger ── */
+@keyframes glassReveal {
+  from {
+    opacity: 0;
+    transform: translateY(32px) scale(0.97);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* ── Section blob drift — adds life to background orbs ── */
+@keyframes blobDrift {
+  0%, 100% { transform: scale(1) translate(0, 0); }
+  33% { transform: scale(1.06) translate(15px, -10px); }
+  66% { transform: scale(0.97) translate(-10px, 12px); }
+}
+
+/* ── Tool chip glow on hover ── */
+.tool-chip:hover {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 8px 32px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(1, 115, 211, 0.25) !important;
+  border-color: rgba(1, 115, 211, 0.35) !important;
+}
+
+/* ── Interactive focus ring for accessibility ── */
+.btn-primary:focus-visible,
+.btn-ghost:focus-visible,
+.btn-outline:focus-visible {
+  outline: 2px solid rgba(1,115,211,0.7);
+  outline-offset: 3px;
+}
+
+/* ── Smooth link underline on hover ── */
+.footer-link-hover {
+    position: relative;
+    display: inline-block;
+}
+
+.footer-link-hover::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: linear-gradient(90deg, #0173D3, rgba(0,200,255,0.8));
+    transition: width 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.footer-link-hover:hover::after {
+    width: 100%;
 }
 
 /* ═══════════════════════════════════════════

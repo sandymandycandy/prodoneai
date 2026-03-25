@@ -1,55 +1,103 @@
-import { motion } from 'framer-motion'
-
 const clients = [
-    {
-        name: 'Globus', isMain: true, element: (
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <img src="/globus-logo.svg" alt="Globus Logo" style={{ width: 40, height: 'auto', display: 'block' }} />
-                <span style={{ fontSize: 20, fontWeight: 800, color: 'rgba(255,255,255,0.7)', letterSpacing: '-0.02em' }}>Globus</span>
-            </div>
-        )
-    },
-    { name: 'TechFlow', element: <span style={{ fontSize: 19, fontWeight: 700, fontFamily: 'monospace', color: 'rgba(255,255,255,0.3)', letterSpacing: '-0.02em' }}>TechFlow_</span> },
-    { name: 'Aura', element: <span style={{ fontSize: 22, fontWeight: 400, fontFamily: 'serif', color: 'rgba(255,255,255,0.3)', fontStyle: 'italic' }}>Aura</span> },
-    { name: 'Nexus', element: <span style={{ fontSize: 20, fontWeight: 900, color: 'rgba(255,255,255,0.3)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>NEXUS</span> },
-    { name: 'Zephyr', element: <span style={{ fontSize: 20, fontWeight: 600, color: 'rgba(255,255,255,0.3)', letterSpacing: '-0.04em' }}>Zephyr</span> },
+    { name: 'Globus',        src: '/clients/globus.png' },
+    { name: 'AWS',           src: '/clients/aws.jpg' },
+    { name: 'DHBW',          src: '/clients/dhbw.svg' },
+    { name: 'Hassan Michl',  src: '/clients/hassan-michl.webp' },
+    { name: 'Orr Motors',    src: '/clients/orr-motors.png' },
+    { name: 'Prio',          src: '/clients/prio.png' },
+    { name: 'SH Group',      src: '/clients/sh-group.png' },
+    { name: 'Streetdrive',   src: '/clients/streetdrive.webp' },
+    { name: 'ACAS',          src: '/clients/acas.png' },
 ]
+
+// Duplicate for seamless loop
+const track = [...clients, ...clients]
 
 export default function TrustedBy() {
     return (
         <section style={{
-            padding: '40px 0',
-            borderTop: '1px solid rgba(255,255,255,0.05)',
-            borderBottom: '1px solid rgba(255,255,255,0.03)',
-            background: 'rgba(255,255,255,0.01)',
-            overflow: 'hidden'
+            padding: '48px 0',
+            borderTop: '1px solid rgba(255,255,255,0.06)',
+            borderBottom: '1px solid rgba(255,255,255,0.06)',
+            overflow: 'hidden',
         }}>
-            <div className="container" style={{ display: 'flex', alignItems: 'center', gap: 40, flexWrap: 'wrap', justifyContent: 'center' }}>
-                <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 600 }}>
-                    Trusted by innovative teams
-                </div>
+            <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 48,
+                maxWidth: 1440,
+                margin: '0 auto',
+                padding: '0 64px',
+                flexWrap: 'wrap',
+            }}>
+                {/* Label */}
+                <p style={{
+                    fontSize: 11,
+                    fontWeight: 600,
+                    color: 'rgba(255,255,255,0.28)',
+                    letterSpacing: '0.12em',
+                    textTransform: 'uppercase',
+                    whiteSpace: 'nowrap',
+                    flexShrink: 0,
+                }}>
+                    Trusted by
+                </p>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(30px, 5vw, 60px)', flexWrap: 'wrap', justifyContent: 'center' }}>
-                    {clients.map((client, i) => (
-                        <motion.div
-                            key={i}
-                            initial={{ opacity: 0, y: 10 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: i * 0.1 }}
-                            style={{
-                                filter: client.isMain ? 'none' : 'grayscale(100%) opacity(0.7)',
-                                transition: 'filter 0.3s',
-                                cursor: 'default'
-                            }}
-                            onMouseEnter={e => e.currentTarget.style.filter = 'none'}
-                            onMouseLeave={e => e.currentTarget.style.filter = client.isMain ? 'none' : 'grayscale(100%) opacity(0.7)'}
-                        >
-                            {client.element}
-                        </motion.div>
-                    ))}
+                {/* Scrolling logo strip */}
+                <div style={{ flex: 1, overflow: 'hidden', maskImage: 'linear-gradient(90deg, transparent, black 8%, black 92%, transparent)', WebkitMaskImage: 'linear-gradient(90deg, transparent, black 8%, black 92%, transparent)' }}>
+                    <div className="clients-marquee">
+                        {track.map((c, i) => (
+                            <div key={i} className="client-logo-wrap">
+                                <img
+                                    src={c.src}
+                                    alt={c.name}
+                                    loading="lazy"
+                                    className="client-logo-img"
+                                />
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
+
+            <style>{`
+                .clients-marquee {
+                    display: flex;
+                    align-items: center;
+                    gap: 56px;
+                    width: max-content;
+                    animation: clients-scroll 28s linear infinite;
+                }
+                .clients-marquee:hover {
+                    animation-play-state: paused;
+                }
+                .client-logo-wrap {
+                    height: 32px;
+                    display: flex;
+                    align-items: center;
+                    flex-shrink: 0;
+                }
+                .client-logo-img {
+                    height: 28px;
+                    width: auto;
+                    max-width: 120px;
+                    object-fit: contain;
+                    filter: brightness(0) invert(1);
+                    opacity: 0.4;
+                    transition: opacity 0.3s ease;
+                }
+                .client-logo-wrap:hover .client-logo-img {
+                    opacity: 0.85;
+                }
+                @keyframes clients-scroll {
+                    from { transform: translateX(0); }
+                    to   { transform: translateX(-50%); }
+                }
+                @media (max-width: 768px) {
+                    .client-logo-img { height: 22px; }
+                    .clients-marquee { gap: 40px; }
+                }
+            `}</style>
         </section>
     )
 }

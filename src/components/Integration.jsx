@@ -37,13 +37,9 @@ export default function Integration() {
             borderTop: '1px solid rgba(255,255,255,0.05)',
             overflow: 'hidden',
         }}>
-            {/* Ambient glow */}
-            <div style={{
-                position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)',
-                width: 800, height: 400,
-                background: 'radial-gradient(ellipse, rgba(40,100,240,0.1) 0%, transparent 70%)',
-                pointerEvents: 'none',
-            }} />
+            {/* Glass backdrop blobs */}
+            <div style={{ position: 'absolute', top: '-5%', left: '10%', width: 800, height: 500, background: 'radial-gradient(ellipse, rgba(1,115,211,0.12) 0%, transparent 65%)', pointerEvents: 'none', zIndex: 0 }} />
+            <div style={{ position: 'absolute', bottom: '-5%', right: '5%', width: 500, height: 500, background: 'radial-gradient(circle, rgba(80,40,200,0.07) 0%, transparent 65%)', pointerEvents: 'none', zIndex: 0 }} />
 
             <div className="container" ref={ref} style={{ position: 'relative', zIndex: 1 }}>
                 {/* Header */}
@@ -116,11 +112,12 @@ export default function Integration() {
                     <div style={{
                         display: 'inline-flex', gap: 0,
                         borderRadius: 24,
-                        border: '1px solid rgba(255,255,255,0.09)',
+                        border: '1px solid rgba(255,255,255,0.10)',
                         overflow: 'hidden',
-                        background: 'rgba(255,255,255,0.03)',
-                        backdropFilter: 'blur(20px)',
-                        boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.08), 0 8px 40px rgba(0,0,0,0.4)',
+                        background: 'rgba(255,255,255,0.04)',
+                        backdropFilter: 'blur(28px) saturate(1.5)',
+                        WebkitBackdropFilter: 'blur(28px) saturate(1.5)',
+                        boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.10), 0 12px 50px rgba(0,0,0,0.45)',
                     }}>
                         {stats.map(([v, l], i) => (
                             <div key={l} style={{

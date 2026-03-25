@@ -235,7 +235,7 @@ function Bubble({ msg }) {
                 border: isUser ? 'none' : '1px solid rgba(255,255,255,0.09)',
                 fontSize: 13, lineHeight: 1.65,
                 color: '#fff',
-                backdropFilter: isUser ? 'none' : 'blur(10px)',
+                backdropFilter: isUser ? 'none' : 'blur(6px)',
                 boxShadow: isUser ? '0 4px 20px rgba(120,80,255,0.25)' : 'none',
             }}>
                 <RichText text={msg.text} userMsg={isUser} />
@@ -380,7 +380,7 @@ export default function Chatbot() {
                     boxShadow: '0 8px 32px rgba(120,80,255,0.45), inset 0 1px 0 rgba(255,255,255,0.18)',
                     cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
                     fontSize: open ? 22 : 24,
-                    backdropFilter: 'blur(12px)',
+                    backdropFilter: 'blur(6px)',
                     transition: 'all 0.3s',
                 }}
                 aria-label={labelOpen}
@@ -429,8 +429,8 @@ export default function Chatbot() {
                             display: 'flex', flexDirection: 'column',
                             borderRadius: 24,
                             background: 'rgba(8,8,14,0.97)',
-                            backdropFilter: 'blur(32px)',
-                            WebkitBackdropFilter: 'blur(32px)',
+                            backdropFilter: 'blur(12px)',
+                            WebkitBackdropFilter: 'blur(12px)',
                             border: '1px solid rgba(255,255,255,0.1)',
                             boxShadow: '0 24px 80px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.1)',
                             overflow: 'hidden',
