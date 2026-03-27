@@ -12,6 +12,7 @@ function FaqItem({ faq, index }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: index * 0.06, duration: 0.5 }}
+            style={{ borderLeft: open ? '2px solid rgba(1,115,211,0.5)' : '2px solid transparent', paddingLeft: open ? 16 : 0, transition: 'border-color 0.3s, padding 0.3s' }}
         >
             <button
                 onClick={() => setOpen(!open)}
@@ -96,8 +97,9 @@ export default function FAQ() {
                             {t('faq.subtitle')}
                         </motion.p>
                         <a href="mailto:hello@prodone.ai">
-                            <button className="btn-ghost" style={{ fontSize: 13, padding: '11px 20px', borderRadius: 12 }}>
-                                ✉ hello@prodone.ai
+                            <button className="btn-ghost" style={{ fontSize: 13, padding: '11px 20px', borderRadius: 12, display: 'inline-flex', alignItems: 'center', gap: 7 }}>
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                                hello@prodone.ai
                             </button>
                         </a>
                     </div>

@@ -1,9 +1,15 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 
+const SVC_ICONS = [
+    () => <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/><circle cx="9" cy="10" r=".8" fill="currentColor"/><circle cx="12" cy="10" r=".8" fill="currentColor"/><circle cx="15" cy="10" r=".8" fill="currentColor"/></svg>,
+    () => <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>,
+    () => <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"/><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/></svg>,
+    () => <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>,
+]
+
 const services = [
     {
-        icon: '🤖',
         title: 'Intelligente Chatbots',
         description: 'Context-aware conversational AI that understands, learns, and resolves client queries 24/7 — dramatically reducing response times and staff workload.',
         features: ['Multi-language support', 'CRM integration', 'Auto-escalation'],
@@ -11,7 +17,6 @@ const services = [
         stat: '80%', statLabel: 'Support cost reduction',
     },
     {
-        icon: '📊',
         title: 'Predictive Analytics',
         description: 'Machine learning models that transform your historical data into actionable forecasts — from demand prediction to churn prevention.',
         features: ['Real-time dashboards', 'Anomaly detection', 'Custom KPI models'],
@@ -19,7 +24,6 @@ const services = [
         stat: '3×', statLabel: 'Forecast accuracy lift',
     },
     {
-        icon: '👁️',
         title: 'Visuelle Erkennungssysteme',
         description: 'Computer vision for quality control, identity verification, document scanning, and real-time object detection in industrial environments.',
         features: ['99.8% accuracy', 'Edge deployment', 'Real-time processing'],
@@ -27,7 +31,6 @@ const services = [
         stat: '99.8%', statLabel: 'Detection accuracy',
     },
     {
-        icon: '🛡️',
         title: 'Betrugsprävention',
         description: 'AI-powered fraud detection that analyses behavioural patterns and transaction signals in milliseconds before damage occurs.',
         features: ['<5ms detection', 'Self-learning model', '99.9% uptime'],
@@ -67,8 +70,8 @@ function ServiceCard({ service, i }) {
                             background: `${service.color}12`,
                             border: `1px solid ${service.color}22`,
                             display: 'flex', alignItems: 'center', justifyContent: 'center',
-                            fontSize: 22, flexShrink: 0,
-                        }}>{service.icon}</div>
+                            color: service.color, flexShrink: 0,
+                        }}>{SVC_ICONS[i]?.()}</div>
                         <h3 style={{ fontSize: 18, fontWeight: 700, color: '#f0f4ff', lineHeight: 1.2 }}>
                             {service.title}
                         </h3>

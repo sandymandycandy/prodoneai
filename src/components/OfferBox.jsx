@@ -2,10 +2,17 @@ import { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { useLanguage } from '../context/LanguageContext'
 
+const STEP_ICONS = [
+    () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/></svg>,
+    () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>,
+    () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="3"/><polygon points="10 9 16 12 10 15"/></svg>,
+    () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10"/></svg>,
+]
+
 export default function OfferBox() {
     const ref = useRef(null)
     const inView = useInView(ref, { once: true })
-    const { t, lang, translations } = useLanguage()
+    const { lang, translations } = useLanguage()
     const tx = translations[lang].offerBox
     const [sent, setSent] = useState(false)
 
@@ -67,17 +74,18 @@ export default function OfferBox() {
                             position: 'relative', overflow: 'hidden',
                         }}>
                             {/* Ambient glow inside card */}
-                            <div style={{ position: 'absolute', top: -40, right: -40, width: 200, height: 200, background: 'radial-gradient(circle, rgba(140,100,255,0.12) 0%, transparent 70%)', pointerEvents: 'none' }} />
+                            <div style={{ position: 'absolute', top: -40, right: -40, width: 200, height: 200, background: 'radial-gradient(circle, rgba(1,115,211,0.12) 0%, transparent 70%)', pointerEvents: 'none' }} />
 
-                            <div style={{ fontSize: 10, fontWeight: 700, color: 'rgba(255,255,255,0.35)', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: 28 }}>
-                                ⚡ {lang === 'DE' ? 'So läuft es ab' : 'How it works'}
+                            <div style={{ fontSize: 10, fontWeight: 700, color: 'rgba(255,255,255,0.35)', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: 28, display: 'flex', alignItems: 'center', gap: 6 }}>
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10"/></svg>
+                                {lang === 'DE' ? 'So läuft es ab' : 'How it works'}
                             </div>
 
                             {[
-                                { icon: '📋', color: 'rgba(160,120,255,1)', glow: 'rgba(140,100,255,0.35)', num: '01', title: lang === 'DE' ? 'Brief einreichen' : 'Submit your brief', sub: lang === 'DE' ? 'Formular ausfüllen — dauert 2 Min.' : 'Fill the form — takes 2 min.' },
-                                { icon: '🎨', color: 'rgba(80,160,255,1)', glow: 'rgba(60,140,255,0.35)', num: '02', title: lang === 'DE' ? 'Storyboard & Konzept' : 'Storyboard & concept', sub: lang === 'DE' ? 'Wir senden 3 Ideen innerhalb von 24h.' : 'We send 3 ideas within 24 h.' },
-                                { icon: '🎬', color: 'rgba(0,210,180,1)', glow: 'rgba(0,190,160,0.35)', num: '03', title: lang === 'DE' ? 'Produktion & Review' : 'Production & review', sub: lang === 'DE' ? 'KI rendert Ihren Ad — Sie geben Feedback.' : 'AI renders your ad — you give feedback.' },
-                                { icon: '🚀', color: 'rgba(255,180,60,1)', glow: 'rgba(255,160,40,0.35)', num: '04', title: lang === 'DE' ? 'Live in 3 Tagen' : 'Live in 3 days', sub: lang === 'DE' ? 'Exportiert & startbereit für Meta, YouTube, TikTok.' : 'Exported & ready to launch on Meta, YouTube, TikTok.' },
+                                { color: 'rgba(96,165,250,1)', glow: 'rgba(1,115,211,0.35)', num: '01', title: lang === 'DE' ? 'Brief einreichen' : 'Submit your brief', sub: lang === 'DE' ? 'Formular ausfüllen — dauert 2 Min.' : 'Fill the form — takes 2 min.' },
+                                { color: 'rgba(52,211,153,1)', glow: 'rgba(16,185,129,0.35)', num: '02', title: lang === 'DE' ? 'Storyboard & Konzept' : 'Storyboard & concept', sub: lang === 'DE' ? 'Wir senden 3 Ideen innerhalb von 24h.' : 'We send 3 ideas within 24 h.' },
+                                { color: 'rgba(196,181,253,1)', glow: 'rgba(139,92,246,0.35)', num: '03', title: lang === 'DE' ? 'Produktion & Review' : 'Production & review', sub: lang === 'DE' ? 'KI rendert Ihren Ad — Sie geben Feedback.' : 'AI renders your ad — you give feedback.' },
+                                { color: 'rgba(251,191,36,1)', glow: 'rgba(245,158,11,0.35)', num: '04', title: lang === 'DE' ? 'Live in 3 Tagen' : 'Live in 3 days', sub: lang === 'DE' ? 'Exportiert & startbereit für Meta, YouTube, TikTok.' : 'Exported & ready to launch on Meta, YouTube, TikTok.' },
                             ].map((step, i, arr) => (
                                 <motion.div key={i}
                                     initial={{ opacity: 0, x: -20 }}
@@ -100,8 +108,8 @@ export default function OfferBox() {
                                         border: `1px solid ${step.color}55`,
                                         boxShadow: `0 0 16px ${step.glow}`,
                                         display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                        fontSize: 17,
-                                    }}>{step.icon}</div>
+                                        color: step.color,
+                                    }}>{STEP_ICONS[i]?.()}</div>
 
                                     {/* Text */}
                                     <div style={{ paddingBottom: i < arr.length - 1 ? 24 : 0 }}>
@@ -140,7 +148,7 @@ export default function OfferBox() {
                                     borderRight: i < 2 ? '1px solid rgba(255,255,255,0.06)' : 'none',
                                 }}>
                                     <div style={{ fontWeight: 900, fontSize: 26, color: '#fff', letterSpacing: '-0.03em', lineHeight: 1 }}>
-                                        {val}<span style={{ fontSize: 13, fontWeight: 600, color: 'rgba(160,120,255,0.9)', marginLeft: 2 }}>{unit}</span>
+                                        {val}<span style={{ fontSize: 13, fontWeight: 600, color: 'rgba(1,115,211,0.85)', marginLeft: 2 }}>{unit}</span>
                                     </div>
                                     <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.3)', marginTop: 5, letterSpacing: '0.06em', textTransform: 'uppercase', fontWeight: 600 }}>{label}</div>
                                 </div>
@@ -217,7 +225,9 @@ export default function OfferBox() {
                                 </>
                             ) : (
                                 <div style={{ textAlign: 'center', padding: '40px 20px' }}>
-                                    <div style={{ fontSize: 48, marginBottom: 16 }}>✅</div>
+                                    <div style={{ width: 64, height: 64, borderRadius: 20, background: 'rgba(16,185,129,0.12)', border: '1px solid rgba(16,185,129,0.28)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px', boxShadow: '0 0 30px rgba(16,185,129,0.15)' }}>
+                                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(52,211,153,0.9)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+                                    </div>
                                     <h3 style={{ fontSize: 22, fontWeight: 800, color: '#fff', marginBottom: 10 }}>{tx.successTitle}</h3>
                                     <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.45)', lineHeight: 1.8 }}>
                                         {tx.successMsg}

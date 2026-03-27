@@ -8,11 +8,20 @@ const pageVariants = {
     exit:    { opacity: 0, y: -16, transition: { duration: 0.35 } },
 }
 
+const VALUE_ICONS = [
+    () => <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10"/></svg>,
+    () => <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>,
+    () => <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/><circle cx="9" cy="10" r=".8" fill="currentColor"/><circle cx="12" cy="10" r=".8" fill="currentColor"/><circle cx="15" cy="10" r=".8" fill="currentColor"/></svg>,
+    () => <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>,
+]
+
+const VALUE_COLORS = ['#60a5fa', '#34d399', '#c4b5fd', '#fbbf24']
+
 const VALUES = [
-    { icon: '⚡', title: 'Speed Without Compromise', desc: '3 days from brief to delivery. We built our entire workflow around this promise — not the other way around.' },
-    { icon: '🎯', title: 'Results-First Thinking', desc: 'Every decision we make ties directly to measurable outcomes: reach, CTR, conversions. No vanity metrics.' },
-    { icon: '🤖', title: 'AI-Native Production', desc: 'We were built on AI from day one. Not a traditional agency that added AI — we are an AI studio.' },
-    { icon: '🤝', title: 'Zero-Risk Partnership', desc: 'No contracts. No upfront payments. We deliver a free prototype first — because we believe results speak louder.' },
+    { title: 'Speed Without Compromise', desc: '3 days from brief to delivery. We built our entire workflow around this promise — not the other way around.' },
+    { title: 'Results-First Thinking', desc: 'Every decision we make ties directly to measurable outcomes: reach, CTR, conversions. No vanity metrics.' },
+    { title: 'AI-Native Production', desc: 'We were built on AI from day one. Not a traditional agency that added AI — we are an AI studio.' },
+    { title: 'Zero-Risk Partnership', desc: 'No contracts. No upfront payments. We deliver a free prototype first — because we believe results speak louder.' },
 ]
 
 const TEAM = [
@@ -100,7 +109,7 @@ export default function CompanyPage() {
                                 }}
                             >
                                 <div style={{ position: 'absolute', top: 0, left: '15%', right: '15%', height: 1, background: 'linear-gradient(90deg,transparent,rgba(255,255,255,0.18),transparent)' }} />
-                                <div style={{ fontSize: 32, marginBottom: 16 }}>{v.icon}</div>
+                                <div style={{ width: 50, height: 50, borderRadius: 15, background: `${VALUE_COLORS[i]}15`, border: `1px solid ${VALUE_COLORS[i]}30`, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 20, color: VALUE_COLORS[i] }}>{VALUE_ICONS[i]?.()}</div>
                                 <h3 style={{ fontSize: 20, fontWeight: 700, color: '#fff', marginBottom: 10, letterSpacing: '-0.02em' }}>{v.title}</h3>
                                 <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.45)', lineHeight: 1.8 }}>{v.desc}</p>
                             </motion.div>

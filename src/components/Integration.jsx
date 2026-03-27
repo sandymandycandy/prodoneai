@@ -3,22 +3,22 @@ import { motion, useInView } from 'framer-motion'
 import { useLanguage } from '../context/LanguageContext'
 
 const tools = [
-    { name: 'Salesforce', icon: '☁️' },
-    { name: 'SAP', icon: '🔷' },
-    { name: 'MS Teams', icon: '🟣' },
-    { name: 'Slack', icon: '💬' },
-    { name: 'HubSpot', icon: '🧡' },
-    { name: 'Zapier', icon: '⚡' },
-    { name: 'Power BI', icon: '📊' },
-    { name: 'Zendesk', icon: '🎧' },
-    { name: 'Notion', icon: '⬛' },
-    { name: 'Jira', icon: '🔵' },
-    { name: 'MongoDB', icon: '🍃' },
-    { name: 'AWS', icon: '🔶' },
-    { name: 'Google Cloud', icon: '🌐' },
-    { name: 'Azure', icon: '🔵' },
-    { name: 'Stripe', icon: '💳' },
-    { name: 'Twilio', icon: '📱' },
+    { name: 'Salesforce', color: '#00a1e0', bg: 'rgba(0,161,224,0.12)' },
+    { name: 'SAP', color: '#0073e6', bg: 'rgba(0,115,230,0.12)' },
+    { name: 'MS Teams', color: '#6264a7', bg: 'rgba(98,100,167,0.12)' },
+    { name: 'Slack', color: '#e01e5a', bg: 'rgba(224,30,90,0.12)' },
+    { name: 'HubSpot', color: '#ff7a59', bg: 'rgba(255,122,89,0.12)' },
+    { name: 'Zapier', color: '#ff4a00', bg: 'rgba(255,74,0,0.12)' },
+    { name: 'Power BI', color: '#f2c811', bg: 'rgba(242,200,17,0.12)' },
+    { name: 'Zendesk', color: '#03363d', bg: 'rgba(1,115,211,0.12)' },
+    { name: 'Notion', color: '#ffffff', bg: 'rgba(255,255,255,0.08)' },
+    { name: 'Jira', color: '#0052cc', bg: 'rgba(0,82,204,0.12)' },
+    { name: 'MongoDB', color: '#47a248', bg: 'rgba(71,162,72,0.12)' },
+    { name: 'AWS', color: '#ff9900', bg: 'rgba(255,153,0,0.12)' },
+    { name: 'Google Cloud', color: '#4285f4', bg: 'rgba(66,133,244,0.12)' },
+    { name: 'Azure', color: '#0089d6', bg: 'rgba(0,137,214,0.12)' },
+    { name: 'Stripe', color: '#635bff', bg: 'rgba(99,91,255,0.12)' },
+    { name: 'Twilio', color: '#f22f46', bg: 'rgba(242,47,70,0.12)' },
 ]
 
 export default function Integration() {
@@ -83,7 +83,7 @@ export default function Integration() {
                             <div className="marquee-content marquee-forward">
                                 {row1.map((tool, i) => (
                                     <div key={i} className="tool-chip">
-                                        <span style={{ fontSize: '18px' }}>{tool.icon}</span>
+                                        <span style={{ width: 22, height: 22, borderRadius: 7, background: tool.bg, border: `1px solid ${tool.color}33`, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, fontWeight: 800, color: tool.color, letterSpacing: '-0.02em', flexShrink: 0 }}>{tool.name.slice(0,2).toUpperCase()}</span>
                                         <span style={{ fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.55)', whiteSpace: 'nowrap' }}>{tool.name}</span>
                                     </div>
                                 ))}
@@ -93,7 +93,7 @@ export default function Integration() {
                             <div className="marquee-content marquee-reverse">
                                 {row2.map((tool, i) => (
                                     <div key={i} className="tool-chip">
-                                        <span style={{ fontSize: '18px' }}>{tool.icon}</span>
+                                        <span style={{ width: 22, height: 22, borderRadius: 7, background: tool.bg, border: `1px solid ${tool.color}33`, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, fontWeight: 800, color: tool.color, letterSpacing: '-0.02em', flexShrink: 0 }}>{tool.name.slice(0,2).toUpperCase()}</span>
                                         <span style={{ fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.55)', whiteSpace: 'nowrap' }}>{tool.name}</span>
                                     </div>
                                 ))}

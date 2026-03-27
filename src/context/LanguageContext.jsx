@@ -13,7 +13,7 @@ export const translations = {
             cta: "Request Prototype"
         },
         hero: {
-            badge: "🇬🇧 Frankfurt · Stuttgart · Remote",
+            badge: "Frankfurt · Stuttgart · Remote",
             title: "Spark Your Next",
             title2: "Evolution.",
             title3: "Through Intelligent",
@@ -21,7 +21,7 @@ export const translations = {
             subtitle1: "We develop custom AI agents, automations and web apps.",
             subtitle2: "Free prototype in 3 Days.",
             cta: "Request Free Prototype →",
-            examples: "📹 View Examples",
+            examples: "View Examples →",
             stats: {
                 days: "Days",
                 proto: "Free Prototype",
@@ -43,7 +43,7 @@ export const translations = {
                 foot2: "↗ Case Study",
                 floatTag: "FREE PROTOTYPE",
                 floatTag2: "Days",
-                scope: "🎬 SCOPE OF DELIVERY",
+                scope: "SCOPE OF DELIVERY",
                 scope2: "3× Ad Variants · ",
                 scope3: "Storyboard + Animation + Export",
                 scope4: "✓ Ready in 3 business days"
@@ -243,7 +243,7 @@ export const translations = {
             subtitle: "50+ companies already work with AI. Start with a free prototype — no risk, no contract.",
             primaryBtn: "Get Started ↗",
             secondaryBtn: "View Live Demo",
-            badges: ['🔒 Confidential', '⚡ 3-Day Prototype', '🌍 DE + IN Team', '✅ Free']
+            badges: ['Confidential', '3-Day Prototype', 'DE + IN Team', 'Free']
         },
         footer: {
             desc: "Fast Forward Artificial Intelligence. Custom AI solutions with a 3-day prototype guarantee.",
@@ -329,7 +329,7 @@ export const translations = {
             cta: "Prototyp anfragen"
         },
         hero: {
-            badge: "🇩🇪 Frankfurt · Stuttgart · Remote",
+            badge: "Frankfurt · Stuttgart · Remote",
             title: "Spark Your Next",
             title2: "Evolution.",
             title3: "Durch Intelligentes",
@@ -559,7 +559,7 @@ export const translations = {
             subtitle: "50+ Unternehmen arbeiten bereits mit KI. Starten Sie mit einem kostenlosen Prototyp — kein Risiko, kein Vertrag.",
             primaryBtn: "Jetzt loslegen ↗",
             secondaryBtn: "Live Demo ansehen",
-            badges: ['🔒 Vertraulich', '⚡ 3-Tage-Prototyp', '🌍 D + IN Team', '✅ Kostenlos']
+            badges: ['Vertraulich', '3-Tage-Prototyp', 'D + IN Team', 'Kostenlos']
         },
         footer: {
             desc: "Fast Forward Artificial Intelligence. Maßgeschneiderte KI-Lösungen mit 3-Tage-Prototyp-Garantie.",

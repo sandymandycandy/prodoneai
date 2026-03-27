@@ -221,22 +221,20 @@ function Bubble({ msg }) {
             style={{ display: 'flex', flexDirection: isUser ? 'row-reverse' : 'row', gap: 8, alignItems: 'flex-end', marginBottom: 10 }}
         >
             {!isUser && (
-                <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'linear-gradient(135deg, rgba(160,120,255,0.3), rgba(80,160,255,0.3))', border: '1px solid rgba(160,120,255,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, flexShrink: 0 }}>
-                    🤖
-                </div>
+                <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'linear-gradient(135deg, rgba(1,115,211,0.25), rgba(1,90,180,0.12))', border: '1px solid rgba(1,115,211,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: 14 }}>🤖</div>
             )}
             <div style={{
                 maxWidth: '82%',
                 padding: '10px 14px',
                 borderRadius: isUser ? '16px 16px 4px 16px' : '16px 16px 16px 4px',
                 background: isUser
-                    ? 'linear-gradient(135deg, rgba(140,100,255,0.9), rgba(80,160,255,0.9))'
+                    ? 'linear-gradient(135deg, rgba(1,115,211,0.95), rgba(1,90,180,0.95))'
                     : 'rgba(255,255,255,0.06)',
-                border: isUser ? 'none' : '1px solid rgba(255,255,255,0.09)',
+                border: isUser ? '1px solid rgba(1,115,211,0.4)' : '1px solid rgba(255,255,255,0.09)',
                 fontSize: 13, lineHeight: 1.65,
                 color: '#fff',
                 backdropFilter: isUser ? 'none' : 'blur(6px)',
-                boxShadow: isUser ? '0 4px 20px rgba(120,80,255,0.25)' : 'none',
+                boxShadow: isUser ? '0 4px 20px rgba(1,115,211,0.25)' : 'none',
             }}>
                 <RichText text={msg.text} userMsg={isUser} />
             </div>
@@ -358,7 +356,6 @@ export default function Chatbot() {
     const labelOpen = lang === 'DE' ? 'Chat starten' : 'Chat with us'
     const labelInput = lang === 'DE' ? 'Ihre Antwort...' : 'Your answer...'
     const labelWait = lang === 'DE' ? 'Warte auf Antwort...' : 'Waiting...'
-    const labelSend = lang === 'DE' ? 'Senden' : 'Send'
     const labelTitle = lang === 'DE' ? 'Prototyp anfragen' : 'Get your prototype'
     const labelSub = lang === 'DE' ? 'Antwortet sofort · Kostenlos' : 'Responds instantly · Free'
     const introHead = lang === 'DE' ? 'Kostenlosen Prototyp anfragen' : 'Get your free prototype'
@@ -375,9 +372,9 @@ export default function Chatbot() {
                 style={{
                     position: 'fixed', bottom: 28, right: 28, zIndex: 9000,
                     width: 58, height: 58, borderRadius: '50%',
-                    background: 'linear-gradient(135deg, rgba(140,100,255,0.95), rgba(80,160,255,0.95))',
+                    background: 'linear-gradient(135deg, rgba(1,115,211,0.95), rgba(1,90,180,0.95))',
                     border: '1px solid rgba(255,255,255,0.22)',
-                    boxShadow: '0 8px 32px rgba(120,80,255,0.45), inset 0 1px 0 rgba(255,255,255,0.18)',
+                    boxShadow: '0 8px 32px rgba(1,115,211,0.45), inset 0 1px 0 rgba(255,255,255,0.18)',
                     cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
                     fontSize: open ? 22 : 24,
                     backdropFilter: 'blur(6px)',
@@ -442,7 +439,7 @@ export default function Chatbot() {
                         {/* Header */}
                         <div style={{ padding: '16px 20px', borderBottom: '1px solid rgba(255,255,255,0.07)', display: 'flex', alignItems: 'center', gap: 12, flexShrink: 0 }}>
                             <div style={{ position: 'relative' }}>
-                                <div style={{ width: 40, height: 40, borderRadius: '50%', background: 'linear-gradient(135deg, rgba(140,100,255,0.25), rgba(80,160,255,0.25))', border: '1px solid rgba(160,120,255,0.35)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18 }}>🤖</div>
+                                <div style={{ width: 40, height: 40, borderRadius: '50%', background: 'linear-gradient(135deg, rgba(1,115,211,0.3), rgba(1,90,180,0.15))', border: '1px solid rgba(1,115,211,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18 }}>🤖</div>
                                 <motion.div animate={{ opacity: [1, 0.3, 1], scale: [1, 1.4, 1] }} transition={{ duration: 1.6, repeat: Infinity }}
                                     style={{ position: 'absolute', bottom: 1, right: 1, width: 9, height: 9, borderRadius: '50%', background: '#10b981', border: '2px solid rgba(0,0,0,0.8)' }} />
                             </div>
@@ -458,7 +455,7 @@ export default function Chatbot() {
                             {!started ? (
                                 <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
                                     style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', gap: 18, textAlign: 'center', padding: '20px 10px' }}>
-                                    <div style={{ fontSize: 44, filter: 'drop-shadow(0 0 20px rgba(120,80,255,0.5))' }}>🚀</div>
+                                    <div style={{ fontSize: 48 }}>🚀</div>
                                     <div>
                                         <div style={{ fontWeight: 800, fontSize: 17, color: '#fff', marginBottom: 8, letterSpacing: '-0.02em' }}>{introHead}</div>
                                         <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.38)', maxWidth: 240 }}>{introSub}</div>
@@ -474,7 +471,7 @@ export default function Chatbot() {
                                     </AnimatePresence>
                                     {typing && (
                                         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ display: 'flex', gap: 8, alignItems: 'flex-end', marginBottom: 10 }}>
-                                            <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'linear-gradient(135deg, rgba(160,120,255,0.3), rgba(80,160,255,0.3))', border: '1px solid rgba(160,120,255,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, flexShrink: 0 }}>🤖</div>
+                                            <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'linear-gradient(135deg, rgba(1,115,211,0.25), rgba(1,90,180,0.12))', border: '1px solid rgba(1,115,211,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: 14 }}>🤖</div>
                                             <div style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.09)', borderRadius: '16px 16px 16px 4px' }}>
                                                 <TypingDots />
                                             </div>
@@ -537,14 +534,14 @@ export default function Chatbot() {
                                     style={{
                                         width: 38, height: 38, borderRadius: 11, flexShrink: 0,
                                         background: canInput && inputVal.trim()
-                                            ? 'linear-gradient(135deg, rgba(140,100,255,0.9), rgba(80,160,255,0.9))'
+                                            ? 'linear-gradient(135deg, rgba(1,115,211,0.95), rgba(1,90,180,0.95))'
                                             : 'rgba(255,255,255,0.05)',
                                         border: '1px solid rgba(255,255,255,0.14)',
                                         display: 'flex', alignItems: 'center', justifyContent: 'center',
                                         fontSize: 16, color: '#fff',
                                         cursor: canInput ? 'pointer' : 'default',
                                         transition: 'all 0.3s',
-                                        boxShadow: canInput && inputVal.trim() ? '0 4px 16px rgba(120,80,255,0.35)' : 'none',
+                                        boxShadow: canInput && inputVal.trim() ? '0 4px 16px rgba(1,115,211,0.35)' : 'none',
                                     }}
                                 >↑</motion.button>
                             </div>

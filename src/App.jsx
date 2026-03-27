@@ -41,15 +41,12 @@ function Loader({ onDone }) {
         overflow: 'hidden'
       }}
     >
-      {/* Ambient background glows */}
-      <motion.div
-        animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
-        transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-        style={{
+      {/* Ambient background glow */}
+      <div style={{
           position: 'absolute', width: '60vw', height: '60vw',
-          background: 'radial-gradient(circle, rgba(124, 58, 237, 0.15) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(1, 115, 211, 0.12) 0%, transparent 70%)',
           top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
-          filter: 'blur(30px)', zIndex: 0, pointerEvents: 'none', willChange: 'transform, opacity'
+          filter: 'blur(30px)', zIndex: 0, pointerEvents: 'none'
         }}
       />
 

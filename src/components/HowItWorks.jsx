@@ -2,7 +2,11 @@ import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { useLanguage } from '../context/LanguageContext'
 
-const stepIcons = ['🔍', '⚙️', '🚀']
+const stepIcons = [
+    () => <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>,
+    () => <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>,
+    () => <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10"/></svg>,
+]
 const stepGlows = [
     'rgba(100, 60, 240, 0.4)',
     'rgba(0, 200, 160, 0.35)',
@@ -52,7 +56,7 @@ function StepCard({ step, index, icon, glow }) {
                         border: '1px solid rgba(255,255,255,0.12)',
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
                         fontSize: 22,
-                    }}>{icon}</div>
+                    }}>{icon()}</div>
                     <div style={{
                         fontSize: 10, fontWeight: 800, color: 'rgba(255,255,255,0.3)',
                         letterSpacing: '0.15em', textTransform: 'uppercase',

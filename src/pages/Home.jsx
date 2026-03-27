@@ -5,8 +5,6 @@ import TrustedBy from '../components/TrustedBy'
 import Outcomes from '../components/Outcomes'
 import GlobusSpotlight from '../components/GlobusSpotlight'
 import OfferBox from '../components/OfferBox'
-import FAQ from '../components/FAQ'
-import ContactForm from '../components/ContactForm'
 
 export default function Home() {
     useEffect(() => { window.scrollTo(0, 0) }, [])
@@ -18,8 +16,6 @@ export default function Home() {
             <Outcomes />
             <GlobusSpotlight />
             <OfferBox />
-            <FAQ />
-            <ContactForm />
         </motion.main>
     )
 }

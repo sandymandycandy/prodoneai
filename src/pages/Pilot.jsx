@@ -1,5 +1,7 @@
-import { useEffect, useRef, useState } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { useEffect, useState, useRef } from 'react'
+import { motion } from 'framer-motion'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 import { useLanguage } from '../context/LanguageContext'
 import CTABlock from '../components/CTABlock'
 
@@ -69,12 +71,12 @@ function DemoChatbot() {
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="rgba(255,255,255,0.9)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17 10c0 3.87-3.13 7-7 7a6.95 6.95 0 01-4.09-1.33L2 17l1.33-3.91A6.95 6.95 0 013 10c0-3.87 3.13-7 7-7s7 3.13 7 7z"/><circle cx="7" cy="10" r=".7" fill="currentColor"/><circle cx="10" cy="10" r=".7" fill="currentColor"/><circle cx="13" cy="10" r=".7" fill="currentColor"/></svg>
                     </div>
                     <motion.div animate={{ scale: [1, 1.4, 1], opacity: [1, 0.4, 1] }} transition={{ duration: 2, repeat: Infinity }}
-                        style={{ position: 'absolute', bottom: 2, right: 2, width: 9, height: 9, borderRadius: '50%', background: '#22c55e', border: '2px solid rgba(5,5,13,0.98)', boxShadow: '0 0 8px rgba(34,197,94,0.8)' }} />
+                        style={{ position: 'absolute', bottom: 2, right: 2, width: 9, height: 9, borderRadius: '50%', background: '#0173D3', border: '2px solid rgba(5,5,13,0.98)', boxShadow: '0 0 8px rgba(1,115,211,0.8)' }} />
                 </div>
                 <div style={{ flex: 1, minWidth: 0 }}>
                     <div style={{ fontSize: 14, fontWeight: 700, color: '#fff', letterSpacing: '-0.01em' }}>Aria — prodone.ai</div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 2 }}>
-                        <span style={{ fontSize: 10, color: 'rgba(34,197,94,0.9)', fontWeight: 600 }}>● Online</span>
+                        <span style={{ fontSize: 10, color: 'rgba(96,165,250,0.9)', fontWeight: 600 }}>● Online</span>
                         <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.25)' }}>·</span>
                         <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.3)' }}>Demo · No login required</span>
                     </div>
@@ -100,7 +102,7 @@ function DemoChatbot() {
                     <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} style={{ display: 'flex', alignItems: 'flex-end', gap: 8 }}>
                         <div style={{ width: 28, height: 28, borderRadius: 9, flexShrink: 0, background: 'rgba(1,115,211,0.2)', border: '1px solid rgba(1,115,211,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="rgba(96,165,250,0.9)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17 10c0 3.87-3.13 7-7 7a6.95 6.95 0 01-4.09-1.33L2 17l1.33-3.91A6.95 6.95 0 013 10c0-3.87 3.13-7 7-7s7 3.13 7 7z"/><circle cx="7" cy="10" r=".7" fill="currentColor"/><circle cx="10" cy="10" r=".7" fill="currentColor"/><circle cx="13" cy="10" r=".7" fill="currentColor"/></svg></div>
                         <div style={{ padding: '10px 16px', borderRadius: '4px 18px 18px 18px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)', display: 'flex', gap: 5, alignItems: 'center' }}>
-                            {[0, 1, 2].map(i => <motion.div key={i} animate={{ y: [0, -5, 0], opacity: [0.4, 1, 0.4] }} transition={{ duration: 0.65, delay: i * 0.15, repeat: Infinity }} style={{ width: 5, height: 5, borderRadius: '50%', background: 'rgba(1,115,211,0.8)' }} />)}
+                            {[0, 1, 2].map(i => <motion.div key={i} animate={{ y: [0, -5, 0], opacity: [0.4, 1, 0.4] }} transition={{ duration: 0.65, delay: i * 0.15, repeat: Infinity }} style={{ width: 5, height: 5, borderRadius: '50%', background: '#0173D3' }} />)}
                         </div>
                     </motion.div>
                 )}
@@ -139,37 +141,35 @@ function DemoChatbot() {
 
 /* ── HERO METRICS ─────────────────────────────────────────────────────── */
 const HERO_METRICS = [
-    { v: '+340%', l: 'Organic Reach', color: '#34d399', bg: 'rgba(16,185,129,0.10)', border: 'rgba(16,185,129,0.22)' },
-    { v: '8.7%',  l: 'Ad CTR',        color: '#60a5fa', bg: 'rgba(1,115,211,0.10)',  border: 'rgba(1,115,211,0.22)'  },
-    { v: '3 Days',l: 'Delivered In',  color: '#c4b5fd', bg: 'rgba(139,92,246,0.10)', border: 'rgba(139,92,246,0.22)' },
-    { v: '−70%',  l: 'Cost Saving',   color: '#fbbf24', bg: 'rgba(245,158,11,0.10)', border: 'rgba(245,158,11,0.22)' },
+    { v: '+340%', l: 'Organic Reach', color: '#60a5fa', bg: 'rgba(1,115,211,0.10)', border: 'rgba(1,115,211,0.22)' },
+    { v: '8.7%',  l: 'Ad CTR',        color: '#60a5fa', bg: 'rgba(1,115,211,0.10)', border: 'rgba(1,115,211,0.22)' },
+    { v: '3 Days',l: 'Delivered In',  color: '#60a5fa', bg: 'rgba(1,115,211,0.10)', border: 'rgba(1,115,211,0.22)' },
+    { v: '−70%',  l: 'Cost Saving',   color: '#60a5fa', bg: 'rgba(1,115,211,0.10)', border: 'rgba(1,115,211,0.22)' },
 ]
 
 const STEP_COLORS = [
-    { num: '01', color: '#60a5fa', bg: 'rgba(1,115,211,0.10)',  border: 'rgba(1,115,211,0.22)'  },
-    { num: '02', color: '#c4b5fd', bg: 'rgba(139,92,246,0.10)', border: 'rgba(139,92,246,0.22)' },
-    { num: '03', color: '#34d399', bg: 'rgba(16,185,129,0.10)', border: 'rgba(16,185,129,0.22)' },
-    { num: '04', color: '#fbbf24', bg: 'rgba(245,158,11,0.10)', border: 'rgba(245,158,11,0.22)' },
+    { num: '01', color: '#60a5fa', bg: 'rgba(1,115,211,0.10)', border: 'rgba(1,115,211,0.22)' },
+    { num: '02', color: '#60a5fa', bg: 'rgba(1,115,211,0.10)', border: 'rgba(1,115,211,0.22)' },
+    { num: '03', color: '#60a5fa', bg: 'rgba(1,115,211,0.10)', border: 'rgba(1,115,211,0.22)' },
+    { num: '04', color: '#60a5fa', bg: 'rgba(1,115,211,0.10)', border: 'rgba(1,115,211,0.22)' },
 ]
 
 /* ── PAGE ─────────────────────────────────────────────────────────────── */
 export default function Pilot() {
-    useEffect(() => { window.scrollTo(0, 0) }, [])
+    useEffect(() => {
+        window.scrollTo(0, 0)
+        AOS.init({ duration: 800, easing: 'ease-out-cubic', once: true, offset: 80 })
+    }, [])
     const { lang, translations } = useLanguage()
     const p = translations[lang].pilot
 
-    const heroRef    = useRef(null); const heroInView    = useInView(heroRef,    { once: true })
-    const processRef = useRef(null); const processInView = useInView(processRef, { once: true, margin: '-60px' })
-    const resultsRef = useRef(null); const resultsInView = useInView(resultsRef, { once: true })
-    const chatRef    = useRef(null); const chatInView    = useInView(chatRef,    { once: true, margin: '-60px' })
-
     return (
-        <motion.main initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+        <main>
 
             {/* ══════════════════════════════════════════════════════
                 HERO — editorial split layout
             ══════════════════════════════════════════════════════ */}
-            <section style={{ paddingTop: 110, paddingBottom: 0, position: 'relative', overflow: 'hidden', minHeight: '100vh', display: 'flex', alignItems: 'center' }}>
+            <section style={{ paddingTop: 120, paddingBottom: 80, position: 'relative', overflow: 'hidden', minHeight: '100vh', display: 'flex', alignItems: 'center' }}>
 
                 {/* Background blobs */}
                 <div style={{ position: 'absolute', top: '-5%', right: '-8%', width: 700, height: 700, background: 'radial-gradient(circle,rgba(1,115,211,0.14) 0%,transparent 65%)', filter: 'blur(40px)', pointerEvents: 'none' }} />
@@ -177,85 +177,80 @@ export default function Pilot() {
                 {/* Giant decorative "3" */}
                 <div style={{ position: 'absolute', right: '2%', top: '50%', transform: 'translateY(-55%)', fontSize: 'clamp(300px,40vw,580px)', fontWeight: 900, color: 'rgba(1,115,211,0.04)', lineHeight: 1, userSelect: 'none', pointerEvents: 'none', letterSpacing: '-0.06em' }}>3</div>
 
-                <div className="container" ref={heroRef} style={{ position: 'relative', zIndex: 1, width: '100%' }}>
+                <div className="container" style={{ position: 'relative', zIndex: 1, width: '100%' }}>
                     <div className="pilot-hero-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'center', minHeight: '80vh' }}>
 
                         {/* ─ LEFT ─ */}
                         <div>
                             {/* Client badge row */}
-                            <motion.div initial={{ opacity: 0, y: 16 }} animate={heroInView ? { opacity: 1, y: 0 } : {}}
-                                style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 36, flexWrap: 'wrap' }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: 9, padding: '7px 14px 7px 10px', borderRadius: 12, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)', backdropFilter: 'blur(10px)' }}>
-                                    <img src="/globus-logo.svg" alt="Globus" style={{ width: 26, height: 'auto', display: 'block' }} />
-                                    <span style={{ fontSize: 13, fontWeight: 700, color: '#fff' }}>Globus</span>
-                                    <span style={{ width: 1, height: 14, background: 'rgba(255,255,255,0.15)', display: 'inline-block' }} />
+                            <div data-aos="fade-up" style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 36, flexWrap: 'wrap' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 9, padding: '7px 14px 7px 10px', borderRadius: 50, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)', backdropFilter: 'blur(10px)' }}>
+                                    <img src="/globus-logo.svg" alt="Globus" style={{ width: 22, height: 'auto', display: 'block' }} />
+                                    <span style={{ fontSize: 12, fontWeight: 700, color: '#fff', letterSpacing: '0.02em' }}>Globus</span>
+                                    <span style={{ width: 1, height: 12, background: 'rgba(255,255,255,0.15)', display: 'inline-block' }} />
                                     <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.4)', fontWeight: 500 }}>German Retail · Q4 2024</span>
                                 </div>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '7px 12px', borderRadius: 12, background: 'rgba(34,197,94,0.08)', border: '1px solid rgba(34,197,94,0.22)', fontSize: 12, fontWeight: 700, color: 'rgba(34,197,94,0.9)' }}>
-                                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '6px 12px', borderRadius: 50, background: 'rgba(1,115,211,0.1)', border: '1px solid rgba(1,115,211,0.3)', fontSize: 11, fontWeight: 700, color: '#60a5fa', letterSpacing: '0.04em' }}>
+                                    <svg width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
                                     Verified Client
                                 </div>
-                            </motion.div>
+                            </div>
 
                             {/* Headline */}
-                            <motion.div initial={{ opacity: 0, y: 40 }} animate={heroInView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.1, duration: 0.9, ease: [0.23, 1, 0.32, 1] }}>
-                                <h1 style={{ fontSize: 'clamp(42px,5.5vw,80px)', fontWeight: 900, letterSpacing: '-0.045em', lineHeight: 1.0, marginBottom: 28, margin: 0 }}>
-                                    <span style={{ display: 'block', color: 'rgba(255,255,255,0.55)', fontWeight: 700 }}>From</span>
-                                    <span style={{ display: 'block', color: 'rgba(255,255,255,0.3)', textDecoration: 'line-through', textDecorationThickness: '3px', textDecorationColor: 'rgba(255,255,255,0.25)' }}>6 Weeks</span>
-                                    <span style={{ display: 'block', color: 'rgba(255,255,255,0.55)', fontWeight: 700 }}>to</span>
-                                    <span style={{ display: 'block', color: '#0173D3', textShadow: '0 0 80px rgba(1,115,211,0.4)' }}>3 Days.</span>
+                            <div data-aos="fade-up" data-aos-delay="100">
+                                <h1 style={{ fontSize: 'clamp(44px,5.5vw,82px)', fontWeight: 900, letterSpacing: '-0.045em', lineHeight: 1.0, margin: 0 }}>
+                                    <span style={{ display: 'block', color: 'rgba(255,255,255,0.4)', fontWeight: 600, fontSize: '0.55em', letterSpacing: '-0.02em', marginBottom: 4 }}>FROM</span>
+                                    <span style={{ display: 'block', color: 'rgba(255,255,255,0.28)', textDecoration: 'line-through', textDecorationThickness: '3px', textDecorationColor: 'rgba(255,255,255,0.2)' }}>6 Weeks</span>
+                                    <span style={{ display: 'block', color: 'rgba(255,255,255,0.4)', fontWeight: 600, fontSize: '0.55em', letterSpacing: '-0.02em', margin: '4px 0' }}>TO</span>
+                                    <span style={{ display: 'block', color: '#0173D3', textShadow: '0 0 80px rgba(1,115,211,0.5)' }}>3 Days.</span>
                                 </h1>
-                            </motion.div>
+                            </div>
 
                             {/* Description */}
-                            <motion.p initial={{ opacity: 0, y: 20 }} animate={heroInView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.25 }}
-                                style={{ fontSize: 17, lineHeight: 1.85, color: 'rgba(255,255,255,0.45)', marginBottom: 36, marginTop: 28, maxWidth: 480 }}>
+                            <p data-aos="fade-up" data-aos-delay="150"
+                                style={{ fontSize: 16, lineHeight: 1.85, color: 'rgba(255,255,255,0.55)', marginBottom: 32, marginTop: 28, maxWidth: 460 }}>
                                 Globus needed a full Q4 AI video campaign. We delivered{' '}
                                 <strong style={{ color: '#fff', fontWeight: 700 }}>3 final ads across all formats</strong> in 3 days.
                                 Results exceeded every benchmark.
-                            </motion.p>
+                            </p>
 
                             {/* Metric grid */}
-                            <motion.div initial={{ opacity: 0, y: 20 }} animate={heroInView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.35 }}
+                            <div data-aos="fade-up" data-aos-delay="200"
                                 style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 10, marginBottom: 32 }}>
                                 {HERO_METRICS.map((m, i) => (
-                                    <motion.div key={i}
-                                        initial={{ opacity: 0, scale: 0.85 }} animate={heroInView ? { opacity: 1, scale: 1 } : {}}
-                                        transition={{ delay: 0.4 + i * 0.07, type: 'spring', stiffness: 260, damping: 20 }}
-                                        whileHover={{ y: -4, scale: 1.04 }}
-                                        style={{ padding: '16px 12px', borderRadius: 16, background: m.bg, border: `1px solid ${m.border}`, textAlign: 'center', backdropFilter: 'blur(10px)', position: 'relative', overflow: 'hidden', willChange: 'transform' }}>
-                                        <div style={{ position: 'absolute', top: 0, left: '15%', right: '15%', height: 1, background: `linear-gradient(90deg,transparent,${m.color},transparent)`, opacity: 0.5 }} />
-                                        <div style={{ fontSize: 'clamp(16px,1.5vw,22px)', fontWeight: 900, color: m.color, letterSpacing: '-0.025em', lineHeight: 1, marginBottom: 6, filter: `drop-shadow(0 0 10px ${m.color}80)` }}>{m.v}</div>
-                                        <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase', letterSpacing: '0.08em', lineHeight: 1.3 }}>{m.l}</div>
+                                    <motion.div key={i} whileHover={{ y: -4, scale: 1.04 }}
+                                        style={{ padding: '16px 12px', borderRadius: 14, background: m.bg, border: `1px solid ${m.border}`, textAlign: 'center', backdropFilter: 'blur(20px) saturate(1.5)', position: 'relative', overflow: 'hidden', cursor: 'default' }}>
+                                        <div style={{ position: 'absolute', top: 0, left: '15%', right: '15%', height: 1, background: `linear-gradient(90deg,transparent,${m.color},transparent)`, opacity: 0.6 }} />
+                                        <div style={{ fontSize: 'clamp(15px,1.4vw,20px)', fontWeight: 900, color: m.color, letterSpacing: '-0.02em', lineHeight: 1, marginBottom: 5, filter: `drop-shadow(0 0 8px ${m.color}80)` }}>{m.v}</div>
+                                        <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.38)', textTransform: 'uppercase', letterSpacing: '0.1em', lineHeight: 1.4 }}>{m.l}</div>
                                     </motion.div>
                                 ))}
-                            </motion.div>
+                            </div>
 
                             {/* Testimonial quote */}
-                            <motion.blockquote initial={{ opacity: 0, y: 16 }} animate={heroInView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.5 }}
-                                style={{ margin: '0 0 32px', padding: '18px 22px', borderRadius: 16, background: 'rgba(1,115,211,0.05)', border: '1px solid rgba(1,115,211,0.14)', borderLeft: '3px solid #0173D3', backdropFilter: 'blur(10px)' }}>
-                                <p style={{ fontSize: 14, lineHeight: 1.75, color: 'rgba(255,255,255,0.65)', fontStyle: 'italic', margin: '0 0 12px' }}>
+                            <blockquote data-aos="fade-up" data-aos-delay="250"
+                                style={{ margin: '0 0 32px', padding: '20px 24px', borderRadius: 16, background: 'rgba(1,115,211,0.05)', border: '1px solid rgba(1,115,211,0.15)', borderLeft: '3px solid #0173D3', backdropFilter: 'blur(10px)' }}>
+                                <p style={{ fontSize: 14, lineHeight: 1.8, color: 'rgba(255,255,255,0.65)', fontStyle: 'italic', margin: '0 0 12px' }}>
                                     "prodone.ai delivered in 3 days what our agency would have taken 6 weeks to produce. The AI ads outperformed everything we've run before."
                                 </p>
-                                <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.38)' }}>
-                                    — Marketing Director, <strong style={{ color: 'rgba(255,255,255,0.7)', fontWeight: 600 }}>Globus GmbH &amp; Co. KG</strong> · Frankfurt
+                                <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.35)', fontFamily: 'var(--font)' }}>
+                                    — Marketing Director, <strong style={{ color: 'rgba(255,255,255,0.65)', fontWeight: 600 }}>Globus GmbH &amp; Co. KG</strong> · Frankfurt
                                 </div>
-                            </motion.blockquote>
+                            </blockquote>
 
                             {/* CTAs */}
-                            <motion.div initial={{ opacity: 0, y: 16 }} animate={heroInView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.6 }}
-                                style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-                                <button className="btn-primary" style={{ borderRadius: 14, padding: '14px 28px', fontSize: 14, fontWeight: 700 }}>
-                                    Read Full Case Study →
-                                </button>
-                                <button className="btn-ghost" style={{ borderRadius: 14, padding: '13px 24px', fontSize: 14 }}>
-                                    Get Your Prototype
-                                </button>
-                            </motion.div>
+                            <div data-aos="fade-up" data-aos-delay="300" style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+                                <a href="#pilot-results">
+                                    <button className="btn-primary" style={{ fontSize: 14 }}>See Results →</button>
+                                </a>
+                                <a href="/#offer">
+                                    <button className="btn-ghost" style={{ fontSize: 14 }}>Get Your Prototype</button>
+                                </a>
+                            </div>
                         </div>
 
                         {/* ─ RIGHT: Phone mockup ─ */}
-                        <motion.div initial={{ opacity: 0, x: 60, scale: 0.93 }} animate={heroInView ? { opacity: 1, x: 0, scale: 1 } : {}} transition={{ delay: 0.28, duration: 1.1, ease: [0.23, 1, 0.32, 1] }}
+                        <div data-aos="fade-left" data-aos-delay="200"
                             style={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
 
                             {/* Glow behind phone */}
@@ -286,9 +281,9 @@ export default function Pilot() {
 
                             {/* Floating chips */}
                             {[
-                                { v: '+340%', l: 'REACH',     color: '#34d399', bg: 'rgba(16,185,129,0.12)', border: 'rgba(16,185,129,0.3)', pos: { top: '6%', right: '-10%' }, anim: [0, -8, 0], dur: 3.5 },
-                                { v: '3 Days', l: 'DELIVERED', color: '#c4b5fd', bg: 'rgba(139,92,246,0.12)', border: 'rgba(139,92,246,0.3)', pos: { bottom: '20%', right: '-12%' }, anim: [0, 7, 0], dur: 4 },
-                                { v: '−70%',  l: 'COST',      color: '#fbbf24', bg: 'rgba(245,158,11,0.10)', border: 'rgba(245,158,11,0.28)', pos: { bottom: '10%', left: '-10%' }, anim: [0, -5, 0], dur: 4.5 },
+                                { v: '+340%', l: 'REACH',     color: '#60a5fa', bg: 'rgba(1,115,211,0.12)', border: 'rgba(1,115,211,0.3)', pos: { top: '6%', right: '-10%' }, anim: [0, -8, 0], dur: 3.5 },
+                                { v: '3 Days', l: 'DELIVERED', color: '#60a5fa', bg: 'rgba(1,115,211,0.12)', border: 'rgba(1,115,211,0.3)', pos: { bottom: '20%', right: '-12%' }, anim: [0, 7, 0], dur: 4 },
+                                { v: '−70%',  l: 'COST',      color: '#60a5fa', bg: 'rgba(1,115,211,0.12)', border: 'rgba(1,115,211,0.3)', pos: { bottom: '10%', left: '-10%' }, anim: [0, -5, 0], dur: 4.5 },
                             ].map((chip, i) => (
                                 <motion.div key={i} animate={{ y: chip.anim }} transition={{ duration: chip.dur, repeat: Infinity, ease: 'easeInOut', delay: i * 0.6 }}
                                     style={{ position: 'absolute', ...chip.pos, padding: '10px 16px', borderRadius: 16, background: chip.bg, border: `1px solid ${chip.border}`, backdropFilter: 'blur(14px)', textAlign: 'center', boxShadow: '0 8px 28px rgba(0,0,0,0.4)', zIndex: 2 }}>
@@ -296,7 +291,7 @@ export default function Pilot() {
                                     <div style={{ fontSize: 8.5, color: 'rgba(255,255,255,0.4)', marginTop: 3, textTransform: 'uppercase', letterSpacing: '0.09em' }}>{chip.l}</div>
                                 </motion.div>
                             ))}
-                        </motion.div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -304,41 +299,38 @@ export default function Pilot() {
             {/* ══════════════════════════════════════════════════════
                 PROCESS — horizontal cards
             ══════════════════════════════════════════════════════ */}
-            <section style={{ padding: '100px 0', borderTop: '1px solid rgba(255,255,255,0.05)', position: 'relative', overflow: 'hidden' }} ref={processRef}>
+            <section style={{ padding: '100px 0', borderTop: '1px solid rgba(255,255,255,0.05)', position: 'relative', overflow: 'hidden' }}>
                 <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: 900, height: 400, background: 'radial-gradient(ellipse,rgba(1,115,211,0.07) 0%,transparent 65%)', pointerEvents: 'none' }} />
 
                 <div className="container" style={{ position: 'relative', zIndex: 1 }}>
                     {/* Section header */}
                     <div style={{ textAlign: 'center', marginBottom: 64 }}>
-                        <motion.div initial={{ opacity: 0, y: 16 }} animate={processInView ? { opacity: 1, y: 0 } : {}}
-                            className="section-label" style={{ margin: '0 auto 18px' }}>
+                        <div data-aos="fade-up" className="section-label" style={{ margin: '0 auto 18px' }}>
                             OUR 3-DAY PROCESS
-                        </motion.div>
-                        <motion.h2 initial={{ opacity: 0, y: 28 }} animate={processInView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.1 }}
-                            style={{ fontSize: 'clamp(26px,3.5vw,48px)', letterSpacing: '-0.04em', marginBottom: 14 }}>
+                        </div>
+                        <h2 data-aos="fade-up" data-aos-delay="100"
+                            style={{ fontSize: 'clamp(26px,3.5vw,48px)', letterSpacing: '-0.03em', marginBottom: 14 }}>
                             {p.processTitle1}{' '}
                             <span style={{ color: '#0173D3' }}>{p.processTitle2}</span>
-                        </motion.h2>
-                        <motion.p initial={{ opacity: 0 }} animate={processInView ? { opacity: 1 } : {}} transition={{ delay: 0.18 }}
-                            style={{ fontSize: 15, color: 'rgba(255,255,255,0.38)', maxWidth: 440, margin: '0 auto' }}>
+                        </h2>
+                        <p data-aos="fade-up" data-aos-delay="150"
+                            style={{ fontSize: 15, color: 'rgba(255,255,255,0.45)', maxWidth: 440, margin: '0 auto' }}>
                             From first briefing to delivered campaign — in 72 hours.
-                        </motion.p>
+                        </p>
                     </div>
 
                     {/* Horizontal steps */}
                     <div style={{ position: 'relative' }}>
                         {/* Connecting line */}
-                        <div style={{ position: 'absolute', top: 40, left: '12.5%', right: '12.5%', height: 1, background: 'linear-gradient(90deg,rgba(1,115,211,0.3),rgba(139,92,246,0.3),rgba(16,185,129,0.3),rgba(245,158,11,0.3))', zIndex: 0 }} />
+                        <div style={{ position: 'absolute', top: 40, left: '12.5%', right: '12.5%', height: 1, background: 'linear-gradient(90deg,rgba(1,115,211,0.15),rgba(1,115,211,0.5),rgba(1,115,211,0.15))', zIndex: 0 }} />
 
                         <div className="pilot-steps-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 20, position: 'relative', zIndex: 1 }}>
                             {p.processSteps.map((step, i) => {
                                 const sc = STEP_COLORS[i]
                                 return (
-                                    <motion.div key={i}
-                                        initial={{ opacity: 0, y: 32 }} animate={processInView ? { opacity: 1, y: 0 } : {}}
-                                        transition={{ delay: 0.1 + i * 0.12, duration: 0.75, ease: [0.23, 1, 0.32, 1] }}
+                                    <motion.div key={i} data-aos="fade-up" data-aos-delay={i * 100}
                                         whileHover={{ y: -6, scale: 1.02 }}
-                                        style={{ padding: '28px 22px', borderRadius: 22, background: sc.bg, border: `1px solid ${sc.border}`, backdropFilter: 'blur(12px)', boxShadow: '0 8px 40px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.08)', position: 'relative', overflow: 'hidden', willChange: 'transform' }}>
+                                        style={{ padding: '28px 22px', borderRadius: 22, background: sc.bg, border: `1px solid ${sc.border}`, backdropFilter: 'blur(20px) saturate(1.5)', WebkitBackdropFilter: 'blur(20px) saturate(1.5)', boxShadow: '0 8px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.09)', position: 'relative', overflow: 'hidden', willChange: 'transform' }}>
                                         {/* Top accent line */}
                                         <div style={{ position: 'absolute', top: 0, left: '10%', right: '10%', height: 2, background: `linear-gradient(90deg,transparent,${sc.color},transparent)`, borderRadius: 1 }} />
 
@@ -353,7 +345,7 @@ export default function Pilot() {
                                         </div>
 
                                         <h3 style={{ fontSize: 16, fontWeight: 700, color: '#fff', marginBottom: 10, letterSpacing: '-0.02em' }}>{step.title}</h3>
-                                        <p style={{ fontSize: 13, lineHeight: 1.7, color: 'rgba(255,255,255,0.42)', margin: 0 }}>{step.desc}</p>
+                                        <p style={{ fontSize: 13, lineHeight: 1.75, color: 'rgba(255,255,255,0.45)', margin: 0 }}>{step.desc}</p>
                                     </motion.div>
                                 )
                             })}
@@ -361,35 +353,33 @@ export default function Pilot() {
                     </div>
 
                     {/* Completion badge */}
-                    <motion.div initial={{ opacity: 0, scale: 0.85 }} animate={processInView ? { opacity: 1, scale: 1 } : {}} transition={{ delay: 0.7, type: 'spring', bounce: 0.4 }}
-                        style={{ marginTop: 36, display: 'flex', justifyContent: 'center' }}>
-                        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, padding: '12px 24px', borderRadius: 14, background: 'rgba(16,185,129,0.07)', border: '1px solid rgba(16,185,129,0.2)', backdropFilter: 'blur(10px)' }}>
-                            <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#22c55e', boxShadow: '0 0 10px rgba(34,197,94,0.8)' }} />
-                            <span style={{ fontSize: 14, fontWeight: 600, color: 'rgba(100,220,160,0.9)' }}>{p.processEnd}</span>
+                    <div data-aos="zoom-in" data-aos-delay="200" style={{ marginTop: 36, display: 'flex', justifyContent: 'center' }}>
+                        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, padding: '12px 24px', borderRadius: 14, background: 'rgba(1,115,211,0.07)', border: '1px solid rgba(1,115,211,0.22)', backdropFilter: 'blur(10px)' }}>
+                            <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#0173D3', boxShadow: '0 0 10px rgba(1,115,211,0.8)' }} />
+                            <span style={{ fontSize: 14, fontWeight: 600, color: '#60a5fa' }}>{p.processEnd}</span>
                         </div>
-                    </motion.div>
+                    </div>
 
                     {/* Deliverables */}
                     <div style={{ marginTop: 80 }}>
                         <div style={{ textAlign: 'center', marginBottom: 36 }}>
-                            <motion.h3 initial={{ opacity: 0, y: 20 }} animate={processInView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.5 }}
+                            <h3 data-aos="fade-up"
                                 style={{ fontSize: 'clamp(20px,2.5vw,32px)', fontWeight: 700, color: '#fff', marginBottom: 10, letterSpacing: '-0.03em' }}>
                                 {p.deliverablesTitle}
-                            </motion.h3>
-                            <motion.p initial={{ opacity: 0 }} animate={processInView ? { opacity: 1 } : {}} transition={{ delay: 0.55 }}
-                                style={{ fontSize: 14, color: 'rgba(255,255,255,0.38)' }}>
+                            </h3>
+                            <p data-aos="fade-up" data-aos-delay="80"
+                                style={{ fontSize: 14, color: 'rgba(255,255,255,0.45)' }}>
                                 {p.deliverablesSubtitle}
-                            </motion.p>
+                            </p>
                         </div>
                         <div className="pilot-deliverables-grid" style={{ display: 'grid', gap: 12 }}>
                             {p.deliverables.map((d, i) => {
                                 const sc = STEP_COLORS[i % 4]
                                 return (
                                     <motion.div key={i}
-                                        initial={{ opacity: 0, x: -16 }} animate={processInView ? { opacity: 1, x: 0 } : {}}
-                                        transition={{ delay: 0.58 + i * 0.07 }}
+                                        data-aos="fade-up" data-aos-delay={i * 80}
                                         whileHover={{ x: 6 }}
-                                        style={{ padding: '16px 20px', borderRadius: 16, background: sc.bg, border: `1px solid ${sc.border}`, backdropFilter: 'blur(10px)', display: 'flex', alignItems: 'center', gap: 14, willChange: 'transform' }}>
+                                        style={{ padding: '16px 20px', borderRadius: 16, background: sc.bg, border: `1px solid ${sc.border}`, backdropFilter: 'blur(20px) saturate(1.5)', WebkitBackdropFilter: 'blur(20px) saturate(1.5)', display: 'flex', alignItems: 'center', gap: 14, willChange: 'transform' }}>
                                         <div style={{ width: 10, height: 10, borderRadius: '50%', background: sc.color, boxShadow: `0 0 8px ${sc.color}80`, flexShrink: 0 }} />
                                         <div>
                                             <div style={{ fontSize: 13, fontWeight: 700, color: '#fff', marginBottom: 2 }}>{d.label}</div>
@@ -404,26 +394,80 @@ export default function Pilot() {
             </section>
 
             {/* ══════════════════════════════════════════════════════
+                BEFORE vs AFTER COMPARISON
+            ══════════════════════════════════════════════════════ */}
+            <section style={{ padding: '80px 0', borderTop: '1px solid rgba(255,255,255,0.05)', position: 'relative', overflow: 'hidden' }}>
+                <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: 800, height: 400, background: 'radial-gradient(ellipse,rgba(1,115,211,0.06) 0%,transparent 65%)', pointerEvents: 'none' }} />
+                <div className="container" style={{ position: 'relative', zIndex: 1 }}>
+                    <div style={{ textAlign: 'center', marginBottom: 52 }}>
+                        <div data-aos="fade-up"
+                            className="section-label" style={{ margin: '0 auto 18px' }}>THE DIFFERENCE</div>
+                        <h2 data-aos="fade-up" data-aos-delay="100"
+                            style={{ fontSize: 'clamp(26px,3.5vw,46px)', letterSpacing: '-0.03em' }}>
+                            Traditional Agency <span style={{ color: '#0173D3' }}>vs</span> prodone.ai
+                        </h2>
+                    </div>
+
+                    {(() => {
+                        const rows = [
+                            { label: 'Time to Deliver',   old: '6 – 12 weeks',      neo: '3 days',           neoColor: '#34d399' },
+                            { label: 'Starting Cost',     old: '€20,000+',           neo: 'From €5,000',      neoColor: '#60a5fa' },
+                            { label: 'First Preview',     old: 'Week 3–4',           neo: 'Day 1 prototype',  neoColor: '#c4b5fd' },
+                            { label: 'Revision Rounds',  old: '2 rounds (slow)',    neo: 'Unlimited (fast)', neoColor: '#34d399' },
+                            { label: 'Upfront Risk',      old: 'Full payment first', neo: 'Free prototype',   neoColor: '#fbbf24' },
+                            { label: 'AI Integration',   old: 'None / optional',    neo: 'Core workflow',    neoColor: '#60a5fa' },
+                            { label: 'GDPR Compliance',  old: 'On request',         neo: 'Built-in',         neoColor: '#34d399' },
+                        ]
+                        return (
+                            <div style={{ borderRadius: 24, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.09)', backdropFilter: 'blur(20px) saturate(1.5)', WebkitBackdropFilter: 'blur(20px) saturate(1.5)', boxShadow: '0 8px 32px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.08)' }}>
+                                {/* Header row */}
+                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', background: 'rgba(255,255,255,0.04)', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                                    <div style={{ padding: '14px 24px', fontSize: 11, fontWeight: 700, color: 'rgba(255,255,255,0.3)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>Comparison</div>
+                                    <div style={{ padding: '14px 24px', fontSize: 12, fontWeight: 700, color: 'rgba(255,255,255,0.4)', textAlign: 'center', borderLeft: '1px solid rgba(255,255,255,0.06)' }}>Traditional Agency</div>
+                                    <div style={{ padding: '14px 24px', fontSize: 12, fontWeight: 700, color: '#0173D3', textAlign: 'center', borderLeft: '1px solid rgba(255,255,255,0.06)', background: 'rgba(1,115,211,0.06)' }}>prodone.ai</div>
+                                </div>
+                                {rows.map((row, i) => (
+                                    <div key={i}
+                                        data-aos="fade-up" data-aos-delay={i * 60}
+                                        style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', borderBottom: i < rows.length - 1 ? '1px solid rgba(255,255,255,0.05)' : 'none', background: i % 2 === 0 ? 'rgba(255,255,255,0.02)' : 'transparent' }}>
+                                        <div style={{ padding: '16px 24px', fontSize: 13, fontWeight: 600, color: 'rgba(255,255,255,0.65)', fontFamily: 'var(--font)' }}>{row.label}</div>
+                                        <div style={{ padding: '16px 24px', fontSize: 13, color: 'rgba(255,255,255,0.3)', textAlign: 'center', borderLeft: '1px solid rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+                                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 2l8 8M10 2l-8 8" stroke="rgba(255,255,255,0.3)" strokeWidth="1.5" strokeLinecap="round"/></svg>
+                                            {row.old}
+                                        </div>
+                                        <div style={{ padding: '16px 24px', fontSize: 13, fontWeight: 700, color: row.neoColor, textAlign: 'center', borderLeft: '1px solid rgba(255,255,255,0.05)', background: 'rgba(1,115,211,0.04)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+                                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1.5 6l3 3 6-6" stroke={row.neoColor} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                                            {row.neo}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        )
+                    })()}
+                </div>
+            </section>
+
+            {/* ══════════════════════════════════════════════════════
                 RESULTS — large metrics + testimonial
             ══════════════════════════════════════════════════════ */}
-            <section style={{ padding: '100px 0', borderTop: '1px solid rgba(255,255,255,0.05)', position: 'relative', overflow: 'hidden' }} ref={resultsRef}>
+            <section id="pilot-results" style={{ padding: '100px 0', borderTop: '1px solid rgba(255,255,255,0.05)', position: 'relative', overflow: 'hidden' }}>
                 <div style={{ position: 'absolute', top: '20%', left: '50%', transform: 'translateX(-50%)', width: 1000, height: 500, background: 'radial-gradient(ellipse,rgba(1,115,211,0.08) 0%,transparent 65%)', pointerEvents: 'none' }} />
 
                 <div className="container" style={{ position: 'relative', zIndex: 1 }}>
                     <div style={{ textAlign: 'center', marginBottom: 60 }}>
-                        <motion.div initial={{ opacity: 0, y: 16 }} animate={resultsInView ? { opacity: 1, y: 0 } : {}}
+                        <div data-aos="fade-up"
                             className="section-label" style={{ margin: '0 auto 18px' }}>
                             RESULTS — 30 DAYS POST-LAUNCH
-                        </motion.div>
-                        <motion.h2 initial={{ opacity: 0, y: 28 }} animate={resultsInView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.1 }}
-                            style={{ fontSize: 'clamp(28px,3.8vw,52px)', letterSpacing: '-0.04em', marginBottom: 14 }}>
+                        </div>
+                        <h2 data-aos="fade-up" data-aos-delay="100"
+                            style={{ fontSize: 'clamp(28px,3.8vw,52px)', letterSpacing: '-0.03em', marginBottom: 14 }}>
                             {p.resultsTitle1}{' '}
                             <span style={{ color: '#0173D3' }}>{p.resultsTitle2}</span>
-                        </motion.h2>
-                        <motion.p initial={{ opacity: 0 }} animate={resultsInView ? { opacity: 1 } : {}} transition={{ delay: 0.2 }}
-                            style={{ fontSize: 14, color: 'rgba(255,255,255,0.38)', maxWidth: 420, margin: '0 auto' }}>
+                        </h2>
+                        <p data-aos="fade-up" data-aos-delay="160"
+                            style={{ fontSize: 15, color: 'rgba(255,255,255,0.45)', maxWidth: 420, margin: '0 auto' }}>
                             {p.resultsSubtitle}
-                        </motion.p>
+                        </p>
                     </div>
 
                     {/* Metric cards */}
@@ -432,12 +476,11 @@ export default function Pilot() {
                             const sc = STEP_COLORS[i]
                             return (
                                 <motion.div key={i}
-                                    initial={{ opacity: 0, y: 36, scale: 0.9 }} animate={resultsInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-                                    transition={{ delay: i * 0.1, duration: 0.75, ease: [0.23, 1, 0.32, 1] }}
+                                    data-aos="fade-up" data-aos-delay={i * 100}
                                     whileHover={{ y: -8, scale: 1.03 }}
                                     style={{ position: 'relative', willChange: 'transform' }}>
                                     <div style={{ position: 'absolute', inset: '-6px', borderRadius: 28, background: sc.bg, filter: 'blur(18px)', opacity: 0.6, pointerEvents: 'none' }} />
-                                    <div style={{ position: 'relative', zIndex: 1, padding: '36px 20px', textAlign: 'center', background: sc.bg, border: `1px solid ${sc.border}`, borderRadius: 24, boxShadow: '0 12px 48px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.10)', backdropFilter: 'blur(14px)', overflow: 'hidden' }}>
+                                    <div style={{ position: 'relative', zIndex: 1, padding: '36px 20px', textAlign: 'center', background: sc.bg, border: `1px solid ${sc.border}`, borderRadius: 24, boxShadow: '0 12px 48px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.09)', backdropFilter: 'blur(20px) saturate(1.5)', WebkitBackdropFilter: 'blur(20px) saturate(1.5)', overflow: 'hidden' }}>
                                         <div style={{ position: 'absolute', top: 0, left: '15%', right: '15%', height: 2, background: `linear-gradient(90deg,transparent,${sc.color},transparent)` }} />
                                         <div style={{ fontSize: r.stat.length > 5 ? 34 : 44, fontWeight: 900, lineHeight: 1, marginBottom: 10, color: sc.color, filter: `drop-shadow(0 0 24px ${sc.color}80)`, letterSpacing: '-0.03em' }}>{r.stat}</div>
                                         <div style={{ fontSize: 11, fontWeight: 600, color: 'rgba(255,255,255,0.45)', textTransform: 'uppercase', letterSpacing: '0.09em' }}>{r.label}</div>
@@ -448,10 +491,10 @@ export default function Pilot() {
                     </div>
 
                     {/* Testimonial spotlight */}
-                    <motion.div initial={{ opacity: 0, y: 32 }} animate={resultsInView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.48, duration: 0.9 }}
+                    <div data-aos="fade-up" data-aos-delay="200"
                         style={{ borderRadius: 28, overflow: 'hidden', position: 'relative', background: 'rgba(5,5,13,0.8)', border: '1px solid rgba(255,255,255,0.09)', boxShadow: '0 12px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08)', backdropFilter: 'blur(20px)' }}>
                         {/* Top accent */}
-                        <div style={{ height: 3, background: 'linear-gradient(90deg,#0173D3,rgba(139,92,246,0.8),rgba(16,185,129,0.6))', opacity: 0.9 }} />
+                        <div style={{ height: 3, background: 'linear-gradient(90deg,rgba(1,115,211,0.3),#0173D3,rgba(1,115,211,0.3))', opacity: 0.9 }} />
 
                         <div style={{ padding: '44px 48px' }}>
                             {/* Header */}
@@ -469,8 +512,7 @@ export default function Pilot() {
                                 </div>
                                 <div style={{ marginLeft: 'auto', display: 'flex', gap: 3 }}>
                                     {[...Array(5)].map((_, i) => (
-                                        <motion.span key={i} initial={{ scale: 0, opacity: 0 }} animate={resultsInView ? { scale: 1, opacity: 1 } : {}} transition={{ delay: 0.6 + i * 0.08, type: 'spring', bounce: 0.6 }}
-                                            style={{ fontSize: 20, color: '#fbbf24', filter: 'drop-shadow(0 0 6px rgba(251,191,36,0.5))' }}>★</motion.span>
+                                        <span key={i} style={{ fontSize: 20, color: '#60a5fa', filter: 'drop-shadow(0 0 6px rgba(1,115,211,0.6))' }}>★</span>
                                     ))}
                                 </div>
                             </div>
@@ -479,11 +521,11 @@ export default function Pilot() {
                             <div className="pilot-testimonial-grid" style={{ display: 'grid', gap: 40, alignItems: 'center' }}>
                                 <div>
                                     <div style={{ fontSize: 64, lineHeight: 0.6, color: 'rgba(1,115,211,0.2)', fontFamily: 'Georgia,serif', marginBottom: 16, userSelect: 'none' }}>&ldquo;</div>
-                                    <p style={{ fontSize: 18, lineHeight: 1.85, color: 'rgba(255,255,255,0.82)', fontStyle: 'italic', marginBottom: 24, maxWidth: 680 }}>
+                                    <p style={{ fontSize: 16, lineHeight: 1.85, color: 'rgba(255,255,255,0.75)', fontStyle: 'italic', marginBottom: 24, maxWidth: 680 }}>
                                         prodone.ai delivered our entire Q4 campaign in{' '}
                                         <strong style={{ color: '#fff', fontStyle: 'normal' }}>3 days</strong> — something that would have taken our traditional agency{' '}
                                         <strong style={{ color: '#fff', fontStyle: 'normal' }}>6 weeks</strong>. The AI-generated ads outperformed everything we've run before, achieving{' '}
-                                        <strong style={{ color: '#34d399', fontStyle: 'normal' }}>+340% organic reach</strong> and an{' '}
+                                        <strong style={{ color: '#60a5fa', fontStyle: 'normal' }}>+340% organic reach</strong> and an{' '}
                                         <strong style={{ color: '#60a5fa', fontStyle: 'normal' }}>8.7% CTR</strong>. We are now in a new era of content production.
                                     </p>
                                     <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
@@ -513,14 +555,14 @@ export default function Pilot() {
                                 ))}
                             </div>
                         </div>
-                    </motion.div>
+                    </div>
                 </div>
             </section>
 
             {/* ══════════════════════════════════════════════════════
                 CHATBOT DEMO
             ══════════════════════════════════════════════════════ */}
-            <section style={{ padding: '100px 0', borderTop: '1px solid rgba(255,255,255,0.05)', position: 'relative', overflow: 'hidden' }} ref={chatRef}>
+            <section style={{ padding: '100px 0', borderTop: '1px solid rgba(255,255,255,0.05)', position: 'relative', overflow: 'hidden' }}>
                 <div style={{ position: 'absolute', top: '30%', right: '-5%', width: 600, height: 600, background: 'radial-gradient(circle,rgba(1,115,211,0.10) 0%,transparent 65%)', filter: 'blur(40px)', pointerEvents: 'none' }} />
                 <div style={{ position: 'absolute', bottom: '10%', left: '-5%', width: 500, height: 500, background: 'radial-gradient(circle,rgba(139,92,246,0.07) 0%,transparent 65%)', filter: 'blur(40px)', pointerEvents: 'none' }} />
 
@@ -528,46 +570,48 @@ export default function Pilot() {
                     <div className="pilot-chat-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 72, alignItems: 'center' }}>
 
                         {/* Left — copy */}
-                        <motion.div initial={{ opacity: 0, x: -40 }} animate={chatInView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.9, ease: [0.23, 1, 0.32, 1] }}>
+                        <div data-aos="fade-right">
                             <div className="section-label" style={{ marginBottom: 24 }}>AI CHATBOT DEMO</div>
-                            <h2 style={{ fontSize: 'clamp(26px,3.5vw,46px)', letterSpacing: '-0.04em', marginBottom: 20, lineHeight: 1.1 }}>
+                            <h2 style={{ fontSize: 'clamp(26px,3.5vw,46px)', letterSpacing: '-0.03em', marginBottom: 20, lineHeight: 1.1 }}>
                                 Talk to Our{' '}
                                 <span style={{ color: '#0173D3' }}>AI Assistant</span>
                             </h2>
-                            <p style={{ fontSize: 16, lineHeight: 1.9, color: 'rgba(255,255,255,0.45)', marginBottom: 36 }}>
+                            <p style={{ fontSize: 15, lineHeight: 1.85, color: 'rgba(255,255,255,0.55)', marginBottom: 36 }}>
                                 This is a <strong style={{ color: '#fff' }}>live demo</strong> of the kind of AI chatbot we build for our clients.
                                 Ask it anything about our services, pricing, or how we can help your business.
                             </p>
 
                             {[
-                                { color: '#60a5fa', bg: 'rgba(1,115,211,0.10)', border: 'rgba(1,115,211,0.22)', title: 'Instant Responses', sub: 'No wait time, no human needed' },
-                                { color: '#34d399', bg: 'rgba(16,185,129,0.10)', border: 'rgba(16,185,129,0.22)', title: 'Context-Aware AI', sub: 'Understands nuanced questions' },
-                                { color: '#c4b5fd', bg: 'rgba(139,92,246,0.10)', border: 'rgba(139,92,246,0.22)', title: 'Multilingual', sub: 'English & German by default' },
-                                { color: '#fbbf24', bg: 'rgba(245,158,11,0.10)', border: 'rgba(245,158,11,0.22)', title: 'CRM Integration', sub: 'Connects to your existing tools' },
+                                { color: '#60a5fa', bg: 'rgba(1,115,211,0.10)', border: 'rgba(1,115,211,0.22)', title: 'Instant Responses', sub: 'No wait time, no human needed', icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10"/></svg> },
+                                { color: '#60a5fa', bg: 'rgba(1,115,211,0.10)', border: 'rgba(1,115,211,0.22)', title: 'Context-Aware AI', sub: 'Understands nuanced questions', icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg> },
+                                { color: '#60a5fa', bg: 'rgba(1,115,211,0.10)', border: 'rgba(1,115,211,0.22)', title: 'Multilingual', sub: 'English & German by default', icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg> },
+                                { color: '#60a5fa', bg: 'rgba(1,115,211,0.10)', border: 'rgba(1,115,211,0.22)', title: 'CRM Integration', sub: 'Connects to your existing tools', icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg> },
                             ].map((f, i) => (
-                                <motion.div key={i} initial={{ opacity: 0, x: -20 }} animate={chatInView ? { opacity: 1, x: 0 } : {}} transition={{ delay: 0.2 + i * 0.1 }}
+                                <div key={i} data-aos="fade-up" data-aos-delay={i * 80}
                                     style={{ display: 'flex', gap: 14, alignItems: 'flex-start', marginBottom: 18 }}>
-                                    <div style={{ width: 38, height: 38, borderRadius: 11, background: f.bg, border: `1px solid ${f.border}`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                                        <div style={{ width: 10, height: 10, borderRadius: '50%', background: f.color, boxShadow: `0 0 8px ${f.color}80` }} />
+                                    <div style={{ width: 38, height: 38, borderRadius: 11, background: f.bg, border: `1px solid ${f.border}`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: f.color }}>
+                                        {f.icon}
                                     </div>
                                     <div>
                                         <div style={{ fontSize: 14, fontWeight: 700, color: '#fff', marginBottom: 2 }}>{f.title}</div>
-                                        <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.38)' }}>{f.sub}</div>
+                                        <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.45)' }}>{f.sub}</div>
                                     </div>
-                                </motion.div>
+                                </div>
                             ))}
 
-                            <motion.div initial={{ opacity: 0, y: 16 }} animate={chatInView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.65 }}>
-                                <button className="btn-primary" style={{ fontSize: 14, padding: '14px 28px', borderRadius: 14, marginTop: 8 }}>
-                                    Get This for Your Business →
-                                </button>
-                            </motion.div>
-                        </motion.div>
+                            <div data-aos="fade-up" data-aos-delay="350">
+                                <a href="/#offer" style={{ textDecoration: 'none' }}>
+                                    <button className="btn-primary" style={{ fontSize: 14, marginTop: 8 }}>
+                                        Get This for Your Business →
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
 
                         {/* Right — chatbot */}
-                        <motion.div initial={{ opacity: 0, x: 40, scale: 0.96 }} animate={chatInView ? { opacity: 1, x: 0, scale: 1 } : {}} transition={{ duration: 1, delay: 0.15, ease: [0.23, 1, 0.32, 1] }}>
+                        <div data-aos="fade-left">
                             <DemoChatbot />
-                        </motion.div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -575,6 +619,10 @@ export default function Pilot() {
             <CTABlock />
 
             <style>{`
+                @keyframes orbPulse {
+                    0%, 100% { opacity: 0.18; transform: scale(1); }
+                    50%       { opacity: 0.28; transform: scale(1.08); }
+                }
                 @media (min-width: 961px) {
                     .pilot-deliverables-grid { grid-template-columns: repeat(3,1fr); }
                     .pilot-results-grid { grid-template-columns: repeat(4,1fr); }
@@ -593,6 +641,6 @@ export default function Pilot() {
                     .pilot-steps-grid { grid-template-columns: 1fr !important; }
                 }
             `}</style>
-        </motion.main>
+        </main>
     )
 }

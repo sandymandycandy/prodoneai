@@ -2,7 +2,12 @@ import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { useLanguage } from '../context/LanguageContext'
 
-const icons = ['🎬', '⚡', '🤖', '🚀']
+const SvgIcons = [
+    () => <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="3"/><polygon points="10 9 16 12 10 15"/></svg>,
+    () => <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10"/></svg>,
+    () => <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/><circle cx="9" cy="10" r=".8" fill="currentColor"/><circle cx="12" cy="10" r=".8" fill="currentColor"/><circle cx="15" cy="10" r=".8" fill="currentColor"/></svg>,
+    () => <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8l4 4-4 4M8 12h8"/></svg>,
+]
 const glows = [
     'rgba(120, 80, 255, 0.35)',
     'rgba(255, 160, 40, 0.3)',
@@ -64,7 +69,7 @@ function OutcomeCard({ card, index, icon, glow }) {
                         border: '1px solid rgba(255,255,255,0.1)',
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
                         fontSize: 22,
-                    }}>{icon}</div>
+                    }}>{icon()}</div>
                 </div>
 
                 {/* Big number */}
@@ -102,7 +107,7 @@ function OutcomeCard({ card, index, icon, glow }) {
                 {/* Bottom */}
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.35)', fontWeight: 600 }}>
-                        ⚡ {card.timeline}
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none" style={{ display: 'inline', verticalAlign: 'middle', marginRight: 4, marginTop: -1 }}><polygon points="13 2 3 14 12 14 11 22 21 10 12 10"/></svg>{card.timeline}
                     </div>
                     <div style={{
                         display: 'flex', alignItems: 'baseline', gap: 6,
@@ -172,7 +177,7 @@ export default function Outcomes() {
                 {/* Cards */}
                 <div className="outcomes-grid">
                     {cards.map((card, i) => (
-                        <OutcomeCard key={i} card={card} index={i} icon={icons[i]} glow={glows[i]} />
+                        <OutcomeCard key={i} card={card} index={i} icon={SvgIcons[i]} glow={glows[i]} />
                     ))}
                 </div>
 

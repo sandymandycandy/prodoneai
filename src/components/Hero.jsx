@@ -110,8 +110,7 @@ function VideoAdCard() {
                     </div>
                     {/* Live badge */}
                     <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '6px 13px', borderRadius: 50, background: 'rgba(0,0,0,0.5)', border: '1px solid rgba(255,255,255,0.2)' }}>
-                        <motion.div animate={{ opacity: [1, 0.1, 1] }} transition={{ duration: 1.4, repeat: Infinity }}
-                            style={{ width: 7, height: 7, borderRadius: '50%', background: '#ff4444', boxShadow: '0 0 8px rgba(255,60,60,1)' }} />
+                        <div className="live-dot" style={{ width: 7, height: 7, borderRadius: '50%', background: '#ff4444', boxShadow: '0 0 8px rgba(255,60,60,1)' }} />
                         <span style={{ fontSize: 11, fontWeight: 700, color: '#fff', letterSpacing: '0.06em' }}>{t('hero.videoCard.live')}</span>
                     </div>
                 </div>
@@ -264,14 +263,12 @@ export default function Hero() {
                 </div>
             </div>
 
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.2 }}
-                style={{ position: 'absolute', bottom: 28, left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, color: 'rgba(255,255,255,0.25)', fontSize: 9, letterSpacing: '0.14em', textTransform: 'uppercase', zIndex: 10 }}>
-                <motion.div animate={{ y: [0, 8, 0] }} transition={{ repeat: Infinity, duration: 1.6, ease: 'easeInOut' }}
-                    style={{ width: 20, height: 30, border: '1px solid rgba(255,255,255,0.15)', borderRadius: 10, display: 'flex', justifyContent: 'center', paddingTop: 6, backdropFilter: 'blur(8px)' }}>
+            <div className="hero-scroll-hint" style={{ position: 'absolute', bottom: 28, left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, color: 'rgba(255,255,255,0.25)', fontSize: 9, letterSpacing: '0.14em', textTransform: 'uppercase', zIndex: 10 }}>
+                <div className="scroll-mouse" style={{ width: 20, height: 30, border: '1px solid rgba(255,255,255,0.15)', borderRadius: 10, display: 'flex', justifyContent: 'center', paddingTop: 6 }}>
                     <div style={{ width: 2, height: 7, background: 'rgba(255,255,255,0.35)', borderRadius: 2 }} />
-                </motion.div>
+                </div>
                 SCROLL
-            </motion.div>
+            </div>
 
             <style>{`
                 @media (max-width: 900px) {

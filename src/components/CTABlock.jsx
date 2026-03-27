@@ -30,7 +30,7 @@ export default function CTABlock() {
                     <motion.div
                         animate={{ scale: [1, 1.3, 1], opacity: [0.5, 0.8, 0.5] }}
                         transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-                        style={{ position: 'absolute', width: 500, height: 500, borderRadius: '50%', background: 'rgba(90,40,200,0.18)', filter: 'blur(80px)', top: '-180px', left: '-100px', pointerEvents: 'none' }}
+                        style={{ position: 'absolute', width: 500, height: 500, borderRadius: '50%', background: 'rgba(1,115,211,0.18)', filter: 'blur(80px)', top: '-180px', left: '-100px', pointerEvents: 'none' }}
                     />
                     <motion.div
                         animate={{ scale: [1, 1.25, 1], opacity: [0.4, 0.75, 0.4] }}
@@ -101,7 +101,8 @@ export default function CTABlock() {
                             style={{ marginTop: '44px', display: 'flex', gap: '32px', justifyContent: 'center', flexWrap: 'wrap' }}
                         >
                             {badges.map((item, i) => (
-                                <div key={i} style={{ fontSize: '13px', color: 'rgba(255,255,255,0.3)', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                <div key={i} style={{ fontSize: '12px', color: 'rgba(255,255,255,0.38)', display: 'flex', alignItems: 'center', gap: '7px', padding: '6px 14px', borderRadius: 50, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}>
+                                    <span style={{ width: 5, height: 5, borderRadius: '50%', background: 'rgba(1,115,211,0.8)', boxShadow: '0 0 6px rgba(1,115,211,0.6)', flexShrink: 0 }} />
                                     {item}
                                 </div>
                             ))}

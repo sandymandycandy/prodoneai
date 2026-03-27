@@ -979,3 +979,114 @@ section+section {
     justify-content: center !important;
   }
 }
+
+/* ═══════════════════════════════════════════════════════
+   PERFORMANCE — Mobile & Low-end Device Optimizations
+═══════════════════════════════════════════════════════ */
+
+/* Remove 300ms tap delay on all interactive elements */
+a, button, [role="button"] {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Smooth iOS momentum scrolling */
+html {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: none;
+}
+
+/* CSS live dot animation (replaces Framer Motion infinite) */
+@keyframes liveBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.15; }
+}
+.live-dot {
+  animation: liveBlink 1.4s ease-in-out infinite;
+}
+
+/* CSS scroll mouse animation (replaces Framer Motion infinite) */
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+.scroll-mouse {
+  animation: scrollBounce 1.6s ease-in-out infinite;
+}
+
+/* ── Mobile: kill every backdrop-filter and heavy animation ── */
+@media (max-width: 768px) {
+  /* Nuclear backdrop-filter disable — biggest scroll-jank fix on mobile */
+  * {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  /* Restore solid backgrounds where glass would look broken */
+  .btn-ghost {
+    background: rgba(10, 10, 22, 0.95) !important;
+  }
+  .glass-card {
+    background: rgba(10, 10, 20, 0.95) !important;
+  }
+
+  /* Kill all infinite CSS animations on mobile */
+  .shimmer-text {
+    animation: none !important;
+    background: none !important;
+    -webkit-text-fill-color: rgba(255,255,255,0.9) !important;
+    color: rgba(255,255,255,0.9) !important;
+  }
+  .hero-glow-orb-1,
+  .hero-glow-orb-2 {
+    animation: none !important;
+    display: none !important;
+  }
+  .section-label::before {
+    animation: none !important;
+    opacity: 0.7;
+  }
+  .stat-number {
+    animation: none !important;
+  }
+  .float-gentle {
+    animation: none !important;
+  }
+  .live-dot {
+    animation: none !important;
+  }
+  .scroll-mouse,
+  .hero-scroll-hint {
+    display: none !important;
+  }
+
+  /* Simplify body background — 3 heavy radial gradients → solid */
+  body {
+    background-image: none !important;
+    background: #000 !important;
+  }
+
+  /* Reduce box-shadow depth (compositing layers) */
+  .glass-card {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.6) !important;
+  }
+
+  /* video — prevent autoplay burn on mobile battery */
+  video {
+    pointer-events: none;
+  }
+
+  /* Disable filter: blur on decorative orbs */
+  [style*="filter: blur"],
+  [style*="filter:blur"] {
+    filter: none !important;
+  }
+}
+
+/* ── Tablet: reduce (not eliminate) blur ── */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .glass-card {
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+  }
+}
