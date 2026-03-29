@@ -136,23 +136,60 @@ export default function CompanyPage() {
                             <span style={{ color: '#0173D3' }}>3 days</span>
                         </h2>
                     </div>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 2 }} className="process-grid">
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 16, alignItems: 'stretch' }} className="process-grid">
                         {PROCESS.map((step, i) => (
-                            <motion.div key={i}
-                                initial={{ opacity: 0, y: 24 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, amount: 0.3 }}
-                                transition={{ delay: i * 0.12, duration: 0.6 }}
-                                style={{ padding: '28px 24px', position: 'relative' }}
-                            >
-                                <div style={{ fontSize: 11, fontWeight: 800, color: '#0173D3', letterSpacing: '0.12em', marginBottom: 12 }}>{step.num}</div>
-                                <div style={{ position: 'absolute', top: 28, left: 24, width: 1, height: 32, background: 'linear-gradient(180deg, #0173D3, transparent)', opacity: 0.4 }} />
-                                <h3 style={{ fontSize: 16, fontWeight: 700, color: '#fff', marginBottom: 10 }}>{step.title}</h3>
-                                <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.4)', lineHeight: 1.75 }}>{step.desc}</p>
+                            <div key={i} style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                                <motion.div
+                                    initial={{ opacity: 0, y: 28 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true, amount: 0.3 }}
+                                    transition={{ delay: i * 0.12, duration: 0.65, ease: [0.23, 1, 0.32, 1] }}
+                                    whileHover={{ y: -5, boxShadow: '0 28px 64px rgba(0,0,0,0.55), 0 0 0 1px rgba(1,115,211,0.35)' }}
+                                    style={{
+                                        flex: 1,
+                                        padding: '32px 28px',
+                                        borderRadius: 22,
+                                        background: 'rgba(6,8,18,0.85)',
+                                        backdropFilter: 'blur(24px) saturate(1.5)',
+                                        WebkitBackdropFilter: 'blur(24px) saturate(1.5)',
+                                        border: '1px solid rgba(255,255,255,0.09)',
+                                        boxShadow: '0 8px 40px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.07)',
+                                        position: 'relative', overflow: 'hidden',
+                                        height: '100%',
+                                    }}
+                                >
+                                    {/* Blue top shine */}
+                                    <div style={{ position: 'absolute', top: 0, left: '15%', right: '15%', height: 1, background: 'linear-gradient(90deg, transparent, rgba(1,115,211,0.55), transparent)' }} />
+
+                                    {/* Step number badge */}
+                                    <div style={{
+                                        display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                                        width: 44, height: 44, borderRadius: 13,
+                                        background: 'rgba(1,115,211,0.10)',
+                                        border: '1px solid rgba(1,115,211,0.25)',
+                                        marginBottom: 20,
+                                    }}>
+                                        <span style={{ fontSize: 13, fontWeight: 900, color: '#60a5fa', letterSpacing: '-0.02em' }}>{step.num}</span>
+                                    </div>
+
+                                    <h3 style={{ fontSize: 16, fontWeight: 800, color: '#fff', marginBottom: 10, letterSpacing: '-0.02em', lineHeight: 1.25 }}>{step.title}</h3>
+                                    <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.42)', lineHeight: 1.78, margin: 0 }}>{step.desc}</p>
+                                </motion.div>
+
+                                {/* Connector arrow between cards */}
                                 {i < 3 && (
-                                    <div style={{ position: 'absolute', top: '50%', right: -1, transform: 'translateY(-50%)', fontSize: 16, color: 'rgba(255,255,255,0.12)' }}>→</div>
+                                    <div style={{
+                                        position: 'absolute', right: -13, top: '50%', transform: 'translateY(-50%)',
+                                        zIndex: 2, width: 26, height: 26,
+                                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                        borderRadius: '50%',
+                                        background: 'rgba(6,8,18,0.95)',
+                                        border: '1px solid rgba(1,115,211,0.25)',
+                                        color: 'rgba(1,115,211,0.7)',
+                                        fontSize: 11, fontWeight: 700,
+                                    }}>›</div>
                                 )}
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
                 </div>

@@ -7,19 +7,21 @@ export default function Footer() {
 
     const footerLinks = {
         [ft.navGroup]: [
-            { label: ft.navLinks[0], href: '#services' },
-            { label: ft.navLinks[1], href: '#contact' },
-            { label: ft.navLinks[2], href: '/pilot', isRoute: true },
+            { label: ft.navLinks[0], href: '/#howitworks' },
+            { label: ft.navLinks[1], href: '/services', isRoute: true },
+            { label: ft.navLinks[2], href: '/#integration' },
+            { label: ft.navLinks[3], href: '/contact', isRoute: true },
+            { label: ft.navLinks[4], href: '/pilot', isRoute: true },
         ],
         [ft.servicesGroup]: [
-            { label: ft.serviceLinks[0], href: '#services' },
-            { label: ft.serviceLinks[1], href: '#services' },
-            { label: ft.serviceLinks[2], href: '#services' },
-            { label: ft.serviceLinks[3], href: '#services' },
+            { label: ft.serviceLinks[0], href: '/services/ai-ads', isRoute: true },
+            { label: ft.serviceLinks[1], href: '/services/content-workflow', isRoute: true },
+            { label: ft.serviceLinks[2], href: '/services/ai-agent', isRoute: true },
+            { label: ft.serviceLinks[3], href: '/services/custom-apps', isRoute: true },
         ],
         [ft.companyGroup]: [
-            { label: ft.companyLinks[0], href: '#' },
-            { label: ft.companyLinks[1], href: '#' },
+            { label: ft.companyLinks[0], href: '/company', isRoute: true },
+            { label: ft.companyLinks[1], href: '/company', isRoute: true },
             { label: ft.companyLinks[2], href: '#' },
             { label: ft.companyLinks[3], href: '#' },
         ],
