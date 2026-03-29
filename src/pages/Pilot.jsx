@@ -70,8 +70,7 @@ function DemoChatbot() {
                     <div style={{ width: 42, height: 42, borderRadius: 13, background: 'linear-gradient(135deg,rgba(1,115,211,0.5),rgba(1,115,211,0.3))', border: '1px solid rgba(1,115,211,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 16px rgba(1,115,211,0.25)' }}>
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="rgba(255,255,255,0.9)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17 10c0 3.87-3.13 7-7 7a6.95 6.95 0 01-4.09-1.33L2 17l1.33-3.91A6.95 6.95 0 013 10c0-3.87 3.13-7 7-7s7 3.13 7 7z"/><circle cx="7" cy="10" r=".7" fill="currentColor"/><circle cx="10" cy="10" r=".7" fill="currentColor"/><circle cx="13" cy="10" r=".7" fill="currentColor"/></svg>
                     </div>
-                    <motion.div animate={{ scale: [1, 1.4, 1], opacity: [1, 0.4, 1] }} transition={{ duration: 2, repeat: Infinity }}
-                        style={{ position: 'absolute', bottom: 2, right: 2, width: 9, height: 9, borderRadius: '50%', background: '#0173D3', border: '2px solid rgba(5,5,13,0.98)', boxShadow: '0 0 8px rgba(1,115,211,0.8)' }} />
+                    <div style={{ position: 'absolute', bottom: 2, right: 2, width: 9, height: 9, borderRadius: '50%', background: '#0173D3', border: '2px solid rgba(5,5,13,0.98)', boxShadow: '0 0 8px rgba(1,115,211,0.8)', animation: 'pulse-dot 1.6s ease-in-out infinite' }} />
                 </div>
                 <div style={{ flex: 1, minWidth: 0 }}>
                     <div style={{ fontSize: 14, fontWeight: 700, color: '#fff', letterSpacing: '-0.01em' }}>Aria — prodone.ai</div>
@@ -102,7 +101,7 @@ function DemoChatbot() {
                     <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} style={{ display: 'flex', alignItems: 'flex-end', gap: 8 }}>
                         <div style={{ width: 28, height: 28, borderRadius: 9, flexShrink: 0, background: 'rgba(1,115,211,0.2)', border: '1px solid rgba(1,115,211,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="rgba(96,165,250,0.9)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17 10c0 3.87-3.13 7-7 7a6.95 6.95 0 01-4.09-1.33L2 17l1.33-3.91A6.95 6.95 0 013 10c0-3.87 3.13-7 7-7s7 3.13 7 7z"/><circle cx="7" cy="10" r=".7" fill="currentColor"/><circle cx="10" cy="10" r=".7" fill="currentColor"/><circle cx="13" cy="10" r=".7" fill="currentColor"/></svg></div>
                         <div style={{ padding: '10px 16px', borderRadius: '4px 18px 18px 18px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)', display: 'flex', gap: 5, alignItems: 'center' }}>
-                            {[0, 1, 2].map(i => <motion.div key={i} animate={{ y: [0, -5, 0], opacity: [0.4, 1, 0.4] }} transition={{ duration: 0.65, delay: i * 0.15, repeat: Infinity }} style={{ width: 5, height: 5, borderRadius: '50%', background: '#0173D3' }} />)}
+                            {[0, 1, 2].map(i => <div key={i} style={{ width: 5, height: 5, borderRadius: '50%', background: '#0173D3', animation: `typing-dot 0.65s ease-in-out ${i * 0.15}s infinite` }} />)}
                         </div>
                     </motion.div>
                 )}
@@ -173,7 +172,7 @@ export default function Pilot() {
 
                 {/* Background blobs */}
                 <div style={{ position: 'absolute', top: '-5%', right: '-8%', width: 700, height: 700, background: 'radial-gradient(circle,rgba(1,115,211,0.14) 0%,transparent 65%)', filter: 'blur(40px)', pointerEvents: 'none' }} />
-                <div style={{ position: 'absolute', bottom: '5%', left: '-8%', width: 500, height: 500, background: 'radial-gradient(circle,rgba(139,92,246,0.09) 0%,transparent 65%)', filter: 'blur(40px)', pointerEvents: 'none' }} />
+                <div style={{ position: 'absolute', bottom: '5%', left: '-8%', width: 500, height: 500, background: 'radial-gradient(circle,rgba(1,115,211,0.09) 0%,transparent 65%)', filter: 'blur(40px)', pointerEvents: 'none' }} />
                 {/* Giant decorative "3" */}
                 <div style={{ position: 'absolute', right: '2%', top: '50%', transform: 'translateY(-55%)', fontSize: 'clamp(300px,40vw,580px)', fontWeight: 900, color: 'rgba(1,115,211,0.04)', lineHeight: 1, userSelect: 'none', pointerEvents: 'none', letterSpacing: '-0.06em' }}>3</div>
 
@@ -285,11 +284,11 @@ export default function Pilot() {
                                 { v: '3 Days', l: 'DELIVERED', color: '#60a5fa', bg: 'rgba(1,115,211,0.12)', border: 'rgba(1,115,211,0.3)', pos: { bottom: '20%', right: '-12%' }, anim: [0, 7, 0], dur: 4 },
                                 { v: '−70%',  l: 'COST',      color: '#60a5fa', bg: 'rgba(1,115,211,0.12)', border: 'rgba(1,115,211,0.3)', pos: { bottom: '10%', left: '-10%' }, anim: [0, -5, 0], dur: 4.5 },
                             ].map((chip, i) => (
-                                <motion.div key={i} animate={{ y: chip.anim }} transition={{ duration: chip.dur, repeat: Infinity, ease: 'easeInOut', delay: i * 0.6 }}
-                                    style={{ position: 'absolute', ...chip.pos, padding: '10px 16px', borderRadius: 16, background: chip.bg, border: `1px solid ${chip.border}`, backdropFilter: 'blur(14px)', textAlign: 'center', boxShadow: '0 8px 28px rgba(0,0,0,0.4)', zIndex: 2 }}>
+                                <div key={i}
+                                    style={{ position: 'absolute', ...chip.pos, padding: '10px 16px', borderRadius: 16, background: chip.bg, border: `1px solid ${chip.border}`, backdropFilter: 'blur(14px)', textAlign: 'center', boxShadow: '0 8px 28px rgba(0,0,0,0.4)', zIndex: 2, animation: `chipFloat${i} ${chip.dur}s ease-in-out ${i * 0.6}s infinite` }}>
                                     <div style={{ fontSize: 20, fontWeight: 900, color: chip.color, lineHeight: 1, filter: `drop-shadow(0 0 10px ${chip.color}80)` }}>{chip.v}</div>
                                     <div style={{ fontSize: 8.5, color: 'rgba(255,255,255,0.4)', marginTop: 3, textTransform: 'uppercase', letterSpacing: '0.09em' }}>{chip.l}</div>
-                                </motion.div>
+                                </div>
                             ))}
                         </div>
                     </div>
@@ -410,13 +409,13 @@ export default function Pilot() {
 
                     {(() => {
                         const rows = [
-                            { label: 'Time to Deliver',   old: '6 – 12 weeks',      neo: '3 days',           neoColor: '#34d399' },
+                            { label: 'Time to Deliver',   old: '6 – 12 weeks',      neo: '3 days',           neoColor: '#60a5fa' },
                             { label: 'Starting Cost',     old: '€20,000+',           neo: 'From €5,000',      neoColor: '#60a5fa' },
-                            { label: 'First Preview',     old: 'Week 3–4',           neo: 'Day 1 prototype',  neoColor: '#c4b5fd' },
-                            { label: 'Revision Rounds',  old: '2 rounds (slow)',    neo: 'Unlimited (fast)', neoColor: '#34d399' },
-                            { label: 'Upfront Risk',      old: 'Full payment first', neo: 'Free prototype',   neoColor: '#fbbf24' },
+                            { label: 'First Preview',     old: 'Week 3–4',           neo: 'Day 1 prototype',  neoColor: '#93c5fd' },
+                            { label: 'Revision Rounds',  old: '2 rounds (slow)',    neo: 'Unlimited (fast)', neoColor: '#60a5fa' },
+                            { label: 'Upfront Risk',      old: 'Full payment first', neo: 'Free prototype',   neoColor: '#93c5fd' },
                             { label: 'AI Integration',   old: 'None / optional',    neo: 'Core workflow',    neoColor: '#60a5fa' },
-                            { label: 'GDPR Compliance',  old: 'On request',         neo: 'Built-in',         neoColor: '#34d399' },
+                            { label: 'GDPR Compliance',  old: 'On request',         neo: 'Built-in',         neoColor: '#93c5fd' },
                         ]
                         return (
                             <div style={{ borderRadius: 24, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.09)', backdropFilter: 'blur(20px) saturate(1.5)', WebkitBackdropFilter: 'blur(20px) saturate(1.5)', boxShadow: '0 8px 32px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.08)' }}>
@@ -506,7 +505,7 @@ export default function Pilot() {
                                         <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.4)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>German Retail Chain</div>
                                     </div>
                                 </div>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '6px 14px', borderRadius: 50, background: 'rgba(34,197,94,0.09)', border: '1px solid rgba(34,197,94,0.22)', fontSize: 12, fontWeight: 700, color: 'rgba(34,197,94,0.9)' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '6px 14px', borderRadius: 50, background: 'rgba(1,115,211,0.09)', border: '1px solid rgba(1,115,211,0.28)', fontSize: 12, fontWeight: 700, color: '#60a5fa' }}>
                                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                                     Verified Client
                                 </div>
@@ -564,7 +563,7 @@ export default function Pilot() {
             ══════════════════════════════════════════════════════ */}
             <section style={{ padding: '100px 0', borderTop: '1px solid rgba(255,255,255,0.05)', position: 'relative', overflow: 'hidden' }}>
                 <div style={{ position: 'absolute', top: '30%', right: '-5%', width: 600, height: 600, background: 'radial-gradient(circle,rgba(1,115,211,0.10) 0%,transparent 65%)', filter: 'blur(40px)', pointerEvents: 'none' }} />
-                <div style={{ position: 'absolute', bottom: '10%', left: '-5%', width: 500, height: 500, background: 'radial-gradient(circle,rgba(139,92,246,0.07) 0%,transparent 65%)', filter: 'blur(40px)', pointerEvents: 'none' }} />
+                <div style={{ position: 'absolute', bottom: '10%', left: '-5%', width: 500, height: 500, background: 'radial-gradient(circle,rgba(1,115,211,0.07) 0%,transparent 65%)', filter: 'blur(40px)', pointerEvents: 'none' }} />
 
                 <div className="container" style={{ position: 'relative', zIndex: 1 }}>
                     <div className="pilot-chat-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 72, alignItems: 'center' }}>
@@ -622,6 +621,22 @@ export default function Pilot() {
                 @keyframes orbPulse {
                     0%, 100% { opacity: 0.18; transform: scale(1); }
                     50%       { opacity: 0.28; transform: scale(1.08); }
+                }
+                @keyframes typing-dot {
+                    0%, 100% { transform: translateY(0); opacity: 0.4; }
+                    50%      { transform: translateY(-5px); opacity: 1; }
+                }
+                @keyframes chipFloat0 {
+                    0%, 100% { transform: translateY(0px); }
+                    50%      { transform: translateY(-8px); }
+                }
+                @keyframes chipFloat1 {
+                    0%, 100% { transform: translateY(0px); }
+                    50%      { transform: translateY(7px); }
+                }
+                @keyframes chipFloat2 {
+                    0%, 100% { transform: translateY(0px); }
+                    50%      { transform: translateY(-5px); }
                 }
                 @media (min-width: 961px) {
                     .pilot-deliverables-grid { grid-template-columns: repeat(3,1fr); }

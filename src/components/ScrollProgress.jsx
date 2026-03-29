@@ -24,25 +24,35 @@ export default function ScrollProgress() {
 
     return (
         <>
+            <style>{`@keyframes scroll-bar-shimmer { from { background-position: 0% 50%; } to { background-position: 200% 50%; } }`}</style>
             {/* ── Progress Bar ── */}
             <div style={{
                 position: 'fixed', top: 0, left: 0, right: 0, height: 2,
                 zIndex: 10000, pointerEvents: 'none',
                 background: 'rgba(255,255,255,0.04)',
             }}>
-                <motion.div
-                    style={{
+                <div style={{
                         height: '100%',
                         width: `${progress}%`,
-                        background: 'linear-gradient(90deg, rgba(120,80,255,0.9), rgba(80,180,255,0.9), rgba(120,80,255,0.9))',
+                        background: 'linear-gradient(90deg, rgba(1,115,211,0.9), rgba(96,165,250,0.9), rgba(1,115,211,0.9))',
                         backgroundSize: '200% 100%',
                         borderRadius: '0 2px 2px 0',
-                        boxShadow: '0 0 12px rgba(120,80,255,0.5), 0 0 4px rgba(80,180,255,0.4)',
+                        boxShadow: '0 0 12px rgba(1,115,211,0.5), 0 0 4px rgba(96,165,250,0.4)',
                         transition: 'width 0.15s ease-out',
+                        position: 'relative',
+                        animation: 'scroll-bar-shimmer 4s linear infinite',
                     }}
-                    animate={{ backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'] }}
-                    transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
-                />
+                >
+                    {/* Glowing trailing edge dot */}
+                    <div style={{
+                        position: 'absolute', right: -2, top: -3,
+                        width: 6, height: 8, borderRadius: 3,
+                        background: 'rgba(96,165,250,1)',
+                        boxShadow: '0 0 12px 4px rgba(1,115,211,0.9)',
+                        opacity: progress > 1 ? 1 : 0,
+                        transition: 'opacity 0.3s',
+                    }} />
+                </div>
             </div>
 
             {/* ── Back to Top ── */}
@@ -71,7 +81,7 @@ export default function ScrollProgress() {
                         whileHover={{
                             borderColor: 'rgba(255,255,255,0.35)',
                             color: '#fff',
-                            boxShadow: '0 12px 36px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.2), 0 0 18px rgba(120,80,255,0.2)',
+                            boxShadow: '0 12px 36px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.2), 0 0 18px rgba(1,115,211,0.25)',
                             y: -3,
                         }}
                         aria-label="Scroll to top"

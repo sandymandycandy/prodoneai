@@ -17,12 +17,12 @@ const CONTACT_OPTIONS = [
     },
     {
         icon: () => <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>,
-        iconColor: '#34d399', iconBg: 'rgba(16,185,129,0.12)', iconBorder: 'rgba(16,185,129,0.28)',
+        iconColor: '#93c5fd', iconBg: 'rgba(96,165,250,0.12)', iconBorder: 'rgba(96,165,250,0.28)',
         title: 'Book a Discovery Call', desc: "Talk to us directly. We'll scope your project and walk you through the process.", cta: 'Email Us', href: 'mailto:hello@prodone.ai',
     },
     {
         icon: () => <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>,
-        iconColor: '#c4b5fd', iconBg: 'rgba(139,92,246,0.12)', iconBorder: 'rgba(139,92,246,0.28)',
+        iconColor: '#60a5fa', iconBg: 'rgba(1,115,211,0.12)', iconBorder: 'rgba(1,115,211,0.28)',
         title: 'Partner With Us', desc: "Agencies and resellers — let's discuss white-label or referral partnerships.", cta: 'Partner Inquiry', href: 'mailto:partners@prodone.ai',
     },
 ]
@@ -35,7 +35,7 @@ export default function ContactPage() {
             {/* Page hero */}
             <section style={{ position: 'relative', paddingTop: 160, paddingBottom: 40, textAlign: 'center', overflow: 'hidden' }}>
                 <div style={{ position: 'absolute', top: '-10%', right: '5%', width: 700, height: 600, background: 'radial-gradient(ellipse, rgba(1,115,211,0.14) 0%, transparent 65%)', pointerEvents: 'none' }} />
-                <div style={{ position: 'absolute', bottom: 0, left: '-5%', width: 500, height: 500, background: 'radial-gradient(circle, rgba(80,40,200,0.07) 0%, transparent 65%)', pointerEvents: 'none' }} />
+                <div style={{ position: 'absolute', bottom: 0, left: '-5%', width: 500, height: 500, background: 'radial-gradient(circle, rgba(1,115,211,0.07) 0%, transparent 65%)', pointerEvents: 'none' }} />
 
                 <div className="container" style={{ position: 'relative', zIndex: 1 }}>
                     <motion.div className="section-label" style={{ display: 'inline-flex', marginBottom: 24 }}
@@ -82,7 +82,7 @@ export default function ContactPage() {
                                     cursor: 'pointer',
                                 }}
                             >
-                                <div style={{ position: 'absolute', top: 0, left: '15%', right: '15%', height: 1, background: 'linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent)' }} />
+                                <div style={{ position: 'absolute', top: 0, left: '15%', right: '15%', height: 1, background: 'linear-gradient(90deg, transparent, rgba(1,115,211,0.5), transparent)' }} />
                                 <div style={{ width: 50, height: 50, borderRadius: 15, background: opt.iconBg, border: `1px solid ${opt.iconBorder}`, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16, color: opt.iconColor, boxShadow: `0 0 20px ${opt.iconBg}` }}>{opt.icon()}</div>
                                 <div style={{ fontSize: 16, fontWeight: 700, color: '#fff', marginBottom: 8 }}>{opt.title}</div>
                                 <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.4)', lineHeight: 1.7, marginBottom: 16 }}>{opt.desc}</div>

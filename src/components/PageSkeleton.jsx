@@ -39,11 +39,11 @@ export default function PageSkeleton() {
                 overflow: 'hidden',
                 position: 'relative',
             }}>
-                {/* Subtle purple fog — CSS only */}
+                {/* Ambient blue fog */}
                 <div style={{
                     position: 'absolute', top: '10%', left: '-5%',
                     width: '55vw', height: '55vw',
-                    background: 'radial-gradient(circle, rgba(100,60,240,0.10) 0%, transparent 70%)',
+                    background: 'radial-gradient(circle, rgba(1,115,211,0.10) 0%, transparent 70%)',
                     filter: 'blur(40px)', pointerEvents: 'none',
                 }} />
 
@@ -65,7 +65,7 @@ export default function PageSkeleton() {
                 </div>
 
                 {/* ── Hero skeleton ── */}
-                <div style={{
+                <div className="page-skeleton-grid" style={{
                     display: 'grid',
                     gridTemplateColumns: '1fr 1fr',
                     gap: 80,
@@ -148,7 +148,11 @@ export default function PageSkeleton() {
 
             <style>{`
                 @media (max-width: 960px) {
-                    .page-skeleton-grid { grid-template-columns: 1fr !important; }
+                    .page-skeleton-grid { grid-template-columns: 1fr !important; gap: 40px !important; padding: 90px 32px 60px !important; }
+                    .page-skeleton-grid > div:last-child { display: none; }
+                }
+                @media (max-width: 480px) {
+                    .page-skeleton-grid { padding: 90px 16px 48px !important; }
                 }
             `}</style>
         </>

@@ -8,13 +8,15 @@ import PageSkeleton from './components/PageSkeleton'
 import ScrollProgress from './components/ScrollProgress'
 import './index.css'
 
-const Home        = lazy(() => import('./pages/Home'))
-const Pilot       = lazy(() => import('./pages/Pilot'))
+const Home = lazy(() => import('./pages/Home'))
+const Pilot = lazy(() => import('./pages/Pilot'))
 const ServicesPage = lazy(() => import('./pages/ServicesPage'))
-const ResultsPage  = lazy(() => import('./pages/ResultsPage'))
-const CompanyPage  = lazy(() => import('./pages/CompanyPage'))
-const FAQPage      = lazy(() => import('./pages/FAQPage'))
-const ContactPage  = lazy(() => import('./pages/ContactPage'))
+const ResultsPage = lazy(() => import('./pages/ResultsPage'))
+const CompanyPage = lazy(() => import('./pages/CompanyPage'))
+const FAQPage = lazy(() => import('./pages/FAQPage'))
+const ContactPage = lazy(() => import('./pages/ContactPage'))
+const ServiceDetailPage = lazy(() => import('./pages/ServiceDetailPage'))
+const NotFound = lazy(() => import('./pages/NotFound'))
 
 function Loader({ onDone }) {
   const [progress, setProgress] = useState(0)
@@ -43,11 +45,11 @@ function Loader({ onDone }) {
     >
       {/* Ambient background glow */}
       <div style={{
-          position: 'absolute', width: '60vw', height: '60vw',
-          background: 'radial-gradient(circle, rgba(1, 115, 211, 0.12) 0%, transparent 70%)',
-          top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
-          filter: 'blur(30px)', zIndex: 0, pointerEvents: 'none'
-        }}
+        position: 'absolute', width: '60vw', height: '60vw',
+        background: 'radial-gradient(circle, rgba(1, 115, 211, 0.12) 0%, transparent 70%)',
+        top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
+        filter: 'blur(30px)', zIndex: 0, pointerEvents: 'none'
+      }}
       />
 
       <motion.div
@@ -138,13 +140,15 @@ function App() {
           <Navbar />
           <Suspense fallback={<PageSkeleton />}>
             <Routes>
-              <Route path="/"         element={<Home />} />
-              <Route path="/pilot"    element={<Pilot />} />
+              <Route path="/" element={<Home />} />
+              <Route path="/pilot" element={<Pilot />} />
               <Route path="/services" element={<ServicesPage />} />
-              <Route path="/results"  element={<ResultsPage />} />
-              <Route path="/company"  element={<CompanyPage />} />
-              <Route path="/faq"      element={<FAQPage />} />
-              <Route path="/contact"  element={<ContactPage />} />
+              <Route path="/services/:serviceId" element={<ServiceDetailPage />} />
+              <Route path="/results" element={<ResultsPage />} />
+              <Route path="/company" element={<CompanyPage />} />
+              <Route path="/faq" element={<FAQPage />} />
+              <Route path="/contact" element={<ContactPage />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
           <Footer />

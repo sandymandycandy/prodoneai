@@ -39,7 +39,7 @@ export default function Integration() {
         }}>
             {/* Glass backdrop blobs */}
             <div style={{ position: 'absolute', top: '-5%', left: '10%', width: 800, height: 500, background: 'radial-gradient(ellipse, rgba(1,115,211,0.12) 0%, transparent 65%)', pointerEvents: 'none', zIndex: 0 }} />
-            <div style={{ position: 'absolute', bottom: '-5%', right: '5%', width: 500, height: 500, background: 'radial-gradient(circle, rgba(80,40,200,0.07) 0%, transparent 65%)', pointerEvents: 'none', zIndex: 0 }} />
+            <div style={{ position: 'absolute', bottom: '-5%', right: '5%', width: 500, height: 500, background: 'radial-gradient(circle, rgba(1,115,211,0.07) 0%, transparent 65%)', pointerEvents: 'none', zIndex: 0 }} />
 
             <div className="container" ref={ref} style={{ position: 'relative', zIndex: 1 }}>
                 {/* Header */}
@@ -51,7 +51,7 @@ export default function Integration() {
                         initial={{ opacity: 0, y: 30 }}
                         animate={inView ? { opacity: 1, y: 0 } : {}}
                         transition={{ delay: 0.1, duration: 0.8 }}
-                        style={{ fontSize: 'clamp(30px, 4vw, 56px)', marginTop: 24, marginBottom: 18 }}
+                        style={{ fontSize: 'clamp(30px, 4vw, 56px)', marginBottom: 18 }}
                     >
                         {t('integration.title1')}{' '}
                         <span style={{ background: 'linear-gradient(135deg,#fff 0%,rgba(255,255,255,0.35) 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
@@ -82,9 +82,20 @@ export default function Integration() {
                         <div className="marquee-track" style={{ marginBottom: '14px' }}>
                             <div className="marquee-content marquee-forward">
                                 {row1.map((tool, i) => (
-                                    <div key={i} className="tool-chip">
-                                        <span style={{ width: 22, height: 22, borderRadius: 7, background: tool.bg, border: `1px solid ${tool.color}33`, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, fontWeight: 800, color: tool.color, letterSpacing: '-0.02em', flexShrink: 0 }}>{tool.name.slice(0,2).toUpperCase()}</span>
-                                        <span style={{ fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.55)', whiteSpace: 'nowrap' }}>{tool.name}</span>
+                                    <div key={i} className="tool-chip" style={{ minWidth: 160 }}>
+                                        <span style={{
+                                            width: 24, height: 24, borderRadius: 8,
+                                            background: tool.bg,
+                                            border: `1px solid ${tool.color}44`,
+                                            display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                                            fontSize: 9, fontWeight: 800, color: tool.color,
+                                            letterSpacing: '-0.02em', flexShrink: 0,
+                                            boxShadow: `0 0 0 0 ${tool.color}00`,
+                                            transition: 'box-shadow 0.3s',
+                                        }}>{tool.name.slice(0,2).toUpperCase()}</span>
+                                        <span style={{ fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.65)', whiteSpace: 'nowrap' }}>{tool.name}</span>
+                                        {/* Brand color dot */}
+                                        <span style={{ width: 5, height: 5, borderRadius: '50%', background: tool.color, opacity: 0.6, marginLeft: 'auto', flexShrink: 0 }} />
                                     </div>
                                 ))}
                             </div>
@@ -92,9 +103,17 @@ export default function Integration() {
                         <div className="marquee-track">
                             <div className="marquee-content marquee-reverse">
                                 {row2.map((tool, i) => (
-                                    <div key={i} className="tool-chip">
-                                        <span style={{ width: 22, height: 22, borderRadius: 7, background: tool.bg, border: `1px solid ${tool.color}33`, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, fontWeight: 800, color: tool.color, letterSpacing: '-0.02em', flexShrink: 0 }}>{tool.name.slice(0,2).toUpperCase()}</span>
-                                        <span style={{ fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.55)', whiteSpace: 'nowrap' }}>{tool.name}</span>
+                                    <div key={i} className="tool-chip" style={{ minWidth: 160 }}>
+                                        <span style={{
+                                            width: 24, height: 24, borderRadius: 8,
+                                            background: tool.bg,
+                                            border: `1px solid ${tool.color}44`,
+                                            display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                                            fontSize: 9, fontWeight: 800, color: tool.color,
+                                            letterSpacing: '-0.02em', flexShrink: 0,
+                                        }}>{tool.name.slice(0,2).toUpperCase()}</span>
+                                        <span style={{ fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.65)', whiteSpace: 'nowrap' }}>{tool.name}</span>
+                                        <span style={{ width: 5, height: 5, borderRadius: '50%', background: tool.color, opacity: 0.6, marginLeft: 'auto', flexShrink: 0 }} />
                                     </div>
                                 ))}
                             </div>
@@ -110,28 +129,38 @@ export default function Integration() {
                     style={{ textAlign: 'center', marginTop: '60px' }}
                 >
                     <div style={{
-                        display: 'inline-flex', gap: 0,
-                        borderRadius: 24,
-                        border: '1px solid rgba(255,255,255,0.10)',
-                        overflow: 'hidden',
-                        background: 'rgba(255,255,255,0.04)',
-                        backdropFilter: 'blur(28px) saturate(1.5)',
-                        WebkitBackdropFilter: 'blur(28px) saturate(1.5)',
-                        boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.10), 0 12px 50px rgba(0,0,0,0.45)',
-                    }}>
-                        {stats.map(([v, l], i) => (
-                            <div key={l} style={{
-                                textAlign: 'center', padding: '24px 48px',
-                                borderRight: i < 2 ? '1px solid rgba(255,255,255,0.07)' : 'none',
-                            }}>
-                                <div style={{
-                                    fontSize: '32px', fontWeight: 900, color: '#fff',
-                                    letterSpacing: '-0.03em', lineHeight: 1, marginBottom: 6,
-                                }}>{v}</div>
-                                <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 600 }}>{l}</div>
-                            </div>
-                        ))}
-                    </div>
+                            display: 'inline-flex', gap: 0,
+                            borderRadius: 24,
+                            border: '1px solid rgba(255,255,255,0.10)',
+                            overflow: 'hidden',
+                            background: 'rgba(255,255,255,0.04)',
+                            backdropFilter: 'blur(28px) saturate(1.5)',
+                            WebkitBackdropFilter: 'blur(28px) saturate(1.5)',
+                            boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.10), 0 12px 50px rgba(0,0,0,0.45)',
+                            position: 'relative',
+                        }}>
+                            {/* Blue top-line accent */}
+                            <div style={{ position: 'absolute', top: 0, left: '15%', right: '15%', height: 1, background: 'linear-gradient(90deg,transparent,rgba(1,115,211,0.6),transparent)' }} />
+                            {stats.map(([v, l], i) => (
+                                <motion.div
+                                    key={l}
+                                    initial={{ opacity: 0, y: 14 }}
+                                    animate={inView ? { opacity: 1, y: 0 } : {}}
+                                    transition={{ delay: 0.6 + i * 0.12, duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
+                                    style={{
+                                        textAlign: 'center', padding: '28px 52px',
+                                        borderRight: i < 2 ? '1px solid rgba(255,255,255,0.07)' : 'none',
+                                    }}
+                                >
+                                    <div style={{
+                                        fontSize: '34px', fontWeight: 900, color: '#fff',
+                                        letterSpacing: '-0.03em', lineHeight: 1, marginBottom: 8,
+                                        textShadow: '0 0 30px rgba(1,115,211,0.25)',
+                                    }}>{v}</div>
+                                    <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase', letterSpacing: '0.10em', fontWeight: 700 }}>{l}</div>
+                                </motion.div>
+                            ))}
+                        </div>
                 </motion.div>
             </div>
 

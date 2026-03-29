@@ -26,23 +26,15 @@ export default function CTABlock() {
                         textAlign: 'center',
                     }}
                 >
-                    {/* Animated glow orbs */}
-                    <motion.div
-                        animate={{ scale: [1, 1.3, 1], opacity: [0.5, 0.8, 0.5] }}
-                        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-                        style={{ position: 'absolute', width: 500, height: 500, borderRadius: '50%', background: 'rgba(1,115,211,0.18)', filter: 'blur(80px)', top: '-180px', left: '-100px', pointerEvents: 'none' }}
-                    />
-                    <motion.div
-                        animate={{ scale: [1, 1.25, 1], opacity: [0.4, 0.75, 0.4] }}
-                        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-                        style={{ position: 'absolute', width: 500, height: 500, borderRadius: '50%', background: 'rgba(30,100,240,0.15)', filter: 'blur(80px)', bottom: '-180px', right: '-100px', pointerEvents: 'none' }}
-                    />
+                    {/* CSS-animated glow orbs (no repeat:Infinity in Framer) */}
+                    <div style={{ position: 'absolute', width: 500, height: 500, borderRadius: '50%', background: 'rgba(1,115,211,0.16)', filter: 'blur(80px)', top: '-180px', left: '-100px', pointerEvents: 'none', animation: 'orbPulse 7s ease-in-out infinite' }} />
+                    <div style={{ position: 'absolute', width: 500, height: 500, borderRadius: '50%', background: 'rgba(30,100,240,0.12)', filter: 'blur(80px)', bottom: '-180px', right: '-100px', pointerEvents: 'none', animation: 'orbPulse 9s ease-in-out infinite 1.5s' }} />
 
-                    {/* Top shine */}
-                    <div style={{ position: 'absolute', top: 0, left: '20%', right: '20%', height: 1, background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.28), transparent)' }} />
-
-                    {/* Grid overlay */}
-                    <div className="grid-overlay" style={{ borderRadius: 40, opacity: 0.4 }} />
+                    {/* Top blue accent line */}
+                    <div style={{ position: 'absolute', top: 0, left: '20%', right: '20%', height: 1, background: 'linear-gradient(90deg, transparent, rgba(1,115,211,0.7), transparent)' }} />
+                    {/* Corner accent dots */}
+                    <div style={{ position: 'absolute', top: 20, left: 24, width: 6, height: 6, borderRadius: '50%', background: 'rgba(1,115,211,0.5)', boxShadow: '0 0 12px rgba(1,115,211,0.6)' }} />
+                    <div style={{ position: 'absolute', top: 20, right: 24, width: 6, height: 6, borderRadius: '50%', background: 'rgba(1,115,211,0.5)', boxShadow: '0 0 12px rgba(1,115,211,0.6)' }} />
 
                     <div style={{ position: 'relative', zIndex: 1 }}>
                         <motion.div
@@ -95,14 +87,23 @@ export default function CTABlock() {
                         </motion.div>
 
                         <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={inView ? { opacity: 1 } : {}}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={inView ? { opacity: 1, y: 0 } : {}}
                             transition={{ delay: 0.8 }}
-                            style={{ marginTop: '44px', display: 'flex', gap: '32px', justifyContent: 'center', flexWrap: 'wrap' }}
+                            style={{ marginTop: '44px', display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}
                         >
                             {badges.map((item, i) => (
-                                <div key={i} style={{ fontSize: '12px', color: 'rgba(255,255,255,0.38)', display: 'flex', alignItems: 'center', gap: '7px', padding: '6px 14px', borderRadius: 50, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}>
-                                    <span style={{ width: 5, height: 5, borderRadius: '50%', background: 'rgba(1,115,211,0.8)', boxShadow: '0 0 6px rgba(1,115,211,0.6)', flexShrink: 0 }} />
+                                <div key={i} style={{
+                                    fontSize: '11px', color: 'rgba(255,255,255,0.45)',
+                                    display: 'flex', alignItems: 'center', gap: '7px',
+                                    padding: '7px 16px', borderRadius: 50,
+                                    background: 'rgba(255,255,255,0.04)',
+                                    border: '1px solid rgba(255,255,255,0.09)',
+                                    backdropFilter: 'blur(8px)',
+                                    fontWeight: 500,
+                                    letterSpacing: '0.01em',
+                                }}>
+                                    <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#0173D3', boxShadow: '0 0 7px rgba(1,115,211,0.8)', flexShrink: 0, animation: 'pulse-dot 2.2s infinite' }} />
                                     {item}
                                 </div>
                             ))}

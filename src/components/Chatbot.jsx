@@ -200,12 +200,11 @@ function TypingDots() {
     return (
         <div style={{ display: 'flex', gap: 4, padding: '12px 16px', alignItems: 'center' }}>
             {[0, 1, 2].map(i => (
-                <motion.div key={i}
-                    animate={{ y: [0, -5, 0], opacity: [0.4, 1, 0.4] }}
-                    transition={{ duration: 0.55, repeat: Infinity, delay: i * 0.15 }}
-                    style={{ width: 6, height: 6, borderRadius: '50%', background: 'rgba(255,255,255,0.6)' }}
+                <div key={i}
+                    style={{ width: 6, height: 6, borderRadius: '50%', background: 'rgba(255,255,255,0.6)', animation: `typing-dot 0.55s ease-in-out ${i * 0.15}s infinite` }}
                 />
             ))}
+            <style>{`@keyframes typing-dot { 0%,100%{transform:translateY(0);opacity:.4} 50%{transform:translateY(-5px);opacity:1} }`}</style>
         </div>
     )
 }
@@ -400,7 +399,7 @@ export default function Chatbot() {
                         style={{
                             position: 'absolute', top: 2, right: 2,
                             width: 16, height: 16, borderRadius: '50%',
-                            background: '#ff4466',
+                            background: '#0173D3',
                             border: '2px solid rgba(0,0,0,0.8)',
                             display: 'flex', alignItems: 'center', justifyContent: 'center',
                             fontSize: 9, fontWeight: 800, color: '#fff',
@@ -434,18 +433,17 @@ export default function Chatbot() {
                         }}
                     >
                         {/* Top shine */}
-                        <div style={{ position: 'absolute', top: 0, left: '15%', right: '15%', height: 1, background: 'linear-gradient(90deg,transparent,rgba(255,255,255,0.18),transparent)' }} />
+                        <div style={{ position: 'absolute', top: 0, left: '15%', right: '15%', height: 1, background: 'linear-gradient(90deg, transparent, rgba(1,115,211,0.5), transparent)' }} />
 
                         {/* Header */}
                         <div style={{ padding: '16px 20px', borderBottom: '1px solid rgba(255,255,255,0.07)', display: 'flex', alignItems: 'center', gap: 12, flexShrink: 0 }}>
                             <div style={{ position: 'relative' }}>
                                 <div style={{ width: 40, height: 40, borderRadius: '50%', background: 'linear-gradient(135deg, rgba(1,115,211,0.3), rgba(1,90,180,0.15))', border: '1px solid rgba(1,115,211,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18 }}>🤖</div>
-                                <motion.div animate={{ opacity: [1, 0.3, 1], scale: [1, 1.4, 1] }} transition={{ duration: 1.6, repeat: Infinity }}
-                                    style={{ position: 'absolute', bottom: 1, right: 1, width: 9, height: 9, borderRadius: '50%', background: '#10b981', border: '2px solid rgba(0,0,0,0.8)' }} />
+                                <div style={{ position: 'absolute', bottom: 1, right: 1, width: 9, height: 9, borderRadius: '50%', background: '#0173D3', border: '2px solid rgba(0,0,0,0.8)', animation: 'pulse-dot 1.6s ease-in-out infinite' }} />
                             </div>
                             <div>
                                 <div style={{ fontWeight: 700, fontSize: 14, color: '#fff' }}>{labelTitle}</div>
-                                <div style={{ fontSize: 11, color: 'rgba(100,220,160,0.9)' }}>{labelSub}</div>
+                                <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.45)' }}>{labelSub}</div>
                             </div>
                             <button onClick={() => setOpen(false)} style={{ marginLeft: 'auto', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8, width: 28, height: 28, cursor: 'pointer', color: 'rgba(255,255,255,0.5)', fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
                         </div>
@@ -523,7 +521,7 @@ export default function Chatbot() {
                                         fontFamily: 'var(--font-body)', outline: 'none',
                                         opacity: canInput ? 1 : 0.4, transition: 'all 0.3s',
                                     }}
-                                    onFocus={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.28)'; e.currentTarget.style.background = 'rgba(255,255,255,0.08)' }}
+                                    onFocus={e => { e.currentTarget.style.borderColor = 'rgba(1,115,211,0.55)'; e.currentTarget.style.background = 'rgba(1,115,211,0.06)' }}
                                     onBlur={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.background = 'rgba(255,255,255,0.05)' }}
                                 />
                                 <motion.button

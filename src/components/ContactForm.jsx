@@ -41,8 +41,8 @@ export default function ContactForm() {
 
     const inputStyle = (field) => ({
         width: '100%',
-        background: focused === field ? 'rgba(255,255,255,0.07)' : 'rgba(255,255,255,0.03)',
-        border: `1px solid ${focused === field ? 'rgba(255,255,255,0.28)' : 'rgba(255,255,255,0.09)'}`,
+        background: focused === field ? 'rgba(1,115,211,0.06)' : 'rgba(255,255,255,0.03)',
+        border: `1px solid ${focused === field ? 'rgba(1,115,211,0.55)' : 'rgba(255,255,255,0.09)'}`,
         borderRadius: 14,
         padding: '14px 18px',
         color: '#fff',
@@ -50,7 +50,7 @@ export default function ContactForm() {
         fontFamily: 'var(--font-body)',
         outline: 'none',
         transition: 'all 0.3s',
-        boxShadow: focused === field ? 'inset 0 1px 0 rgba(255,255,255,0.08), 0 0 0 3px rgba(255,255,255,0.04)' : 'none',
+        boxShadow: focused === field ? 'inset 0 1px 0 rgba(255,255,255,0.06), 0 0 0 3px rgba(1,115,211,0.10)' : 'none',
         backdropFilter: 'blur(12px)',
     })
 
@@ -63,7 +63,7 @@ export default function ContactForm() {
         }}>
             {/* Glass backdrop blobs */}
             <div style={{ position: 'absolute', top: '-10%', right: '-5%', width: 680, height: 680, background: 'radial-gradient(circle, rgba(1,115,211,0.13) 0%, transparent 60%)', pointerEvents: 'none', zIndex: 0 }} />
-            <div style={{ position: 'absolute', bottom: '-8%', left: '-6%', width: 560, height: 560, background: 'radial-gradient(circle, rgba(80,40,200,0.07) 0%, transparent 65%)', pointerEvents: 'none', zIndex: 0 }} />
+            <div style={{ position: 'absolute', bottom: '-8%', left: '-6%', width: 560, height: 560, background: 'radial-gradient(circle, rgba(1,115,211,0.07) 0%, transparent 65%)', pointerEvents: 'none', zIndex: 0 }} />
 
             <div className="container" ref={ref} style={{ position: 'relative', zIndex: 1 }}>
                 <div className="contact-layout">
@@ -74,7 +74,11 @@ export default function ContactForm() {
                         animate={inView ? { opacity: 1, x: 0 } : {}}
                         transition={{ duration: 0.9, ease: [0.23, 1, 0.32, 1] }}
                     >
-                        <div className="section-label" style={{ marginBottom: '24px' }}>{t('contact.label')}</div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 28 }}>
+                            <span style={{ fontSize: 10, fontWeight: 700, color: '#0173D3', letterSpacing: '0.18em' }}>09</span>
+                            <div style={{ width: 1, height: 14, background: 'rgba(255,255,255,0.15)' }} />
+                            <div className="section-label" style={{ marginBottom: 0 }}>{t('contact.label')}</div>
+                        </div>
                         <h2 style={{ fontSize: 'clamp(30px, 3.5vw, 52px)', marginBottom: '20px', lineHeight: 1.12 }}>
                             {t('contact.title1')}<br />
                             <span style={{ background: 'linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.4) 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
@@ -88,9 +92,9 @@ export default function ContactForm() {
                         {/* Contact chips */}
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                             {[
-                                { icon: '📧', label: t('contact.email'), value: t('contact.emailVal') },
-                                { icon: '📍', label: t('contact.location'), value: t('contact.locationVal') },
-                                { icon: '🕐', label: t('contact.response'), value: t('contact.responseVal') },
+                                { icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>, label: t('contact.email'), value: t('contact.emailVal') },
+                                { icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>, label: t('contact.location'), value: t('contact.locationVal') },
+                                { icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>, label: t('contact.response'), value: t('contact.responseVal') },
                             ].map((c) => (
                                 <div key={c.label} style={{
                                     display: 'flex', alignItems: 'center', gap: '14px',
@@ -103,10 +107,10 @@ export default function ContactForm() {
                                 }}>
                                     <div style={{
                                         width: 40, height: 40, borderRadius: 12,
-                                        background: 'rgba(255,255,255,0.06)',
-                                        border: '1px solid rgba(255,255,255,0.1)',
+                                        background: 'rgba(1,115,211,0.10)',
+                                        border: '1px solid rgba(1,115,211,0.22)',
                                         display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                        fontSize: '18px', flexShrink: 0,
+                                        color: '#60a5fa', flexShrink: 0,
                                     }}>
                                         {c.icon}
                                     </div>
@@ -136,7 +140,7 @@ export default function ContactForm() {
                             position: 'relative', overflow: 'hidden',
                         }}>
                             {/* Top shine */}
-                            <div style={{ position: 'absolute', top: 0, left: '15%', right: '15%', height: 1, background: 'linear-gradient(90deg,transparent,rgba(255,255,255,0.25),transparent)' }} />
+                            <div style={{ position: 'absolute', top: 0, left: '15%', right: '15%', height: 1, background: 'linear-gradient(90deg, transparent, rgba(1,115,211,0.5), transparent)' }} />
 
                             {submitted ? (
                                 <motion.div
@@ -145,10 +149,20 @@ export default function ContactForm() {
                                     style={{ textAlign: 'center', padding: '48px 0' }}
                                 >
                                     <motion.div
-                                        animate={{ rotate: [0, 10, -10, 0], scale: [1, 1.2, 1] }}
-                                        transition={{ duration: 0.6 }}
-                                        style={{ fontSize: '56px', marginBottom: '20px' }}
-                                    >🎉</motion.div>
+                                        initial={{ scale: 0 }}
+                                        animate={{ scale: 1 }}
+                                        transition={{ type: 'spring', stiffness: 300, damping: 18 }}
+                                        style={{
+                                            width: 72, height: 72, borderRadius: '50%',
+                                            background: 'rgba(1,115,211,0.10)',
+                                            border: '1px solid rgba(1,115,211,0.30)',
+                                            display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                            margin: '0 auto 24px',
+                                            color: '#60a5fa',
+                                        }}
+                                    >
+                                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                    </motion.div>
                                     <h3 style={{ fontSize: '24px', fontWeight: 700, color: '#fff', marginBottom: '12px' }}>{t('contact.successTitle')}</h3>
                                     <p style={{ fontSize: '15px', color: 'rgba(255,255,255,0.4)', lineHeight: 1.7 }}>
                                         {t('contact.successMsg')}
@@ -182,7 +196,7 @@ export default function ContactForm() {
                                         <textarea required value={form.problem} onChange={e => setForm({ ...form, problem: e.target.value })} onFocus={() => setFocused('problem')} onBlur={() => setFocused('')} placeholder={t('contact.useCasePlaceholder')} rows={4} style={{ ...inputStyle('problem'), resize: 'vertical' }} />
                                     </div>
 
-                                    <button type="submit" disabled={loading} className="btn-primary" style={{ width: '100%', justifyContent: 'center', fontSize: '15px', padding: '16px', borderRadius: 14, opacity: loading ? 0.7 : 1 }}>
+                                    <button type="submit" disabled={loading} className="btn-primary" style={{ width: '100%', justifyContent: 'center', fontSize: '15px', padding: '16px', borderRadius: 50, opacity: loading ? 0.7 : 1 }}>
                                         {loading ? t('contact.sendingBtn') || 'Sending...' : t('contact.submitBtn')}
                                     </button>
 

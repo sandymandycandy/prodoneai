@@ -5,24 +5,24 @@ import { useLanguage } from '../context/LanguageContext'
 
 // ── SVG Icons ───────────────────────────────────────────────────────────────
 const Ico = {
-    video:    () => <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="9" height="8" rx="1.5"/><path d="M11 7l3.5-2v6L11 9V7z"/></svg>,
-    chat:     () => <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><path d="M13 7c0 2.76-2.24 5-5 5a4.96 4.96 0 01-2.92-.95L2 12l.95-3.08A4.96 4.96 0 013 7c0-2.76 2.24-5 5-5s5 2.24 5 5z"/><circle cx="5.5" cy="7" r=".55" fill="currentColor" stroke="none"/><circle cx="8" cy="7" r=".55" fill="currentColor" stroke="none"/><circle cx="10.5" cy="7" r=".55" fill="currentColor" stroke="none"/></svg>,
-    chart:    () => <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"><path d="M3 12V9M6.5 12V7M10 12V5M13.5 12V3M1.5 12h13"/></svg>,
-    sparkle:  () => <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"><path d="M8 2v2M8 12v2M2 8h2M12 8h2M3.75 3.75l1.5 1.5M10.75 10.75l1.5 1.5M3.75 12.25l1.5-1.5M10.75 5.25l1.5-1.5"/><circle cx="8" cy="8" r="2"/></svg>,
-    shop:     () => <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><path d="M3.5 5h9l-1.2 8H4.7L3.5 5z"/><path d="M6 5a2 2 0 014 0"/></svg>,
-    building: () => <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="12" height="12" rx="1"/><path d="M5 6h2M9 6h2M5 9h2M9 9h2M6.5 14v-4h3v4"/></svg>,
-    car:      () => <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><path d="M1.5 9.5L3.5 5.5h9l2 4H1.5z"/><circle cx="4.5" cy="12" r="1.5"/><circle cx="11.5" cy="12" r="1.5"/></svg>,
-    cap:      () => <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><path d="M8 4L14.5 7.5 8 11 1.5 7.5 8 4z"/><path d="M5 9.3V12c0 .83 1.35 1.5 3 1.5S11 12.83 11 12V9.3"/><path d="M14.5 7.5v4"/></svg>,
-    globe:    () => <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"><circle cx="8" cy="8" r="6"/><path d="M2 8h12"/><path d="M8 2c-1.7 2.1-2.5 3.9-2.5 6S6.3 12 8 14M8 2c1.7 2.1 2.5 3.9 2.5 6S9.7 12 8 14"/></svg>,
-    racing:   () => <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><path d="M1 10L3 5.5h10L15 10H1z"/><circle cx="5" cy="11.5" r="1.5"/><circle cx="11" cy="11.5" r="1.5"/><path d="M3 8h5M9.5 8h2.5"/></svg>,
-    book:     () => <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3h4.5v10H3a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M8.5 3H13a1 1 0 011 1v8a1 1 0 01-1 1H8.5V3z"/><path d="M8.5 3v10"/></svg>,
-    bolt:     () => <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><path d="M9.5 2L4 9h5l-2.5 5 8-8H9.5l2-4h-2z"/></svg>,
-    star:     () => <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><path d="M8 2l1.5 4H14l-3.5 2.5 1.5 4.5L8 11l-4 2.5 1.5-4.5L2 6h4.5L8 2z"/></svg>,
-    flow:     () => <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"><circle cx="4" cy="8" r="2"/><circle cx="12" cy="8" r="2"/><path d="M6 8h4"/><path d="M4 3v3M4 10v3M12 3v3M12 10v3"/></svg>,
-    hand:     () => <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><path d="M2 6.5l4 4.5M14 6.5l-4 4.5M6 11h4"/><path d="M5 8.5l2-2h2l2 2"/></svg>,
-    help:     () => <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"><circle cx="8" cy="8" r="6"/><path d="M8 10.5v.5"/><path d="M8 9.5c0-1.5 2-1.5 2-3a2 2 0 10-4 0"/></svg>,
-    mail:     () => <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4.5" width="12" height="8" rx="1.5"/><path d="M2 6.5l6 3.5 6-3.5"/></svg>,
-    gift:     () => <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="12" height="7" rx="1"/><rect x="2" y="5" width="12" height="2" rx=".5"/><path d="M8 5v9"/><path d="M5.5 5C5.5 3.3 6.5 2 8 2s2.5 1.3 2.5 3"/></svg>,
+    video: () => <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="9" height="8" rx="1.5" /><path d="M11 7l3.5-2v6L11 9V7z" /></svg>,
+    chat: () => <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><path d="M13 7c0 2.76-2.24 5-5 5a4.96 4.96 0 01-2.92-.95L2 12l.95-3.08A4.96 4.96 0 013 7c0-2.76 2.24-5 5-5s5 2.24 5 5z" /><circle cx="5.5" cy="7" r=".55" fill="currentColor" stroke="none" /><circle cx="8" cy="7" r=".55" fill="currentColor" stroke="none" /><circle cx="10.5" cy="7" r=".55" fill="currentColor" stroke="none" /></svg>,
+    chart: () => <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"><path d="M3 12V9M6.5 12V7M10 12V5M13.5 12V3M1.5 12h13" /></svg>,
+    sparkle: () => <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"><path d="M8 2v2M8 12v2M2 8h2M12 8h2M3.75 3.75l1.5 1.5M10.75 10.75l1.5 1.5M3.75 12.25l1.5-1.5M10.75 5.25l1.5-1.5" /><circle cx="8" cy="8" r="2" /></svg>,
+    shop: () => <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><path d="M3.5 5h9l-1.2 8H4.7L3.5 5z" /><path d="M6 5a2 2 0 014 0" /></svg>,
+    building: () => <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="12" height="12" rx="1" /><path d="M5 6h2M9 6h2M5 9h2M9 9h2M6.5 14v-4h3v4" /></svg>,
+    car: () => <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><path d="M1.5 9.5L3.5 5.5h9l2 4H1.5z" /><circle cx="4.5" cy="12" r="1.5" /><circle cx="11.5" cy="12" r="1.5" /></svg>,
+    cap: () => <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><path d="M8 4L14.5 7.5 8 11 1.5 7.5 8 4z" /><path d="M5 9.3V12c0 .83 1.35 1.5 3 1.5S11 12.83 11 12V9.3" /><path d="M14.5 7.5v4" /></svg>,
+    globe: () => <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"><circle cx="8" cy="8" r="6" /><path d="M2 8h12" /><path d="M8 2c-1.7 2.1-2.5 3.9-2.5 6S6.3 12 8 14M8 2c1.7 2.1 2.5 3.9 2.5 6S9.7 12 8 14" /></svg>,
+    racing: () => <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><path d="M1 10L3 5.5h10L15 10H1z" /><circle cx="5" cy="11.5" r="1.5" /><circle cx="11" cy="11.5" r="1.5" /><path d="M3 8h5M9.5 8h2.5" /></svg>,
+    book: () => <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3h4.5v10H3a1 1 0 01-1-1V4a1 1 0 011-1z" /><path d="M8.5 3H13a1 1 0 011 1v8a1 1 0 01-1 1H8.5V3z" /><path d="M8.5 3v10" /></svg>,
+    bolt: () => <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><path d="M9.5 2L4 9h5l-2.5 5 8-8H9.5l2-4h-2z" /></svg>,
+    star: () => <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><path d="M8 2l1.5 4H14l-3.5 2.5 1.5 4.5L8 11l-4 2.5 1.5-4.5L2 6h4.5L8 2z" /></svg>,
+    flow: () => <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"><circle cx="4" cy="8" r="2" /><circle cx="12" cy="8" r="2" /><path d="M6 8h4" /><path d="M4 3v3M4 10v3M12 3v3M12 10v3" /></svg>,
+    hand: () => <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><path d="M2 6.5l4 4.5M14 6.5l-4 4.5M6 11h4" /><path d="M5 8.5l2-2h2l2 2" /></svg>,
+    help: () => <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"><circle cx="8" cy="8" r="6" /><path d="M8 10.5v.5" /><path d="M8 9.5c0-1.5 2-1.5 2-3a2 2 0 10-4 0" /></svg>,
+    mail: () => <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4.5" width="12" height="8" rx="1.5" /><path d="M2 6.5l6 3.5 6-3.5" /></svg>,
+    gift: () => <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="12" height="7" rx="1" /><rect x="2" y="5" width="12" height="2" rx=".5" /><path d="M8 5v9" /><path d="M5.5 5C5.5 3.3 6.5 2 8 2s2.5 1.3 2.5 3" /></svg>,
 }
 
 // ── Menu data ───────────────────────────────────────────────────────────────
@@ -33,20 +33,20 @@ const MENUS = {
                 title: 'WHAT WE BUILD',
                 accentColor: '#0173D3',
                 items: [
-                    { icon: 'video',   iconColor: '#60a5fa', bg: 'rgba(1,115,211,0.14)',   border: 'rgba(1,115,211,0.26)',  glow: 'rgba(1,115,211,0.18)',   label: 'AI Video Ads',        desc: '3-day campaign delivery',          href: '/services', isRoute: true },
-                    { icon: 'chat',    iconColor: '#93bbfc', bg: 'rgba(60,120,240,0.12)',  border: 'rgba(60,120,240,0.24)', glow: 'rgba(60,120,240,0.14)',  label: 'AI Chatbots',         desc: 'Enterprise customer automation',   href: '/services', isRoute: true },
-                    { icon: 'chart',   iconColor: '#34d399', bg: 'rgba(16,185,129,0.12)',  border: 'rgba(16,185,129,0.24)',glow: 'rgba(16,185,129,0.14)',   label: 'AI Analytics',        desc: 'Real-time performance dashboards', href: '/services', isRoute: true },
-                    { icon: 'sparkle', iconColor: '#c4b5fd', bg: 'rgba(139,92,246,0.12)', border: 'rgba(139,92,246,0.24)',glow: 'rgba(139,92,246,0.14)',   label: 'Custom AI Solutions', desc: 'Tailored enterprise AI',           href: '/services', isRoute: true },
+                    { icon: 'video', iconColor: '#60a5fa', bg: 'rgba(1,115,211,0.14)', border: 'rgba(1,115,211,0.26)', glow: 'rgba(1,115,211,0.18)', label: 'AI Video Ads', desc: '3-day campaign delivery', href: '/services#ai-ads', isRoute: true },
+                    { icon: 'chat', iconColor: '#93bbfc', bg: 'rgba(60,120,240,0.12)', border: 'rgba(60,120,240,0.24)', glow: 'rgba(60,120,240,0.14)', label: 'AI Chatbots', desc: 'Enterprise customer automation', href: '/services#ai-agent', isRoute: true },
+                    { icon: 'chart', iconColor: '#34d399', bg: 'rgba(16,185,129,0.12)', border: 'rgba(16,185,129,0.24)', glow: 'rgba(16,185,129,0.14)', label: 'AI Analytics', desc: 'Real-time performance dashboards', href: '/services#content-workflow', isRoute: true },
+                    { icon: 'sparkle', iconColor: '#c4b5fd', bg: 'rgba(139,92,246,0.12)', border: 'rgba(139,92,246,0.24)', glow: 'rgba(139,92,246,0.14)', label: 'Custom AI Solutions', desc: 'Tailored enterprise AI', href: '/services#custom-apps', isRoute: true },
                 ],
             },
             {
                 title: 'BY INDUSTRY',
                 accentColor: '#9c6cfa',
                 items: [
-                    { icon: 'shop',     iconColor: '#fdba74', bg: 'rgba(251,146,60,0.12)', border: 'rgba(251,146,60,0.24)', glow: 'rgba(251,146,60,0.12)', label: 'Retail & E-commerce', desc: 'Scale product campaigns',         href: '/services', isRoute: true },
-                    { icon: 'building', iconColor: '#94a3b8', bg: 'rgba(100,116,139,0.12)',border: 'rgba(100,116,139,0.22)',glow: 'rgba(100,116,139,0.10)',label: 'Enterprise',           desc: 'Complex workflow automation',     href: '/services', isRoute: true },
-                    { icon: 'car',      iconColor: '#fca5a5', bg: 'rgba(239,68,68,0.12)',  border: 'rgba(239,68,68,0.22)', glow: 'rgba(239,68,68,0.12)',  label: 'Automotive',           desc: 'Lead generation at scale',        href: '/services', isRoute: true },
-                    { icon: 'cap',      iconColor: '#fcd34d', bg: 'rgba(234,179,8,0.12)',  border: 'rgba(234,179,8,0.22)', glow: 'rgba(234,179,8,0.12)',  label: 'Education',            desc: 'Engagement & outreach AI',        href: '/services', isRoute: true },
+                    { icon: 'shop', iconColor: '#fdba74', bg: 'rgba(251,146,60,0.12)', border: 'rgba(251,146,60,0.24)', glow: 'rgba(251,146,60,0.12)', label: 'Retail & E-commerce', desc: 'Scale product campaigns', href: '/services#ai-ads', isRoute: true },
+                    { icon: 'building', iconColor: '#94a3b8', bg: 'rgba(100,116,139,0.12)', border: 'rgba(100,116,139,0.22)', glow: 'rgba(100,116,139,0.10)', label: 'Enterprise', desc: 'Complex workflow automation', href: '/services#custom-apps', isRoute: true },
+                    { icon: 'car', iconColor: '#fca5a5', bg: 'rgba(239,68,68,0.12)', border: 'rgba(239,68,68,0.22)', glow: 'rgba(239,68,68,0.12)', label: 'Automotive', desc: 'Lead generation at scale', href: '/services#ai-agent', isRoute: true },
+                    { icon: 'cap', iconColor: '#fcd34d', bg: 'rgba(234,179,8,0.12)', border: 'rgba(234,179,8,0.22)', glow: 'rgba(234,179,8,0.12)', label: 'Education', desc: 'Engagement & outreach AI', href: '/services#content-workflow', isRoute: true },
                 ],
             },
         ],
@@ -64,10 +64,10 @@ const MENUS = {
                 title: 'CASE STUDIES',
                 accentColor: '#0173D3',
                 items: [
-                    { icon: 'globe',  iconColor: '#60a5fa', bg: 'rgba(1,115,211,0.14)',  border: 'rgba(1,115,211,0.26)', glow: 'rgba(1,115,211,0.16)',  label: 'Globus GmbH',  desc: '+340% reach · German Retail · Q4 2024', href: '/pilot',   isRoute: true },
-                    { icon: 'racing', iconColor: '#fca5a5', bg: 'rgba(239,68,68,0.12)',  border: 'rgba(239,68,68,0.22)',glow: 'rgba(239,68,68,0.12)',  label: 'Orr Motors',   desc: '+52% leads · Automotive · Q1 2024',     href: '/results', isRoute: true },
-                    { icon: 'book',   iconColor: '#fcd34d', bg: 'rgba(234,179,8,0.12)',  border: 'rgba(234,179,8,0.22)',glow: 'rgba(234,179,8,0.12)',  label: 'DHBW',         desc: 'AI integration · Education · 2024',     href: '/results', isRoute: true },
-                    { icon: 'bolt',   iconColor: '#6ee7b7', bg: 'rgba(16,185,129,0.12)', border: 'rgba(16,185,129,0.22)',glow: 'rgba(16,185,129,0.12)',label: 'StreetDrive',  desc: 'Campaign automation · Mobility',        href: '/results', isRoute: true },
+                    { icon: 'globe', iconColor: '#60a5fa', bg: 'rgba(1,115,211,0.14)', border: 'rgba(1,115,211,0.26)', glow: 'rgba(1,115,211,0.16)', label: 'Globus GmbH', desc: '+340% reach · German Retail · Q4 2024', href: '/pilot', isRoute: true },
+                    { icon: 'racing', iconColor: '#fca5a5', bg: 'rgba(239,68,68,0.12)', border: 'rgba(239,68,68,0.22)', glow: 'rgba(239,68,68,0.12)', label: 'Orr Motors', desc: '+52% leads · Automotive · Q1 2024', href: '/results', isRoute: true },
+                    { icon: 'book', iconColor: '#fcd34d', bg: 'rgba(234,179,8,0.12)', border: 'rgba(234,179,8,0.22)', glow: 'rgba(234,179,8,0.12)', label: 'DHBW', desc: 'AI integration · Education · 2024', href: '/results', isRoute: true },
+                    { icon: 'bolt', iconColor: '#6ee7b7', bg: 'rgba(16,185,129,0.12)', border: 'rgba(16,185,129,0.22)', glow: 'rgba(16,185,129,0.12)', label: 'StreetDrive', desc: 'Campaign automation · Mobility', href: '/results', isRoute: true },
                 ],
             },
         ],
@@ -85,18 +85,18 @@ const MENUS = {
                 title: 'COMPANY',
                 accentColor: '#9c6cfa',
                 items: [
-                    { icon: 'star', iconColor: '#c4b5fd', bg: 'rgba(139,92,246,0.12)', border: 'rgba(139,92,246,0.24)',glow: 'rgba(139,92,246,0.14)',label: 'About Us',    desc: 'Our story, vision & team',    href: '/company', isRoute: true },
-                    { icon: 'flow', iconColor: '#94a3b8', bg: 'rgba(100,116,139,0.12)',border: 'rgba(100,116,139,0.22)',glow: 'rgba(100,116,139,0.10)',label: 'How We Work', desc: 'Our proven 3-day process',    href: '/company', isRoute: true },
-                    { icon: 'hand', iconColor: '#60a5fa', bg: 'rgba(1,115,211,0.12)',  border: 'rgba(1,115,211,0.22)', glow: 'rgba(1,115,211,0.12)', label: 'Partners',    desc: 'Agencies & reseller program', href: '/contact', isRoute: true },
+                    { icon: 'star', iconColor: '#c4b5fd', bg: 'rgba(139,92,246,0.12)', border: 'rgba(139,92,246,0.24)', glow: 'rgba(139,92,246,0.14)', label: 'About Us', desc: 'Our story, vision & team', href: '/company', isRoute: true },
+                    { icon: 'flow', iconColor: '#94a3b8', bg: 'rgba(100,116,139,0.12)', border: 'rgba(100,116,139,0.22)', glow: 'rgba(100,116,139,0.10)', label: 'How We Work', desc: 'Our proven 3-day process', href: '/company', isRoute: true },
+                    { icon: 'hand', iconColor: '#60a5fa', bg: 'rgba(1,115,211,0.12)', border: 'rgba(1,115,211,0.22)', glow: 'rgba(1,115,211,0.12)', label: 'Partners', desc: 'Agencies & reseller program', href: '/contact', isRoute: true },
                 ],
             },
             {
                 title: 'SUPPORT',
                 accentColor: '#10b981',
                 items: [
-                    { icon: 'help', iconColor: '#fcd34d', bg: 'rgba(234,179,8,0.12)',  border: 'rgba(234,179,8,0.22)', glow: 'rgba(234,179,8,0.12)', label: 'FAQ',            desc: 'Answers to common questions', href: '/faq',     isRoute: true },
-                    { icon: 'mail', iconColor: '#60a5fa', bg: 'rgba(1,115,211,0.12)',  border: 'rgba(1,115,211,0.22)', glow: 'rgba(1,115,211,0.12)', label: 'Contact',        desc: 'hello@prodone.ai',            href: '/contact', isRoute: true },
-                    { icon: 'gift', iconColor: '#6ee7b7', bg: 'rgba(16,185,129,0.12)', border: 'rgba(16,185,129,0.22)',glow: 'rgba(16,185,129,0.12)',label: 'Free Prototype', desc: 'No risk · ready in 3 days',  href: '/contact', isRoute: true },
+                    { icon: 'help', iconColor: '#fcd34d', bg: 'rgba(234,179,8,0.12)', border: 'rgba(234,179,8,0.22)', glow: 'rgba(234,179,8,0.12)', label: 'FAQ', desc: 'Answers to common questions', href: '/faq', isRoute: true },
+                    { icon: 'mail', iconColor: '#60a5fa', bg: 'rgba(1,115,211,0.12)', border: 'rgba(1,115,211,0.22)', glow: 'rgba(1,115,211,0.12)', label: 'Contact', desc: 'hello@prodone.ai', href: '/contact', isRoute: true },
+                    { icon: 'gift', iconColor: '#6ee7b7', bg: 'rgba(16,185,129,0.12)', border: 'rgba(16,185,129,0.22)', glow: 'rgba(16,185,129,0.12)', label: 'Free Prototype', desc: 'No risk · ready in 3 days', href: '/contact', isRoute: true },
                 ],
             },
         ],
@@ -351,10 +351,10 @@ export default function Navbar() {
 
     const topNav = [
         { id: 'services', label: t('nav.services') || 'Services', menu: 'services' },
-        { id: 'results',  label: 'Results',  menu: 'results'  },
-        { id: 'company',  label: 'Company',  menu: 'company'  },
-        { id: 'faq',      label: 'FAQ',      href: '/faq',     isRoute: true },
-        { id: 'contact',  label: t('nav.contact') || 'Contact', href: '/contact', isRoute: true },
+        { id: 'results', label: 'Results', menu: 'results' },
+        { id: 'company', label: 'Company', menu: 'company' },
+        { id: 'faq', label: 'FAQ', href: '/faq', isRoute: true },
+        { id: 'contact', label: t('nav.contact') || 'Contact', href: '/contact', isRoute: true },
     ]
 
     return (
@@ -450,10 +450,10 @@ export default function Navbar() {
 
                         {[
                             { label: 'Services', href: '/services', iconKey: 'sparkle', iconColor: '#c4b5fd', bg: 'rgba(139,92,246,0.12)', border: 'rgba(139,92,246,0.24)' },
-                            { label: 'Results',  href: '/results',  iconKey: 'chart',   iconColor: '#34d399', bg: 'rgba(16,185,129,0.12)',  border: 'rgba(16,185,129,0.24)' },
-                            { label: 'Company',  href: '/company',  iconKey: 'star',    iconColor: '#60a5fa', bg: 'rgba(1,115,211,0.12)',   border: 'rgba(1,115,211,0.24)'  },
-                            { label: 'FAQ',      href: '/faq',      iconKey: 'help',    iconColor: '#fcd34d', bg: 'rgba(234,179,8,0.12)',   border: 'rgba(234,179,8,0.24)'  },
-                            { label: 'Contact',  href: '/contact',  iconKey: 'mail',    iconColor: '#60a5fa', bg: 'rgba(1,115,211,0.12)',   border: 'rgba(1,115,211,0.24)'  },
+                            { label: 'Results', href: '/results', iconKey: 'chart', iconColor: '#34d399', bg: 'rgba(16,185,129,0.12)', border: 'rgba(16,185,129,0.24)' },
+                            { label: 'Company', href: '/company', iconKey: 'star', iconColor: '#60a5fa', bg: 'rgba(1,115,211,0.12)', border: 'rgba(1,115,211,0.24)' },
+                            { label: 'FAQ', href: '/faq', iconKey: 'help', iconColor: '#fcd34d', bg: 'rgba(234,179,8,0.12)', border: 'rgba(234,179,8,0.24)' },
+                            { label: 'Contact', href: '/contact', iconKey: 'mail', iconColor: '#60a5fa', bg: 'rgba(1,115,211,0.12)', border: 'rgba(1,115,211,0.24)' },
                         ].map((item, i) => {
                             const ia = location.pathname === item.href
                             return (
@@ -463,7 +463,7 @@ export default function Navbar() {
                                             {Ico[item.iconKey]?.()}
                                         </div>
                                         {item.label}
-                                        {ia && <motion.span animate={{ scale: [1,1.4,1] }} transition={{ duration: 2, repeat: Infinity }} style={{ marginLeft: 'auto', width: 6, height: 6, borderRadius: '50%', background: item.iconColor, flexShrink: 0 }} />}
+                                        {ia && <motion.span animate={{ scale: [1, 1.4, 1] }} transition={{ duration: 2, repeat: Infinity }} style={{ marginLeft: 'auto', width: 6, height: 6, borderRadius: '50%', background: item.iconColor, flexShrink: 0 }} />}
                                     </Link>
                                 </motion.div>
                             )

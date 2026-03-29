@@ -15,7 +15,7 @@ const VALUE_ICONS = [
     () => <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>,
 ]
 
-const VALUE_COLORS = ['#60a5fa', '#34d399', '#c4b5fd', '#fbbf24']
+const VALUE_COLORS = ['#60a5fa', '#93c5fd', '#60a5fa', '#93c5fd']
 
 const VALUES = [
     { title: 'Speed Without Compromise', desc: '3 days from brief to delivery. We built our entire workflow around this promise — not the other way around.' },
@@ -45,10 +45,17 @@ export default function CompanyPage() {
 
             {/* ── Hero ── */}
             <section style={{ position: 'relative', paddingTop: 160, paddingBottom: 80, overflow: 'hidden' }}>
-                <div style={{ position: 'absolute', top: '-10%', right: '5%', width: 700, height: 600, background: 'radial-gradient(ellipse, rgba(1,115,211,0.13) 0%, transparent 65%)', pointerEvents: 'none' }} />
-                <div style={{ position: 'absolute', bottom: '5%', left: '-5%', width: 500, height: 500, background: 'radial-gradient(circle, rgba(80,40,200,0.07) 0%, transparent 65%)', pointerEvents: 'none' }} />
+                {/* Background image */}
+                <div style={{ position: 'absolute', inset: 0, zIndex: 0, backgroundImage: 'url(/company-team-hero.png)', backgroundSize: 'cover', backgroundPosition: 'center top', backgroundRepeat: 'no-repeat' }} />
+                {/* Dark overlay */}
+                <div style={{ position: 'absolute', inset: 0, zIndex: 1, background: 'linear-gradient(135deg, rgba(0,0,0,0.93) 0%, rgba(0,0,0,0.80) 60%, rgba(0,0,0,0.90) 100%)' }} />
+                {/* Blue glow overlay */}
+                <div style={{ position: 'absolute', inset: 0, zIndex: 2, background: 'radial-gradient(ellipse 60% 60% at 80% 50%, rgba(1,115,211,0.15) 0%, transparent 65%)' }} />
+                {/* Top accent line */}
+                <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, zIndex: 3, background: 'linear-gradient(90deg, transparent, rgba(1,115,211,0.6), transparent)' }} />
 
-                <div className="container" style={{ position: 'relative', zIndex: 1 }}>
+
+                <div className="container" style={{ position: 'relative', zIndex: 4 }}>
                     <motion.div className="section-label" style={{ display: 'inline-flex', marginBottom: 24 }}
                         initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
                         ABOUT PRODONE.AI
@@ -108,7 +115,7 @@ export default function CompanyPage() {
                                     position: 'relative', overflow: 'hidden',
                                 }}
                             >
-                                <div style={{ position: 'absolute', top: 0, left: '15%', right: '15%', height: 1, background: 'linear-gradient(90deg,transparent,rgba(255,255,255,0.18),transparent)' }} />
+                                <div style={{ position: 'absolute', top: 0, left: '15%', right: '15%', height: 1, background: 'linear-gradient(90deg, transparent, rgba(1,115,211,0.5), transparent)' }} />
                                 <div style={{ width: 50, height: 50, borderRadius: 15, background: `${VALUE_COLORS[i]}15`, border: `1px solid ${VALUE_COLORS[i]}30`, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 20, color: VALUE_COLORS[i] }}>{VALUE_ICONS[i]?.()}</div>
                                 <h3 style={{ fontSize: 20, fontWeight: 700, color: '#fff', marginBottom: 10, letterSpacing: '-0.02em' }}>{v.title}</h3>
                                 <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.45)', lineHeight: 1.8 }}>{v.desc}</p>
@@ -153,7 +160,7 @@ export default function CompanyPage() {
 
             {/* ── Team ── */}
             <section style={{ position: 'relative', padding: '80px 0', borderTop: '1px solid rgba(255,255,255,0.05)', overflow: 'hidden' }}>
-                <div style={{ position: 'absolute', bottom: '-10%', left: '-5%', width: 600, height: 600, background: 'radial-gradient(circle, rgba(80,40,200,0.07) 0%, transparent 65%)', pointerEvents: 'none' }} />
+                <div style={{ position: 'absolute', bottom: '-10%', left: '-5%', width: 600, height: 600, background: 'radial-gradient(circle, rgba(1,115,211,0.07) 0%, transparent 65%)', pointerEvents: 'none' }} />
                 <div className="container" style={{ position: 'relative', zIndex: 1 }}>
                     <div style={{ textAlign: 'center', marginBottom: 56 }}>
                         <div className="section-label" style={{ display: 'inline-flex', marginBottom: 20 }}>THE TEAM</div>
@@ -178,7 +185,7 @@ export default function CompanyPage() {
                             >
                                 <div style={{
                                     width: 64, height: 64, borderRadius: '50%',
-                                    background: 'linear-gradient(135deg, rgba(1,115,211,0.3), rgba(80,40,200,0.2))',
+                                    background: 'linear-gradient(135deg, rgba(1,115,211,0.3), rgba(96,165,250,0.15))',
                                     border: '1px solid rgba(1,115,211,0.25)',
                                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                                     fontSize: 20, fontWeight: 800, color: '#fff',
@@ -186,7 +193,10 @@ export default function CompanyPage() {
                                 }}>{member.initials}</div>
                                 <div style={{ fontSize: 16, fontWeight: 700, color: '#fff', marginBottom: 4 }}>{member.name}</div>
                                 <div style={{ fontSize: 12, color: '#0173D3', fontWeight: 600, marginBottom: 6 }}>{member.role}</div>
-                                <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)', letterSpacing: '0.04em' }}>📍 {member.location}</div>
+                                <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)', letterSpacing: '0.04em', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4 }}>
+                                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                    {member.location}
+                                </div>
                             </motion.div>
                         ))}
                     </div>

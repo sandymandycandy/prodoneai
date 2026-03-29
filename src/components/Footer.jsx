@@ -34,12 +34,12 @@ export default function Footer() {
         }}>
             {/* Glass backdrop blobs */}
             <div style={{ position: 'absolute', bottom: 0, left: '50%', transform: 'translateX(-50%)', width: 1200, height: 400, background: 'radial-gradient(ellipse, rgba(1,115,211,0.10) 0%, transparent 65%)', pointerEvents: 'none', zIndex: 0 }} />
-            <div style={{ position: 'absolute', top: '20%', left: '-5%', width: 500, height: 500, background: 'radial-gradient(circle, rgba(80,40,200,0.05) 0%, transparent 65%)', pointerEvents: 'none', zIndex: 0 }} />
+            <div style={{ position: 'absolute', top: '20%', left: '-5%', width: 500, height: 500, background: 'radial-gradient(circle, rgba(1,115,211,0.05) 0%, transparent 65%)', pointerEvents: 'none', zIndex: 0 }} />
 
-            {/* Top shine divider */}
+            {/* Top divider — blue accent instead of plain white */}
             <div style={{
-                position: 'absolute', top: 0, left: '10%', right: '10%', height: 1,
-                background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent)',
+                position: 'absolute', top: 0, left: '8%', right: '8%', height: 1,
+                background: 'linear-gradient(90deg, transparent, rgba(1,115,211,0.5), rgba(96,165,250,0.3), rgba(1,115,211,0.5), transparent)',
             }} />
 
             <div className="container" style={{ position: 'relative', zIndex: 1 }}>
@@ -65,9 +65,23 @@ export default function Footer() {
                             </span>
                         </Link>
 
-                        <p style={{ fontSize: '14px', lineHeight: 1.8, color: 'rgba(255,255,255,0.35)', maxWidth: '260px', marginBottom: '28px' }}>
+                        <p style={{ fontSize: '14px', lineHeight: 1.8, color: 'rgba(255,255,255,0.35)', maxWidth: '260px', marginBottom: '20px' }}>
                             {ft.desc}
                         </p>
+
+                        {/* Live status badge */}
+                        <div style={{
+                            display: 'inline-flex', alignItems: 'center', gap: 7,
+                            padding: '6px 12px', borderRadius: 50,
+                            background: 'rgba(1,115,211,0.08)',
+                            border: '1px solid rgba(1,115,211,0.22)',
+                            fontSize: 11, fontWeight: 600,
+                            color: '#60a5fa',
+                            marginBottom: '24px',
+                        }}>
+                            <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#0173D3', boxShadow: '0 0 6px rgba(1,115,211,0.8)', animation: 'pulse-dot 2.2s infinite' }} />
+                            All systems operational
+                        </div>
 
                         {/* Social icons */}
                         <div style={{ display: 'flex', gap: '10px' }}>
@@ -84,17 +98,22 @@ export default function Footer() {
                                         backdropFilter: 'blur(10px)',
                                         display: 'flex', alignItems: 'center', justifyContent: 'center',
                                         color: 'rgba(255,255,255,0.35)',
-                                        cursor: 'pointer', transition: 'all 0.3s',
+                                        cursor: 'pointer',
+                                        transition: 'all 0.3s cubic-bezier(0.23,1,0.32,1)',
                                     }}
                                         onMouseEnter={e => {
                                             e.currentTarget.style.borderColor = 'rgba(1,115,211,0.5)'
                                             e.currentTarget.style.color = '#60a5fa'
                                             e.currentTarget.style.background = 'rgba(1,115,211,0.08)'
+                                            e.currentTarget.style.transform = 'scale(1.12) translateY(-2px)'
+                                            e.currentTarget.style.boxShadow = '0 4px 16px rgba(1,115,211,0.2)'
                                         }}
                                         onMouseLeave={e => {
                                             e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'
                                             e.currentTarget.style.color = 'rgba(255,255,255,0.35)'
                                             e.currentTarget.style.background = 'rgba(255,255,255,0.04)'
+                                            e.currentTarget.style.transform = ''
+                                            e.currentTarget.style.boxShadow = ''
                                         }}
                                     >{s.icon}</div>
                                 </a>
@@ -132,7 +151,7 @@ export default function Footer() {
                 </div>
 
                 {/* Bottom bar */}
-                <div style={{ height: 1, background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)', marginBottom: '28px' }} />
+                <div style={{ height: 1, background: 'linear-gradient(90deg, transparent, rgba(1,115,211,0.3), rgba(255,255,255,0.06), rgba(1,115,211,0.3), transparent)', marginBottom: '28px' }} />
 
                 <div className="footer-bottom" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '14px' }}>
                     <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.25)' }}>

@@ -3,8 +3,8 @@ import { motion, useInView } from 'framer-motion'
 import { useLanguage } from '../context/LanguageContext'
 
 const glows = [
-    'rgba(120, 80, 255, 0.4)',
-    'rgba(0, 200, 160, 0.35)',
+    'rgba(1, 115, 211, 0.4)',
+    'rgba(96, 165, 250, 0.35)',
 ]
 
 function CaseCard({ c, index }) {
@@ -39,10 +39,10 @@ function CaseCard({ c, index }) {
                     willChange: 'transform',
                 }}
             >
-                {/* Top shine */}
+                {/* Colored per-card top-shine */}
                 <div style={{
-                    position: 'absolute', top: 0, left: '20%', right: '20%', height: 1,
-                    background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent)',
+                    position: 'absolute', top: 0, left: '15%', right: '15%', height: 1,
+                    background: `linear-gradient(90deg, transparent, ${glows[index >= glows.length ? glows.length-1 : index].replace('0.4)','0.65)').replace('0.35)','0.65)')}, transparent)`,
                 }} />
 
                 {/* Header row */}
@@ -54,17 +54,20 @@ function CaseCard({ c, index }) {
                         <div style={{ fontSize: 20, fontWeight: 700, color: '#fff', lineHeight: 1.2, marginBottom: 4 }}>
                             {c.client}
                         </div>
-                        <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.35)' }}>{c.sub}</div>
+                        <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.4)' }}>{c.sub}</div>
                     </div>
+                    {/* Tag chip with glow dot */}
                     <div style={{
-                        padding: '8px 16px',
+                        padding: '7px 14px',
                         borderRadius: 100,
-                        background: 'rgba(255,255,255,0.07)',
+                        background: 'rgba(255,255,255,0.06)',
                         backdropFilter: 'blur(10px)',
                         border: '1px solid rgba(255,255,255,0.12)',
-                        fontSize: 12, fontWeight: 700, color: '#fff',
+                        fontSize: 11, fontWeight: 700, color: 'rgba(255,255,255,0.85)',
                         whiteSpace: 'nowrap',
+                        display: 'flex', alignItems: 'center', gap: 6,
                     }}>
+                        <span style={{ width: 5, height: 5, borderRadius: '50%', background: glows[index >= glows.length ? glows.length-1 : index].replace('0.4)','1)').replace('0.35)','1)'), flexShrink: 0 }} />
                         {c.tag}
                     </div>
                 </div>
@@ -97,7 +100,7 @@ function CaseCard({ c, index }) {
                     {c.summary}
                 </p>
 
-                {/* KPI strip */}
+                {/* KPI strip with stagger entry */}
                 <div style={{
                     display: 'grid',
                     gridTemplateColumns: 'repeat(3, 1fr)',
@@ -108,19 +111,25 @@ function CaseCard({ c, index }) {
                     background: 'rgba(255,255,255,0.03)',
                 }}>
                     {c.kpis.map((k, i) => (
-                        <div key={i} style={{
-                            padding: '18px 12px',
-                            textAlign: 'center',
-                            borderRight: i < c.kpis.length - 1 ? '1px solid rgba(255,255,255,0.07)' : 'none',
-                            background: 'rgba(255,255,255,0.02)',
-                        }}>
+                        <motion.div
+                            key={i}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={inView ? { opacity: 1, y: 0 } : {}}
+                            transition={{ delay: 0.5 + index * 0.12 + i * 0.08, duration: 0.55, ease: [0.23,1,0.32,1] }}
+                            style={{
+                                padding: '18px 12px',
+                                textAlign: 'center',
+                                borderRight: i < c.kpis.length - 1 ? '1px solid rgba(255,255,255,0.07)' : 'none',
+                                background: 'rgba(255,255,255,0.02)',
+                            }}
+                        >
                             <div style={{ fontSize: 22, fontWeight: 800, color: '#fff', letterSpacing: '-0.02em', marginBottom: 4, lineHeight: 1 }}>
                                 {k.value}
                             </div>
-                            <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase', letterSpacing: '0.07em', fontWeight: 600 }}>
+                            <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.38)', textTransform: 'uppercase', letterSpacing: '0.07em', fontWeight: 600 }}>
                                 {k.label}
                             </div>
-                        </div>
+                        </motion.div>
                     ))}
                 </div>
             </motion.div>
@@ -143,18 +152,20 @@ export default function CaseStudies() {
         }}>
             {/* Glass backdrop blobs */}
             <div style={{ position: 'absolute', top: '-10%', left: '-5%', width: 680, height: 680, background: 'radial-gradient(circle, rgba(1,115,211,0.12) 0%, transparent 65%)', pointerEvents: 'none', zIndex: 0 }} />
-            <div style={{ position: 'absolute', bottom: '-8%', right: '-4%', width: 550, height: 550, background: 'radial-gradient(circle, rgba(0,200,160,0.07) 0%, transparent 65%)', pointerEvents: 'none', zIndex: 0 }} />
+            <div style={{ position: 'absolute', bottom: '-8%', right: '-4%', width: 550, height: 550, background: 'radial-gradient(circle, rgba(1,115,211,0.07) 0%, transparent 65%)', pointerEvents: 'none', zIndex: 0 }} />
 
             <div className="container" style={{ position: 'relative', zIndex: 1 }}>
 
                 {/* Header */}
                 <div ref={headRef} style={{ textAlign: 'center', maxWidth: 700, margin: '0 auto 72px' }}>
                     <motion.div
-                        className="section-label"
                         initial={{ opacity: 0, y: 16 }}
                         animate={inView ? { opacity: 1, y: 0 } : {}}
+                        style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 14, marginBottom: 28 }}
                     >
-                        {t('caseStudies.label')}
+                        <span style={{ fontSize: 10, fontWeight: 700, color: '#0173D3', letterSpacing: '0.18em' }}>03</span>
+                        <div style={{ width: 1, height: 14, background: 'rgba(255,255,255,0.15)' }} />
+                        <div className="section-label" style={{ marginBottom: 0 }}>{t('caseStudies.label')}</div>
                     </motion.div>
 
                     <motion.h2
@@ -184,16 +195,30 @@ export default function CaseStudies() {
                     {cases.map((c, i) => <CaseCard key={i} c={c} index={i} />)}
                 </div>
 
-                {/* CTA */}
+                {/* Premium CTA strip */}
                 <motion.div
                     initial={{ opacity: 0, y: 24 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.4 }}
-                    style={{ textAlign: 'center', marginTop: 56 }}
+                    style={{
+                        marginTop: 56,
+                        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                        flexWrap: 'wrap', gap: 20,
+                        padding: '28px 36px',
+                        borderRadius: 20,
+                        background: 'rgba(255,255,255,0.03)',
+                        border: '1px solid rgba(255,255,255,0.07)',
+                        borderLeft: '2px solid rgba(1,115,211,0.45)',
+                        backdropFilter: 'blur(12px)',
+                    }}
                 >
+                    <div>
+                        <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.55)', margin: 0 }}>Ready to see results like these?</p>
+                        <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.25)', margin: '4px 0 0', fontWeight: 500 }}>Join 9+ industry leaders already scaling with Prodone AI</p>
+                    </div>
                     <a href="#offer">
-                        <button className="btn-primary" style={{ fontSize: 15, padding: '15px 32px', borderRadius: 14 }}>
+                        <button className="btn-primary" style={{ fontSize: 14, padding: '13px 28px', borderRadius: 50 }}>
                             {t('caseStudies.ctaBtn')}
                         </button>
                     </a>

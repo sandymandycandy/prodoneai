@@ -27,7 +27,7 @@ export default function ResultsPage() {
                 textAlign: 'center', overflow: 'hidden',
             }}>
                 <div style={{ position: 'absolute', top: '-10%', right: '10%', width: 700, height: 600, background: 'radial-gradient(ellipse, rgba(1,115,211,0.14) 0%, transparent 65%)', pointerEvents: 'none' }} />
-                <div style={{ position: 'absolute', bottom: 0, left: '5%', width: 500, height: 400, background: 'radial-gradient(circle, rgba(0,200,160,0.07) 0%, transparent 65%)', pointerEvents: 'none' }} />
+                <div style={{ position: 'absolute', bottom: 0, left: '5%', width: 500, height: 400, background: 'radial-gradient(circle, rgba(1,115,211,0.07) 0%, transparent 65%)', pointerEvents: 'none' }} />
 
                 <div className="container" style={{ position: 'relative', zIndex: 1 }}>
                     <motion.div className="section-label" style={{ display: 'inline-flex', marginBottom: 24 }}
@@ -66,7 +66,7 @@ export default function ResultsPage() {
                                 padding: '22px 36px', textAlign: 'center',
                                 borderRight: i < 3 ? '1px solid rgba(255,255,255,0.07)' : 'none',
                             }}>
-                                <div style={{ fontSize: 28, fontWeight: 900, color: i === 0 ? '#0173D3' : '#fff', letterSpacing: '-0.03em', lineHeight: 1 }}>{s.v}</div>
+                                <div style={{ fontSize: 28, fontWeight: 900, color: '#60a5fa', letterSpacing: '-0.03em', lineHeight: 1 }}>{s.v}</div>
                                 <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase', letterSpacing: '0.09em', fontWeight: 600, marginTop: 6 }}>{s.l}</div>
                             </div>
                         ))}
